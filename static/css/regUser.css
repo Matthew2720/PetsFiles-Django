@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.item{
+    border: 2px solid rgb(0, 0, 0,0.3);
+    border-radius: 10px;
+    margin: 20px;
+    background-color: white;
+    padding: 3px;
+}
+
+.input {
+    margin: 10px;
+}
+
+#labeldeBuscar{
+    font-size: large;
+}

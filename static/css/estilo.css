@@ -1,0 +1,160 @@
+/* nav {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem
+} */
+
+
+#carrusel {
+    position: relative;
+    left: 20%;
+    width: 43rem;
+    height: 22rem;
+    margin-left: 1rem
+}
+
+#login {
+    height: 3rem
+}
+
+#foo1 {
+    position: relative;
+    bottom: -21rem;
+    font-size: small;
+    text-align: center;
+    text-decoration: dashed
+}
+
+/* #aside1 {
+    height: 22rem;
+} */
+
+.contenido {
+    padding-top: 2rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    font-family: cursive;
+    text-align: center;
+}
+
+#wpp {
+    position: fixed;
+    right: 2rem;
+    top: 30rem;
+    background-color: green;
+    border-radius: 100%;
+}
+
+#iconousuario {
+    margin-left: 13rem
+}
+
+#gato {
+    margin-left: 20rem
+}
+
+#gato:hover {
+    position: relative;
+    animation-duration: 4s;
+    animation-name: gato;
+    animation-iteration-count: infinite;
+    animation-direction: alternate
+}
+
+@keyframes gato {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(500deg)
+    }
+}
+
+#empresa {
+    margin-left: 7rem;
+    font-family: cursive;
+    text-align: left;
+    color: #000
+}
+
+#recursos {
+    font-family: cursive;
+    text-align: center;
+    color: #000
+}
+
+#follow {
+    font-family: cursive;
+    text-align: center;
+    color: #000
+}
+
+#contacto {
+    font-family: cursive;
+    text-align: center;
+    color: #000
+}
+
+#patas {
+    position: absolute;
+    bottom: 4rem;
+    width: 7rem;
+    height: 7rem;
+    animation-duration: 4s;
+    animation-name: freddo;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    z-index: -1;
+}
+
+@keyframes freddo {
+    from {
+        left: 1rem
+    }
+
+    to {
+        left: 74rem
+    }
+}
+
+.navbar-nav{
+    margin-left:1rem;
+    margin-right:1rem ;
+}
+
+#errorlogin{
+    color:red;
+}
+
+#lista{
+    position: absolute;
+    left: 0rem;
+}
+
+.btn-dark{
+    padding: 0.9rem;
+}
+
+#cabeza {
+    background-color: rgb(185, 222, 241);
+}
+
+section{
+    align-items: center;
+}
+
+.header {
+    color: #36A0FF;
+    font-size: 27px;
+    padding: 10px;
+}
+
+.bigicon {
+    font-size: 35px;
+    color: #36A0FF;
+}
+
+.form-group{
+    padding: 2px;
+}
