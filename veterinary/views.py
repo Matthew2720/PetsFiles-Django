@@ -29,3 +29,14 @@ def pruebaCliente(request):
     form = ClientForm()
     context = {'form':form}
     return render(request,'veterinary/registerClient.html',context)
+
+def pruebaEmpleado(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('index')
+        
+    form = UserForm()
+    context = {'form':form}
+    return render(request,'veterinary/registerEmployee.html',context)

@@ -1,4 +1,4 @@
-from django.forms import ModelForm,TextInput,EmailInput,Select
+from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput
 from .models import *
 
 class VeterinaryForm(ModelForm):
@@ -21,7 +21,20 @@ class VeterinaryForm(ModelForm):
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('username','first_name','last_name','password','direccion','email','groups')
+        help_texts = {
+            'username':None,'first_name':None,'last_name':None,'password':None,
+            'direccion':None,'email':None,'groups':None
+        }
+        widgets = {
+            'username': TextInput(attrs={'class':'form-control'}),
+            'first_name': TextInput(attrs={'class':'form-control'}),
+            'last_name': TextInput(attrs={'class':'form-control'}) ,
+            'password': PasswordInput(attrs={'class':'form-control'}) ,
+            'direccion': PasswordInput(attrs={'class':'form-control'}) ,
+            'email': TextInput(attrs={'class':'form-control'}),
+            'groups': Select(attrs={'class':'form-control'}),
+        }
 
 class ClientForm(ModelForm):
     class Meta:
