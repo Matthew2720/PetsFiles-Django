@@ -10,15 +10,23 @@ class VeterinaryForm(ModelForm):
             'cityVeterinary': TextInput(attrs={'class':'form-control'}),
             'nit': TextInput(attrs={'class':'form-control'}) ,
             'email': TextInput(attrs={'class':'form-control'}),
+            'password':PasswordInput(attrs={'class':'form-control'}),
         }
         labels = {
             'nameVeterinary': 'Veterinaria',
             'cityVeterinary': 'Ciudad',
             'nit': 'Ingresa el documento',
-            'email':'Email'
+            'email':'Email',
+            'password':'Contraseña'
         }
 
 class UserForm(ModelForm):
+
+    def __init__(self,name,password):
+        self.username = name
+        self.password = password
+
+
     class Meta:
         model = User
         fields = ('username','first_name','last_name','password','direccion','email','groups')
@@ -37,9 +45,10 @@ class UserForm(ModelForm):
         }
 
 class ClientForm(ModelForm):
+
     class Meta:
         model = Client
-        fields = '__all__'
+        exclude = ('veterinary',)
         widgets = {
             'veterinary': Select(attrs={'class':'form-control'}),
             'name':TextInput(attrs={'class':'form-control'}),

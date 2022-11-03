@@ -15,7 +15,7 @@ def pruebaRegistroVet(request):
         if form.is_valid:
             form.save()
             return redirect('index')
-        
+            
     form = VeterinaryForm()
     context = {'form':form}
     return render(request,'veterinary/register.html',context)

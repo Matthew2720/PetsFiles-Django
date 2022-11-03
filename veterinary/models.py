@@ -7,6 +7,7 @@ class Veterinary(models.Model):
     cityVeterinary = models.CharField(max_length=50,blank=True,null=True)
     nit = models.CharField(max_length=50,blank=False,null=False)
     email = models.EmailField()
+    password = models.CharField(max_length=50, default='admin')
 
     def __str__(self):
         return self.nameVeterinary
@@ -16,7 +17,8 @@ class User(AbstractUser):
     direccion = models.CharField(max_length=50,blank=False, null= False)
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT,null=True,blank=True)
     
-
+    def set_veterinary(self,id):
+        self.veterinary = id
 
 #EndUserModel
     
