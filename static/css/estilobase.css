@@ -1,0 +1,11 @@
+main {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: center;
+    width: 100vw;
+}
+
+main form input {
+    margin-top: 5px;
+}
