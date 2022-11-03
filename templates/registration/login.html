@@ -1,0 +1,24 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Inicio 2{% endblock  %}
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock  %}
+
+{% block 'header' %}
+  {% include 'layout/partials/headerbase.html' %}
+{% endblock  %}
+
+{% block 'content' %}
+<h2>Iniciar sesion</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Entrar</button>
+</form>
+{% endblock  %}
+
+{% block 'script' %}{% endblock  %}
+
+
