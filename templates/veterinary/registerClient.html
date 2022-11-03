@@ -1,6 +1,6 @@
 {% extends 'layout/base.html' %}
 
-{% block 'title' %} Registro Veterinaria{% endblock %}
+{% block 'title' %} Registro Cliente{% endblock %}
 {% block 'style' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/estilobase.css' %}">
@@ -13,9 +13,9 @@
 
 {% block 'content' %}
 
-<h2>Registro veterinarias</h2>
+<h2>Registro de clientes</h2>
 
-<form action="{% url 'pruebaRegistro' %}" method="POST">
+<form action="{% url 'pruebaCliente' %}" method="POST">
   {% csrf_token %}
   {{form}}
   <input type="submit" value="Enviar" class="btn btn-success">

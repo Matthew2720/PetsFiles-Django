@@ -18,3 +18,14 @@ def pruebaRegistroVet(request):
     form = VeterinaryForm()
     context = {'form':form}
     return render(request,'veterinary/register.html',context)
+
+def pruebaCliente(request):
+    if request.method == 'POST':
+        form = ClientForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('index')
+        
+    form = ClientForm()
+    context = {'form':form}
+    return render(request,'veterinary/registerClient.html',context)

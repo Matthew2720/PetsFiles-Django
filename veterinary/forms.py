@@ -1,4 +1,4 @@
-from django.forms import ModelForm,TextInput
+from django.forms import ModelForm,TextInput,EmailInput,Select
 from .models import *
 
 class VeterinaryForm(ModelForm):
@@ -27,6 +27,22 @@ class ClientForm(ModelForm):
     class Meta:
         model = Client
         fields = '__all__'
+        widgets = {
+            'veterinary': Select(attrs={'class':'form-control'}),
+            'name':TextInput(attrs={'class':'form-control'}),
+            'last_name':TextInput(attrs={'class':'form-control'}),
+            'email':EmailInput(attrs={'class':'form-control'}),
+            'phone':TextInput(attrs={'class':'form-control'}),
+            'mobil':TextInput(attrs={'class':'form-control'}),
+        }
+        labels = {
+            'veterinary': 'Veterinaria',
+            'name':'Nombres',
+            'last_name':'Apellidos',
+            'email':'Email',
+            'phone':'Telefono',
+            'mobil':'Celular',
+        }
 
 class PetForm(ModelForm):
     class Meta:
