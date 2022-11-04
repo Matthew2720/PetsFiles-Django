@@ -7,6 +7,7 @@ class Veterinary(models.Model):
     cityVeterinary = models.CharField(max_length=50,blank=True,null=True)
     nit = models.CharField(max_length=50,blank=False,null=False)
     email = models.EmailField()
+    direccion = models.CharField(max_length=50,blank=True, null= True)
     password = models.CharField(max_length=50, default='admin')
 
     def __str__(self):
@@ -26,6 +27,7 @@ class Client(models.Model):
     veterinary = models.ForeignKey(Veterinary, on_delete=models.CASCADE)
     name = models.CharField(max_length=50,blank=False,null=False)
     last_name = models.CharField(max_length=50,blank=False,null=False)
+    identification = models.CharField(max_length=50,blank=True,null=True)
     email = models.EmailField()
     phone = models.CharField(max_length=15,blank=True,null=True)
     mobil = models.CharField(max_length=15,blank=False,null=False)

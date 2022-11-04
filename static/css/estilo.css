@@ -170,78 +170,59 @@ section{
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.flex-cont{
+.left-menu{
     display: flex;
+    flex-wrap: wrap;
     width: 100vw;
-    height: 100vh;
-    justify-content: center;
-    align-items: flex-start;
+    height: 92vh;
+    justify-content: flex-start;
+    align-content: space-around;
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
 }
-/* Estilos flex */
-.flex-container{
-    padding: 1px;
+
+.caja1 {
+    margin-top: 10px;
     display: flex;
+    flex-direction: column;
+    height: 95%;
+    flex-grow: 1;
+    order: 1 ;
+}
+
+.caja2 {
+    padding: 5vw;
+    display: flex;
+    height: 95%;
     justify-content: flex-start;
-    align-items: stretch;
-    height: auto;
-    margin: 0 auto;
+    flex-grow: 3;
+    order: 3 ;
+}
+
+.caja3{
+    padding: 5vw;
+    display: flex;
+    height: 95%;
+    justify-content: center;
+    flex-grow: 3;
+    order: 2 ;
 }
 
 
-.Caja{
-    /* border: 1px solid black; */
-    color: black;
-    font-weight: bold;
-    line-height: auto;
-    text-align: center;
-    margin: 5px;
-    
-}
-
-.C1 {
-    /* background-color: lightblue; */
-    flex-flow: row-reverse nowrap;
-    order: 1;
-    /* flex-grow: 1; */
-    /* Usar como width con porcentaje */
-}
-
-.C2{
-    flex-flow: row wrap;
-    order: 1;
-    flex-grow: 2;
+.flex-div{
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: center;
     flex-basis: 80%;
-    padding: 0 2% 0 2%;
-    
+    margin: 2px;
+    margin-bottom: 8px;
 }
 
-.btn-darki{
-    padding-bottom: 5%;
-    background-color: rgba(185, 222, 241);
-    opacity: 0.8;
-    border: 2px solid rgb(0, 0, 0,0.3);
-    border-radius: 10px;
-    margin:3px;
-    font-weight: bold;
+.form-input{
+    width: 30vw;
+    margin-bottom: 5px;
 }
-
-.form-group{
-font-size: large;
-padding: 2px;
-}
-
-.img{
-position: absolute;
-top: 0;
-left:2vw;
-opacity: 0.4;
-z-index: -1;
-width: 98vw;
-height: 98vh;
-}
-/*End Estilos flex */

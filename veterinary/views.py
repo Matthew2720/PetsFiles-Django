@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required,permission_required
 from .forms import *
 
@@ -7,7 +8,26 @@ def index(request):
     return render(request,'veterinary/index.html',{})
 
 def prueba(request):
-    return render(request,'veterinary/index2.html',{})
+    if request.method == 'POST':
+        if request.POST.get('identification',''):
+            formClient=ClientForm(request.POST)
+            form = PetForm()
+            if formClient.is_valid:
+                formClient.save()
+                return redirect('prueba')
+        else:
+            form = PetForm(request.POST)
+            if form.is_valid:
+                form.save()
+                return redirect('prueba')
+    else:
+        form = PetForm()
+        formClient = ClientForm()
+        context = {
+            'form':form,
+            'formClient':formClient
+        }
+        return render(request,'veterinary/index2.html',context)
 
 def pruebaRegistroVet(request):
     if request.method == 'POST':

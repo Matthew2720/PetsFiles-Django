@@ -1,17 +1,43 @@
 {% extends 'layout/base.html' %}
 
-{% block 'title' %} Inicio 2{% endblock  %}
+{% block 'title' %} Inicio 2{% endblock %}
 
 {% block 'style' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
-{% comment %} <link rel="stylesheet" href="{% static 'css/estiloprueba.css' %}"> {% endcomment %}
-{% endblock  %}
+{% comment %}
+<link rel="stylesheet" href="{% static 'css/estiloprueba.css' %}"> {% endcomment %}
+{% endblock %}
 
 {% block 'header' %}
-  {% include 'layout/partials/headerbase.html' %}
-{% endblock  %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
 
 {% block 'content' %}
-{% include 'layout/partials/leftmenu.html' %}
-{% endblock  %}
+<div class="left-menu">
+  <div class="caja1">
+    {% include 'layout/partials/leftmenu.html' %}
+  </div>
+  <div class="caja2">
+    <div>
+      <h3> Formulario de Mascotas</h3>
+      <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Enviar" class="btn btn-success">
+      </form>
+    </div>
+  </div>
+  <div class="caja3">
+    <div>
+      <h3> Formulario de Clientes</h3>
+      <form method="POST">
+        {% csrf_token %}
+        {{formClient.as_table}}
+        <input type="submit" value="Enviar" class="btn btn-success">
+      </form>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

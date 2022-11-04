@@ -10,6 +10,7 @@ class VeterinaryForm(ModelForm):
             'cityVeterinary': TextInput(attrs={'class':'form-control'}),
             'nit': TextInput(attrs={'class':'form-control'}) ,
             'email': TextInput(attrs={'class':'form-control'}),
+            'direccion': TextInput(attrs={'class':'form-control'}),
             'password':PasswordInput(attrs={'class':'form-control'}),
         }
         labels = {
@@ -17,15 +18,11 @@ class VeterinaryForm(ModelForm):
             'cityVeterinary': 'Ciudad ',
             'nit': 'Nit ',
             'email':'Email ',
+            'direccion':'Direccion',
             'password':'Contraseña '
         }
 
 class UserForm(ModelForm):
-
-    def __init__(self,name,password):
-        self.username = name
-        self.password = password
-
 
     class Meta:
         model = User
@@ -48,14 +45,16 @@ class ClientForm(ModelForm):
 
     class Meta:
         model = Client
-        exclude = ('veterinary',)
+        # exclude = ('veterinary',)
+        fields = '__all__'
         widgets = {
-            'veterinary': Select(attrs={'class':'form-control'}),
-            'name':TextInput(attrs={'class':'form-control'}),
-            'last_name':TextInput(attrs={'class':'form-control'}),
-            'email':EmailInput(attrs={'class':'form-control'}),
-            'phone':TextInput(attrs={'class':'form-control'}),
-            'mobil':TextInput(attrs={'class':'form-control'}),
+            'veterinary': Select(attrs={'class':'form-control form-input'}),
+            'name':TextInput(attrs={'class':'form-control form-input'}),
+            'last_name':TextInput(attrs={'class':'form-control form-input'}),
+            'identification':TextInput(attrs={'class':'form-control form-input'}),
+            'email':EmailInput(attrs={'class':'form-control form-input'}),
+            'phone':TextInput(attrs={'class':'form-control form-input'}),
+            'mobil':TextInput(attrs={'class':'form-control form-input'}),
         }
         labels = {
             'veterinary': 'Veterinaria',
@@ -64,9 +63,22 @@ class ClientForm(ModelForm):
             'email':'Email',
             'phone':'Telefono',
             'mobil':'Celular',
+            'identification':'Cedula'
         }
 
 class PetForm(ModelForm):
     class Meta:
         model = Pet
         fields = '__all__'
+        widgets = {
+            'client': Select(attrs={'class':'form-control'}),
+            'namePet':TextInput(attrs={'class':'form-control'}),
+            'species':TextInput(attrs={'class':'form-control'}),
+            'age':TextInput(attrs={'class':'form-control'}),
+        }
+        labels = {
+            'client': 'Cliente',
+            'namePet':'Nombre de la Mascota',
+            'species':'Especie',
+            'age':'Edad',
+        }
