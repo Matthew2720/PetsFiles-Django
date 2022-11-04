@@ -54,7 +54,6 @@ class ClientForm(ModelForm):
             'identification':TextInput(attrs={'class':'form-control form-input'}),
             'email':EmailInput(attrs={'class':'form-control form-input'}),
             'phone':TextInput(attrs={'class':'form-control form-input'}),
-            'mobil':TextInput(attrs={'class':'form-control form-input'}),
         }
         labels = {
             'veterinary': 'Veterinaria',
@@ -62,7 +61,6 @@ class ClientForm(ModelForm):
             'last_name':'Apellidos',
             'email':'Email',
             'phone':'Telefono',
-            'mobil':'Celular',
             'identification':'Cedula'
         }
 

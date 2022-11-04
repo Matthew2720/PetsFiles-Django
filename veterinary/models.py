@@ -30,7 +30,6 @@ class Client(models.Model):
     identification = models.CharField(max_length=50,blank=True,null=True)
     email = models.EmailField()
     phone = models.CharField(max_length=15,blank=True,null=True)
-    mobil = models.CharField(max_length=15,blank=False,null=False)
     
     def __str__(self):
         return self.name
