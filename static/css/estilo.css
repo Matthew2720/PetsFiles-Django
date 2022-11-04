@@ -226,3 +226,13 @@ h2 {
     width: 30vw;
     margin-bottom: 5px;
 }
+
+.contain_login{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    padding-top: 15vh;
+}

@@ -7,7 +7,7 @@ from .forms import *
 def index(request):
     return render(request,'veterinary/index.html',{})
 
-def prueba(request):
+def registerClient(request):
     if request.method == 'POST':
         if request.POST.get('identification',''):
             formClient=ClientForm(request.POST)
@@ -27,7 +27,7 @@ def prueba(request):
             'form':form,
             'formClient':formClient
         }
-        return render(request,'veterinary/index2.html',context)
+        return render(request,'veterinary/registerClient.html',context)
 
 def pruebaRegistroVet(request):
     if request.method == 'POST':

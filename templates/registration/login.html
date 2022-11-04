@@ -11,9 +11,11 @@
 {% endblock  %}
 
 {% block 'content' %}
-<h2>Iniciar sesion</h2>
-<div class="flex-cont">
+
+<div class="contain_login">
+
   <form class="formlogin"  method="post">
+    <h2>Iniciar sesion</h2>
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-success">Entrar</button>
