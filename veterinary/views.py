@@ -14,6 +14,16 @@ def pruebaRegistroVet(request):
         form = VeterinaryForm(request.POST)
         if form.is_valid:
             form.save()
+            nit = request.POST['nit']
+            veterinary = Veterinary.objects.get(nit = nit)
+            user = User.objects.create(
+                username = request.POST['nameVeterinary'],password=request.POST['password'],
+                veterinary= veterinary
+                )
+            user.set_password(request.POST['password'])
+            user.save()
+            user.groups.add(2)
+            user.save()
             return redirect('index')
             
     form = VeterinaryForm()

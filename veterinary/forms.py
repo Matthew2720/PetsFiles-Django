@@ -13,11 +13,11 @@ class VeterinaryForm(ModelForm):
             'password':PasswordInput(attrs={'class':'form-control'}),
         }
         labels = {
-            'nameVeterinary': 'Veterinaria',
-            'cityVeterinary': 'Ciudad',
-            'nit': 'Ingresa el documento',
-            'email':'Email',
-            'password':'Contraseña'
+            'nameVeterinary': 'Veterinaria ',
+            'cityVeterinary': 'Ciudad ',
+            'nit': 'Nit ',
+            'email':'Email ',
+            'password':'Contraseña '
         }
 
 class UserForm(ModelForm):

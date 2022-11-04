@@ -1,10 +1,3 @@
-/* nav {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem
-} */
-
-
 #carrusel {
     position: relative;
     left: 20%;
@@ -155,9 +148,6 @@ section{
     color: #36A0FF;
 }
 
-.form-group{
-    padding: 2px;
-}
 
 #id_username,#id_password {
     transition: none;
@@ -192,3 +182,66 @@ h2 {
     text-align: center;
     margin-bottom: 20px;
 }
+/* Estilos flex */
+.flex-container{
+    padding: 1px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: auto;
+    margin: 0 auto;
+}
+
+
+.Caja{
+    /* border: 1px solid black; */
+    color: black;
+    font-weight: bold;
+    line-height: auto;
+    text-align: center;
+    margin: 5px;
+    
+}
+
+.C1 {
+    /* background-color: lightblue; */
+    flex-flow: row-reverse nowrap;
+    order: 1;
+    /* flex-grow: 1; */
+    /* Usar como width con porcentaje */
+}
+
+.C2{
+    flex-flow: row wrap;
+    order: 1;
+    flex-grow: 2;
+    flex-basis: 80%;
+    padding: 0 2% 0 2%;
+    
+}
+
+.btn-darki{
+    padding-bottom: 5%;
+    background-color: rgba(185, 222, 241);
+    opacity: 0.8;
+    border: 2px solid rgb(0, 0, 0,0.3);
+    border-radius: 10px;
+    margin:3px;
+    font-weight: bold;
+}
+
+.form-group{
+font-size: large;
+padding: 2px;
+}
+
+.img{
+position: absolute;
+top: 0;
+left:2vw;
+opacity: 0.4;
+z-index: -1;
+width: 98vw;
+height: 98vh;
+}
+/*End Estilos flex */

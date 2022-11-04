@@ -1,9 +1,11 @@
 {% extends 'layout/base.html' %}
 
 {% block 'title' %} Inicio 2{% endblock  %}
+
 {% block 'style' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% comment %} <link rel="stylesheet" href="{% static 'css/estiloprueba.css' %}"> {% endcomment %}
 {% endblock  %}
 
 {% block 'header' %}
@@ -11,6 +13,5 @@
 {% endblock  %}
 
 {% block 'content' %}
+{% include 'layout/partials/leftmenu.html' %}
 {% endblock  %}
-
-{% block 'script' %}{% endblock  %}

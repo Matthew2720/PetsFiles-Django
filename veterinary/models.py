@@ -14,7 +14,7 @@ class Veterinary(models.Model):
     
 #UserModel
 class User(AbstractUser):
-    direccion = models.CharField(max_length=50,blank=False, null= False)
+    direccion = models.CharField(max_length=50,blank=True, null= True)
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT,null=True,blank=True)
     
     def set_veterinary(self,id):
