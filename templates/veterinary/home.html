@@ -1,0 +1,32 @@
+{% extends 'layout/base.html' %}
+
+{% block 'style' %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="left-menu">
+    <div class="caja1">
+        {% include 'layout/partials/leftmenu.html' %}
+    </div>
+    <div class="caja2">
+        <div>
+        </div>
+    </div>
+    <div class="caja3">
+        <div>
+            <h2>{{request.user.veterinary}}</h2>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block 'script' %}{% endblock %}

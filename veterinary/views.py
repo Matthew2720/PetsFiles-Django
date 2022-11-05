@@ -7,19 +7,21 @@ from .forms import *
 def index(request):
     return render(request,'veterinary/index.html',{})
 
+@login_required
 def registerClient(request):
+    VeterinaryLogued = request.user.veterinary
     if request.method == 'POST':
         if request.POST.get('identification',''):
             formClient=ClientForm(request.POST)
             form = PetForm()
             if formClient.is_valid:
                 formClient.save()
-                return redirect('prueba')
+                return redirect('registerClient')
         else:
             form = PetForm(request.POST)
             if form.is_valid:
                 form.save()
-                return redirect('prueba')
+                return redirect('registerClient')
     else:
         form = PetForm()
         formClient = ClientForm()
@@ -72,3 +74,7 @@ def pruebaEmpleado(request):
     form = UserForm()
     context = {'form':form}
     return render(request,'veterinary/registerEmployee.html',context)
+
+@login_required
+def home(request):
+    return render(request,'veterinary/home.html',{})

@@ -24,7 +24,7 @@ class User(AbstractUser):
 #EndUserModel
     
 class Client(models.Model):
-    veterinary = models.ForeignKey(Veterinary, on_delete=models.CASCADE)
+    veterinary = models.ForeignKey(Veterinary, on_delete=models.CASCADE,blank=True,null=True)
     name = models.CharField(max_length=50,blank=False,null=False)
     last_name = models.CharField(max_length=50,blank=False,null=False)
     identification = models.CharField(max_length=50,blank=True,null=True)
