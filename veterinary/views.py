@@ -24,7 +24,7 @@ def registerClient(request):
                 return redirect('registerClient')
     else:
         form = PetForm()
-        formClient = ClientForm()
+        formClient = ClientForm(initial={'veterinary':VeterinaryLogued})
         context = {
             'form':form,
             'formClient':formClient

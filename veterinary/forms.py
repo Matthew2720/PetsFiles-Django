@@ -1,4 +1,4 @@
-from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput
+from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput,HiddenInput
 from .models import *
 
 class VeterinaryForm(ModelForm):
@@ -48,7 +48,7 @@ class ClientForm(ModelForm):
         # exclude = ('veterinary',)
         fields = '__all__'
         widgets = {
-            'veterinary': Select(attrs={'class':'form-control form-input'}),
+            'veterinary': HiddenInput(attrs={'class':'form-control form-input'}),
             'name':TextInput(attrs={'class':'form-control form-input'}),
             'last_name':TextInput(attrs={'class':'form-control form-input'}),
             'identification':TextInput(attrs={'class':'form-control form-input'}),
