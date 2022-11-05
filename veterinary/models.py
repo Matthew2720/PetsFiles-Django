@@ -3,10 +3,10 @@ from django.contrib.auth.models import AbstractUser
 
 # Modelos MER.
 class Veterinary(models.Model):
-    nameVeterinary = models.CharField(max_length=50,blank=False,null=False)
+    nameVeterinary = models.CharField(max_length=50,blank=False,null=False,unique=True)
     cityVeterinary = models.CharField(max_length=50,blank=True,null=True)
-    nit = models.CharField(max_length=50,blank=False,null=False)
-    email = models.EmailField()
+    nit = models.CharField(max_length=50,blank=False,null=False,unique=True)
+    email = models.EmailField(unique=True)
     direccion = models.CharField(max_length=50,blank=True, null= True)
     password = models.CharField(max_length=50, default='admin')
 
@@ -28,7 +28,7 @@ class Client(models.Model):
     name = models.CharField(max_length=50,blank=False,null=False)
     last_name = models.CharField(max_length=50,blank=False,null=False)
     identification = models.CharField(max_length=50,blank=True,null=True)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15,blank=True,null=True)
     
     def __str__(self):
