@@ -7,7 +7,7 @@ from .forms import *
 def index(request):
     return render(request,'veterinary/index.html',{})
 
-@login_required
+@login_required(login_url='login')
 def registerClient(request):
     VeterinaryLogued = request.user.veterinary
     if request.method == 'POST':
@@ -31,7 +31,7 @@ def registerClient(request):
         }
         return render(request,'veterinary/registerClient.html',context)
 
-def pruebaRegistroVet(request):
+def registerVet(request):
     if request.method == 'POST':
         form = VeterinaryForm(request.POST)
         if form.is_valid:
@@ -52,19 +52,7 @@ def pruebaRegistroVet(request):
     context = {'form':form}
     return render(request,'veterinary/register.html',context)
 
-@login_required(login_url='login')
-def pruebaCliente(request):
-    if request.method == 'POST':
-        form = ClientForm(request.POST)
-        if form.is_valid:
-            form.save()
-            return redirect('index')
-        
-    form = ClientForm()
-    context = {'form':form}
-    return render(request,'veterinary/registerClient.html',context)
-
-def pruebaEmpleado(request):
+def registerEmployee(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid:

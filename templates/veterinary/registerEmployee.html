@@ -3,7 +3,6 @@
 {% block 'title' %} Registro Empleado{% endblock %}
 {% block 'style' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/estilobase.css' %}">
 <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
 {% endblock %}
 
@@ -12,14 +11,28 @@
 {% endblock %}
 
 {% block 'content' %}
+<div class="left-menu">
+  <div class="caja1">
+    {% include 'layout/partials/leftmenu.html' %}
+  </div>
 
-<h2>Registro de empleado</h2>
+  <div class="caja2">
+    <div>
+    </div>
+  </div>
+  <div class="caja3">
+    <div>
+      <h2>Registro de empleado</h2>
+      <form method="POST">
+        {% csrf_token %}
+        {{form.as_table}}
+        <input type="submit" value="Enviar" class="btn btn-success">
+      </form>
+    </div>
+  </div>
+</div>
 
-<form action="{% url 'pruebaEmpleado' %}" method="POST">
-  {% csrf_token %}
-  {{form}}
-  <input type="submit" value="Enviar" class="btn btn-success">
-</form>
+
 {% endblock %}
 
 {% block 'script' %}{% endblock %}

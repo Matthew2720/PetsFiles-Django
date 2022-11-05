@@ -12,13 +12,28 @@
       </a>
 
       <!-- enlaces -->
+      {% if request.user.is_authenticated %}
       <div class="collapse navbar-collapse" id="opciones">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="btn btn-online-dark" href="{% url 'index' %}">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-online-dark" href="{% url 'pruebaRegistro' %}">Registro</a>
+            <a class="btn btn-online-dark" href="{% url 'home' %}">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-online-dark" href="{% url 'logout' %}">Cerrar Sesion</a>
+          </li>
+        </ul>
+      </div>
+      {% else %}
+      <div class="collapse navbar-collapse" id="opciones">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="btn btn-online-dark" href="{% url 'index' %}">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-online-dark" href="{% url 'registerVet' %}">Registro</a>
           </li>
           <li class="nav-item">
             <a class="btn btn-online-dark" href="{% url 'login' %}">Ingresar</a>
@@ -28,5 +43,7 @@
           </li>
         </ul>
       </div>
+      {% endif %}
+      <!-- enlaces -->
     </nav>
   </header>

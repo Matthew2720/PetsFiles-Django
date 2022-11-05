@@ -177,6 +177,7 @@ section{
     height: 92vh;
     justify-content: flex-start;
     align-content: space-around;
+    background-color: beige;
 }
 
 h2 {
@@ -194,16 +195,15 @@ h2 {
 }
 
 .caja2 {
-    padding: 5vw;
     display: flex;
     height: 95%;
+    align-content: center;
     justify-content: flex-start;
     flex-grow: 3;
     order: 3 ;
 }
 
 .caja3{
-    padding: 5vw;
     display: flex;
     height: 95%;
     justify-content: center;
@@ -215,11 +215,11 @@ h2 {
 .flex-div{
     display: flex;
     flex-direction: column;
-    align-content: space-between;
+    align-content: center;
     justify-content: center;
-    flex-basis: 80%;
-    margin: 2px;
     margin-bottom: 8px;
+    height: 40px;
+    flex-basis: auto;
 }
 
 .form-input{
