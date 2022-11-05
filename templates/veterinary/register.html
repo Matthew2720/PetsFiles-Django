@@ -15,7 +15,7 @@
 
 <h2>Registro veterinarias</h2>
 
-<form action="{% url 'pruebaRegistro' %}" method="POST">
+<form action="{% url 'registerVet' %}" method="POST">
   {% csrf_token %}
   {{form}}
   <input type="submit" value="Enviar" class="btn btn-success">
