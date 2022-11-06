@@ -4,8 +4,15 @@ main {
     justify-content: center;
     align-content: center;
     width: 100vw;
+    background-image: url('/static/img/background1.png');
+    opacity: 0.8;
 }
 
 main form input {
     margin-top: 5px;
+}
+
+main div{
+    padding: 20px;
+    background-color: rgba(253,248,245,255);
 }

@@ -1,4 +1,5 @@
 {% extends 'layout/base.html' %}
+{% load static %}
 
 {% block 'title' %} Registro Veterinaria{% endblock %}
 {% block 'style' %}
@@ -12,7 +13,7 @@
 {% endblock %}
 
 {% block 'content' %}
-
+<div>
 <h2>Registro veterinarias</h2>
 
 <form action="{% url 'registerVet' %}" method="POST">
@@ -20,6 +21,7 @@
   {{form}}
   <input type="submit" value="Enviar" class="btn btn-success">
 </form>
+</div>
 {% endblock %}
 
 {% block 'script' %}{% endblock %}

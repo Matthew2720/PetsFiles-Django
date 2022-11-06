@@ -229,10 +229,31 @@ h2 {
 
 .contain_login{
     display: flex;
+    flex-flow: row wrap;
     width: 100vw;
-    height: 100vh;
+    height: 89vh;
     justify-content: center;
-    align-items: flex-start;
-    align-content: flex-start;
-    padding-top: 15vh;
+    align-content: space-around;
+    order: 1;
+    background-color: rgb(249,249,250);
+}
+
+.img-login{
+    display: flex;
+    order: 1;
+    padding-right: 10px;
+    flex-grow: 2;
+    justify-content: center;
+}
+
+.img-login img{
+    width: 100%;
+    height: 35vh;
+}
+
+.div-login{
+    display: flex;
+    order: 2;
+    flex-grow: 1;
+    justify-content: center;
 }
