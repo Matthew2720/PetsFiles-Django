@@ -52,6 +52,7 @@ def registerVet(request):
     context = {'form':form}
     return render(request,'veterinary/register.html',context)
 
+@login_required(login_url='login')
 def registerEmployee(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -63,6 +64,11 @@ def registerEmployee(request):
     context = {'form':form}
     return render(request,'veterinary/registerEmployee.html',context)
 
-@login_required
+@login_required(login_url='login')
 def home(request):
     return render(request,'veterinary/home.html',{})
+
+def detailClient(request):
+    clients = Client.objects.all()
+    context = {'clients':clients}
+    return render(request,'veterinary/detailClient.html',context)

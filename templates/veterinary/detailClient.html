@@ -1,0 +1,56 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Clientes {% endblock %}
+
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="left-menu">
+  <div class="caja1">
+    {% include 'layout/partials/leftmenu.html' %}
+  </div>
+  <div class="caja2">
+    <div style="width: 80%; background-color: rgb(52,58,64);color:white; text-align: center;padding-left: 10px;padding-right: 10px;">
+        <form action="" method="POST" style="margin-top:3vh ;">
+            <label >BUSCAR CLIENTES</label>
+            <input type="text" class="form-control" name="search">
+            <input type="submit" class="btn btn-secondary" value="Buscar" style="margin-top: 30px ;">
+        </form>
+        <a href=" {% url 'registerClient' %}" class="btn btn-secondary" style="margin-top: 10vh;">Crear cliente</a>
+    </div>
+  </div>
+  <div class="caja3">
+    <div>
+        <table class="table table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Identificacion</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th></th>
+                <th></th>
+              </tr>
+        {% for client in clients %}
+            <tr>
+                <th>{{client.name}}</th>
+                <th>{{client.last_name}}</th>
+                <th>{{client.identification}}</th>
+                <th>{{client.email}}</th>
+                <th>{{client.phone}}</th>
+                <th><a href="#" class="btn btn-info">Mascotas</a></th>
+                <th><a href="#" class="btn btn-primary">Citas</a></th>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
