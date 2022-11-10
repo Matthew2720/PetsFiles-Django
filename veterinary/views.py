@@ -69,6 +69,11 @@ def home(request):
     return render(request,'veterinary/home.html',{})
 
 def detailClient(request):
-    clients = Client.objects.all()
-    context = {'clients':clients}
-    return render(request,'veterinary/detailClient.html',context)
+    if request.method == 'POST':
+        clients = Client.objects.filter(name__contains = request.POST.get('search',''))
+        context = {'clients':clients}
+        return render(request,'veterinary/detailClient.html',context)
+    else:
+        clients = Client.objects.all()
+        context = {'clients':clients}
+        return render(request,'veterinary/detailClient.html',context)
