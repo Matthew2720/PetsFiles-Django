@@ -19,6 +19,7 @@
   <div class="caja2">
     <div style="width: 80%; background-color: rgb(52,58,64);color:white; text-align: center;padding-left: 10px;padding-right: 10px;">
         <form action="" method="POST" style="margin-top:3vh ;">
+          {% csrf_token %}
             <label >BUSCAR CLIENTES</label>
             <input type="text" class="form-control" name="search">
             <input type="submit" class="btn btn-secondary" value="Buscar" style="margin-top: 30px ;">
@@ -46,7 +47,7 @@
                 <th>{{client.email}}</th>
                 <th>{{client.phone}}</th>
                 <th><a href="#" class="btn btn-info">Mascotas</a></th>
-                <th><a href="#" class="btn btn-primary">Citas</a></th>
+                <th><a href="#" class="btn btn-primary">Actualizar perfil</a></th>
             </tr>
         {% endfor %}
         </table>
