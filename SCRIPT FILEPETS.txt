@@ -1,0 +1,143 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema petsfiles
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema petsfiles
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `petsfiles` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `petsfiles` ;
+
+-- -----------------------------------------------------
+-- Table `petsfiles`.`veterinary_veterinary`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `petsfiles`.`veterinary_veterinary` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `nameVeterinary` VARCHAR(50) NOT NULL,
+  `cityVeterinary` VARCHAR(50) NULL DEFAULT NULL,
+  `nit` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(254) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
+  `direccion` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `veterinary_veterinary_email_7c9e4068_uniq` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `veterinary_veterinary_nameVeterinary_f05e15b1_uniq` (`nameVeterinary` ASC) VISIBLE,
+  UNIQUE INDEX `veterinary_veterinary_nit_0ed1c87a_uniq` (`nit` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `petsfiles`.`veterinary_user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `petsfiles`.`veterinary_user` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `password` VARCHAR(128) NOT NULL,
+  `last_login` DATETIME(6) NULL DEFAULT NULL,
+  `is_superuser` TINYINT(1) NOT NULL,
+  `username` VARCHAR(150) NOT NULL,
+  `first_name` VARCHAR(150) NOT NULL,
+  `last_name` VARCHAR(150) NOT NULL,
+  `email` VARCHAR(254) NOT NULL,
+  `is_staff` TINYINT(1) NOT NULL,
+  `is_active` TINYINT(1) NOT NULL,
+  `date_joined` DATETIME(6) NOT NULL,
+  `direccion` VARCHAR(50) NULL DEFAULT NULL,
+  `veterinary_id` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `username` (`username` ASC) VISIBLE,
+  INDEX `veterinary_user_veterinary_id_7da9b3cf_fk_veterinar` (`veterinary_id` ASC) VISIBLE,
+  CONSTRAINT `veterinary_user_veterinary_id_7da9b3cf_fk_veterinar`
+    FOREIGN KEY (`veterinary_id`)
+    REFERENCES `petsfiles`.`veterinary_veterinary` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `petsfiles`.`veterinary_client`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `petsfiles`.`veterinary_client` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(254) NOT NULL,
+  `phone` VARCHAR(15) NULL DEFAULT NULL,
+  `veterinary_id` BIGINT NULL DEFAULT NULL,
+  `identification` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `veterinary_client_email_0a56df74_uniq` (`email` ASC) VISIBLE,
+  INDEX `veterinary_client_veterinary_id_217bca93_fk_veterinar` (`veterinary_id` ASC) VISIBLE,
+  CONSTRAINT `veterinary_client_veterinary_id_217bca93_fk_veterinar`
+    FOREIGN KEY (`veterinary_id`)
+    REFERENCES `petsfiles`.`veterinary_veterinary` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `petsfiles`.`veterinary_client_history`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `petsfiles`.`veterinary_client_history` (
+  `name` VARCHAR(50) NULL DEFAULT NULL,
+  `last_name` VARCHAR(50) NULL DEFAULT NULL,
+  `email` VARCHAR(254) NULL DEFAULT NULL,
+  `phone` VARCHAR(15) NULL DEFAULT NULL,
+  `veterinary_id` BIGINT NULL DEFAULT NULL,
+  `identification` VARCHAR(50) NULL DEFAULT NULL)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `petsfiles`.`veterinary_pet`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `petsfiles`.`veterinary_pet` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `namePet` VARCHAR(30) NOT NULL,
+  `species` VARCHAR(30) NULL DEFAULT NULL,
+  `age` VARCHAR(3) NOT NULL,
+  `client_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `veterinary_pet_client_id_bfbe75b6_fk_veterinary_client_id` (`client_id` ASC) VISIBLE,
+  CONSTRAINT `veterinary_pet_client_id_bfbe75b6_fk_veterinary_client_id`
+    FOREIGN KEY (`client_id`)
+    REFERENCES `petsfiles`.`veterinary_client` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+USE `petsfiles`;
+
+DELIMITER $$
+USE `petsfiles`$$
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `petsfiles`.`TX_eliminacion_clientes`
+AFTER DELETE ON `petsfiles`.`veterinary_client`
+FOR EACH ROW
+insert into veterinary_client_history
+values (OLD.name, OLD.last_name,OLD.email, OLD.phone,OLD.veterinary_id,OLD.identification)$$
+
+
+DELIMITER ;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
