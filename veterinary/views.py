@@ -6,31 +6,56 @@ from .forms import *
 # Create your views here.
 def index(request):
     return render(request,'veterinary/index.html',{})
-
+#region register client/pet
 @login_required(login_url='login')
 def registerClient(request):
     VeterinaryLogued = request.user.veterinary
     if request.method == 'POST':
-        if request.POST.get('identification',''):
-            formClient=ClientForm(request.POST)
-            form = PetForm()
-            if formClient.is_valid:
-                formClient.save()
-                return redirect('registerClient')
-        else:
-            form = PetForm(request.POST)
-            if form.is_valid:
-                form.save()
-                return redirect('registerClient')
+        formClient=ClientForm(request.POST)
+        if formClient.is_valid:
+            formClient.save()
+            return redirect('registerClient')
     else:
-        form = PetForm()
         formClient = ClientForm(initial={'veterinary':VeterinaryLogued})
         context = {
-            'form':form,
             'formClient':formClient
         }
         return render(request,'veterinary/registerClient.html',context)
 
+@login_required(login_url='login')
+def registerPet(request):
+    if request.method == 'POST':
+        form = PetForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('registerPet')
+    else:
+        form = PetForm()
+        context = {
+            'form':form
+        }
+        return render(request,'veterinary/registerPet.html',context)
+#endregion
+
+#region update
+def updateClient(request,id):
+    client = Client.objects.get(id=id)
+    if request.method == 'POST':
+        form = ClientForm(request.POST, instance=client)
+        if form.is_valid:
+            form.save()
+            return redirect(detailClient)
+    else:
+        form = ClientForm(instance=client)
+    context= {'formClient':form}
+    return render(request,'veterinary/registerClient.html',context)
+    
+
+def updatePet(request,id):
+    pass
+#endregion
+
+#region register veterinary/employee
 def registerVet(request):
     if request.method == 'POST':
         form = VeterinaryForm(request.POST)
@@ -63,7 +88,9 @@ def registerEmployee(request):
     form = UserForm()
     context = {'form':form}
     return render(request,'veterinary/registerEmployee.html',context)
+#endregion
 
+#region login/details
 @login_required(login_url='login')
 def home(request):
     return render(request,'veterinary/home.html',{})
@@ -77,3 +104,4 @@ def detailClient(request):
         clients = Client.objects.all()
         context = {'clients':clients}
         return render(request,'veterinary/detailClient.html',context)
+#endregion

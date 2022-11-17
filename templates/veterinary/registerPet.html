@@ -16,7 +16,7 @@
   <div class="caja1">
     {% include 'layout/partials/leftmenu.html' %}
   </div>
-  {% comment %} <div class="caja2">
+   <div class="caja3">
     <div>
       <h3> Formulario de Mascotas</h3>
       <form method="POST">
@@ -25,16 +25,5 @@
         <input type="submit" value="Enviar" class="btn btn-success">
       </form>
     </div>
-  </div> {% endcomment %}
-  <div class="caja3">
-    <div>
-      <h3> Formulario de Clientes</h3>
-      <form method="POST">
-        {% csrf_token %}
-        {{formClient.as_table}}
-        <input type="submit" value="Enviar" class="btn btn-success">
-      </form>
-    </div>
   </div>
-</div>
 {% endblock %}

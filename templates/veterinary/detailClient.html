@@ -24,7 +24,9 @@
             <input type="text" class="form-control" name="search">
             <input type="submit" class="btn btn-secondary" value="Buscar" style="margin-top: 30px ;">
         </form>
-        <a href=" {% url 'registerClient' %}" class="btn btn-secondary" style="margin-top: 10vh;">Crear cliente</a>
+        <a href=" {% url 'registerClient' %}" class="btn btn-secondary" style="margin-top: 10vh;">Crear Cliente</a>
+        <a href=" {% url 'registerPet' %}" class="btn btn-info" style="margin-top: 10vh;">Crear Mascota</a>
+
     </div>
   </div>
   <div class="caja3">
@@ -46,8 +48,8 @@
                 <th>{{client.identification}}</th>
                 <th>{{client.email}}</th>
                 <th>{{client.phone}}</th>
-                <th><a href="#" class="btn btn-info">Mascotas</a></th>
-                <th><a href="#" class="btn btn-primary">Actualizar perfil</a></th>
+                <th><a href="{% url 'registerClient' %}" class="btn btn-info">Mascotas</a></th> 
+                <th><a href="{% url 'updateClient' id=client.id %}" class="btn btn-primary">Actualizar perfil</a></th> 
             </tr>
         {% endfor %}
         </table>
