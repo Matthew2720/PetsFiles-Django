@@ -24,6 +24,28 @@
 {% comment %} SCRIPTS BASE {% endcomment %}
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/sweetalert.min.js' %}"></script>
+
+<script>
+    function borrar(id){
+        swal({
+            title : 'Esta seguro que desea borrar ?',
+            text : 'Si lo borras no podras recuperarlo',
+            icon : 'warning',
+            buttons : true ,
+            dangerMode : true ,
+        })
+        .then ((willDelete)=>{
+            if (willDelete){
+                location.href = "/eliminar/clientes/"+id
+            }
+            else{
+                swal ('No se borro el registro')
+            }
+        });
+    }
+</script>
+
 {% comment %} END SCRIPTS BASE {% endcomment %}
 
 </body>

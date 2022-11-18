@@ -50,6 +50,8 @@
                 <th>{{client.phone}}</th>
                 <th><a href="{% url 'registerClient' %}" class="btn btn-info">Mascotas</a></th> 
                 <th><a href="{% url 'updateClient' id=client.id %}" class="btn btn-primary">Actualizar perfil</a></th> 
+                <th><button onclick = "borrar('{{client.id}}')" class="btn btn-danger">Eliminar</button></th> 
+
             </tr>
         {% endfor %}
         </table>

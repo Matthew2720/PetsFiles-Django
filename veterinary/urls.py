@@ -11,4 +11,5 @@ urlpatterns = [
     path("ver/clientes",views.detailClient,name='detailClient'),
     path("actualizar/clientes/<int:id>",views.updateClient,name='updateClient'),
     path("actualizar/mascota/<int:id>",views.updatePet,name='updatePet'),
+    path("eliminar/clientes/<int:id>",views.deleteClient,name="deleteClient")
 ]

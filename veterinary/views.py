@@ -55,6 +55,14 @@ def updatePet(request,id):
     pass
 #endregion
 
+#region delete
+def deleteClient(request,id):
+    client = Client.objects.get(id=id)
+    client.delete()
+    return redirect('detailClient')
+
+#endregion
+
 #region register veterinary/employee
 def registerVet(request):
     if request.method == 'POST':
