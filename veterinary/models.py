@@ -7,7 +7,7 @@ class Veterinary(models.Model):
     cityVeterinary = models.CharField(max_length=50,blank=True,null=True)
     nit = models.CharField(max_length=50,blank=False,null=False,unique=True)
     email = models.EmailField(unique=True)
-    direccion = models.CharField(max_length=50,blank=True, null= True)
+    direccion = models.CharField(max_length=60,blank=True, null= True)
     password = models.CharField(max_length=50, default='admin')
 
     def __str__(self):

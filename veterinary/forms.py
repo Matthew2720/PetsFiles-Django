@@ -37,7 +37,7 @@ class UserForm(ModelForm):
             'last_name': TextInput(attrs={'class':'form-control'}) ,
             'password': PasswordInput(attrs={'class':'form-control'}) ,
             'direccion': TextInput(attrs={'class':'form-control'}) ,
-            'email': TextInput(attrs={'class':'form-control'}),
+            'email': EmailInput(attrs={'class':'form-control'}),
             'groups': Select(attrs={'class':'form-control'}),
         }
 

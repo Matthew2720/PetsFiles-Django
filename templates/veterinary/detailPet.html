@@ -1,0 +1,57 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Mascotas {% endblock %}
+
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="left-menu">
+  <div class="caja1">
+    {% include 'layout/partials/leftmenu.html' %}
+  </div>
+  <div class="caja2">
+    <div style="width: 80%; background-color: rgb(52,58,64);color:white; text-align: center;padding-left: 10px;padding-right: 10px;">
+        <form action="" method="POST" style="margin-top:3vh ;">
+          {% csrf_token %}
+            <label >BUSCAR MASCOTAS</label>
+            <input type="text" class="form-control" name="search">
+            <input type="submit" class="btn btn-secondary" value="Buscar" style="margin-top: 30px ;">
+        </form>
+        <a href=" {% url 'registerClient' %}" class="btn btn-secondary" style="margin-top: 10vh;">Crear Cliente</a>
+        <a href=" {% url 'registerPet' %}" class="btn btn-info" style="margin-top: 10vh;">Crear Mascota</a>
+
+    </div>
+  </div>
+  <div class="caja3">
+    <div>
+        <table class="table table-dark">
+            <tr>
+                <th>Propietario</th>
+                <th>Nombre Mascota</th>
+                <th>Especie</th>
+                <th>Edad</th>
+                <th></th>
+                <th></th>
+              </tr>
+        {% for pet in pets %}
+            <tr>
+                <th>{{pet.client}}</th>
+                <th>{{pet.namePet}}</th>
+                <th>{{pet.species}}</th>
+                <th>{{pet.age}}</th>
+                <th><a href="{% url 'updateClient' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a></th> 
+                <th><button onclick = "borrar('{{pet.id}}')" class="btn btn-danger">Eliminar</button></th> 
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

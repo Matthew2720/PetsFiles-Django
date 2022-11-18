@@ -83,7 +83,7 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.mysql',  
     #     'NAME': 'petsfiles',  
     #     'USER': 'root',  
-    #     'PASSWORD': 'sena1234',  
+    #     'PASSWORD': '',  
     #     'HOST': '127.0.0.1',  
     #     'PORT': '3306',  
     # }  
