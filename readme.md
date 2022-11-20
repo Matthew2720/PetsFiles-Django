@@ -1,4 +1,6 @@
+#####################################
 Inicializacion del proyecto PETSFILES
+#####################################
 
 1. Creacion del directorio PetsFiles
 2. Creacion de la aplicacion Veterinary
@@ -9,6 +11,7 @@ Inicializacion del proyecto PETSFILES
 3.2 Separacion de partials al template
 
 PENDIENTES
+**********
 
 REVISAR RETURN FECHA INCORRECTA
 

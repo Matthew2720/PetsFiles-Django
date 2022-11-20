@@ -250,7 +250,8 @@ h2 {
 
 .img-login img{
     width: 100%;
-    height: 35vh;
+    height: auto;;
+
 }
 
 .div-login{
