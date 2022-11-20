@@ -175,7 +175,7 @@ section{
     flex-wrap: wrap;
     width: 100vw;
     height: 92vh;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-content: space-around;
     background-color: beige;
 }
@@ -198,9 +198,10 @@ h2 {
     display: flex;
     height: 95%;
     align-content: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-grow: 3;
     order: 3 ;
+    width: 10vw;
 }
 
 .caja3{
@@ -209,6 +210,7 @@ h2 {
     justify-content: center;
     flex-grow: 3;
     order: 2 ;
+    width: max-content;
 }
 
 

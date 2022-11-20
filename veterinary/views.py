@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required,permission_required
-from .forms import VeterinaryForm,UserForm,ClientForm,PetForm
+from .forms import VeterinaryForm,UserForm,ClientForm,PetForm,UserFormWithoutPassword
 from .models import User,Veterinary,Pet,Client
 
 
@@ -59,13 +59,17 @@ def updatePet(request,id):
 def updateEmployee(request,id):
     employee = User.objects.get(id=id)
     if request.method == 'POST':
-        User.objects.update()
-        form = UserForm(request.POST, instance=employee)
-        if form.is_valid:
-            form.save()
-            return redirect(detailEmployee)
+        actualizar = User.objects.update_or_create(
+            id  =  id,
+            defaults={
+            'username': request.POST['username'],
+            'first_name': request.POST['first_name'],
+            'last_name': request.POST['last_name'] ,
+            'direccion': request.POST['direccion'] ,
+            'email': request.POST['email']})
+        return redirect(detailEmployee)
     else:
-        form = UserForm(instance=employee)
+        form = UserFormWithoutPassword(instance=employee)
     context= {'form':form}
     return render(request,'veterinary/registerEmployee.html',context)
 #endregion

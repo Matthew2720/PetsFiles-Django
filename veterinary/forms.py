@@ -41,6 +41,25 @@ class UserForm(ModelForm):
             'groups': Select(attrs={'class':'form-control'}),
         }
 
+class UserFormWithoutPassword(UserForm):
+    class Meta:
+        model = User
+        fields = ('username','first_name','last_name','direccion','email')
+        help_texts = {
+            'username':None,'first_name':None,'last_name':None,'password':None,
+            'direccion':None,'email':None,'groups':None
+        }
+        widgets = {
+            'username': TextInput(attrs={'class':'form-control'}),
+            'first_name': TextInput(attrs={'class':'form-control'}),
+            'last_name': TextInput(attrs={'class':'form-control'}) ,
+            'password': PasswordInput(attrs={'class':'form-control'}) ,
+            'direccion': TextInput(attrs={'class':'form-control'}) ,
+            'email': EmailInput(attrs={'class':'form-control'}),
+            'groups': Select(attrs={'class':'form-control'}),
+        }
+
+
 class ClientForm(ModelForm):
 
     class Meta:
