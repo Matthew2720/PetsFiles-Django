@@ -38,7 +38,8 @@ class Pet(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     namePet = models.CharField(max_length=30,blank=False,null=False)
     species = models.CharField(max_length=30,blank=True,null=True)
-    age = models.CharField(max_length=3 , blank=False, null = False)
+    birthdate = models.DateField(blank=True,null=True)
+    gender = models.CharField(max_length=6 , blank=False, null = False, default='Desconocido')
     
     def __str__(self):
         return self.namePet

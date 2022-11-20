@@ -1,4 +1,4 @@
-from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput,HiddenInput
+from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput,HiddenInput,DateInput
 from .models import *
 
 class VeterinaryForm(ModelForm):
@@ -91,11 +91,13 @@ class PetForm(ModelForm):
             'client': Select(attrs={'class':'form-control'}),
             'namePet':TextInput(attrs={'class':'form-control'}),
             'species':TextInput(attrs={'class':'form-control'}),
-            'age':TextInput(attrs={'class':'form-control'}),
+            'gender':TextInput(attrs={'class':'form-control'}),
+            'birthdate':DateInput(attrs={'class':'form-control','type':'date'}),
         }
         labels = {
             'client': 'Cliente',
             'namePet':'Nombre de la Mascota',
             'species':'Especie',
-            'age':'Edad',
+            'gender':'Genero',
+            'birthdate':'Fecha de nacimiento'
         }

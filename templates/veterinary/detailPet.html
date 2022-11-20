@@ -36,7 +36,8 @@
                 <th>Propietario</th>
                 <th>Nombre Mascota</th>
                 <th>Especie</th>
-                <th>Edad</th>
+                <th>Genero</th>
+                <th>Fecha de nacimiento</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -45,8 +46,9 @@
                 <th>{{pet.client}}</th>
                 <th>{{pet.namePet}}</th>
                 <th>{{pet.species}}</th>
-                <th>{{pet.age}}</th>
-                <th><a href="{% url 'updateClient' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a></th> 
+                <th>{{pet.gender}}</th>
+                <th>{{pet.birthdate}}</th>
+                <th><a href="{% url 'updatePet' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a></th> 
                 <th><button onclick = "borrar('{{pet.id}}')" class="btn btn-danger">Eliminar</button></th> 
             </tr>
         {% endfor %}
@@ -55,3 +57,25 @@
   </div>
 </div>
 {% endblock %}
+
+{% block 'script' %}
+<script>
+    function borrar(id){
+        swal({
+            title : 'Esta seguro que desea borrar ?',
+            text : 'Si lo borras no podras recuperarlo',
+            icon : 'warning',
+            buttons : true ,
+            dangerMode : true ,
+        })
+        .then ((willDelete)=>{
+            if (willDelete){
+                location.href = "/eliminar/mascotas/" + id
+            }
+            else{
+                swal ('No se borro el registro')
+            }
+        });
+    }
+</script>
+{% endblock  %}

@@ -6,6 +6,7 @@ from .models import User,Veterinary,Pet,Client
 
 def index(request):
     return render(request,'veterinary/index.html',{})
+    
 #region register client/pet
 @login_required(login_url='login')
 def registerClient(request):
@@ -28,7 +29,7 @@ def registerPet(request):
         form = PetForm(request.POST)
         if form.is_valid:
             form.save()
-            return redirect('registerPet')
+            return redirect('detailPet')
     else:
         form = PetForm()
         context = {
@@ -51,9 +52,18 @@ def updateClient(request,id):
     context= {'formClient':form}
     return render(request,'veterinary/registerClient.html',context)
     
-
+@login_required(login_url='login')
 def updatePet(request,id):
-    pass
+    pet = Pet.objects.get(id=id)
+    if request.method == 'POST':
+        form = PetForm(request.POST, instance=pet)
+        if form.is_valid():
+            form.save()
+            return redirect(detailPet)
+    else:
+        form = PetForm(instance=pet)
+    context= {'form':form}
+    return render(request,'veterinary/registerPet.html',context)
 
 @login_required(login_url='login')
 def updateEmployee(request,id):
@@ -86,6 +96,12 @@ def deleteEmployee(request,id):
     user = User.objects.get(id=id)
     user.delete()
     return redirect('detailEmployee')
+
+@login_required(login_url='login')
+def deletePet(request,id):
+    pet = Pet.objects.get(id=id)
+    pet.delete()
+    return redirect('detailPet')
 
 #endregion
 
