@@ -87,11 +87,12 @@ class PetForm(ModelForm):
     class Meta:
         model = Pet
         fields = '__all__'
+        CHOICES = (('Macho', 'Macho'),('Hembra', 'Hembra'),)
         widgets = {
             'client': Select(attrs={'class':'form-control'}),
             'namePet':TextInput(attrs={'class':'form-control'}),
             'species':TextInput(attrs={'class':'form-control'}),
-            'gender':TextInput(attrs={'class':'form-control'}),
+            'gender':Select(attrs={'class':'form-control'},choices= CHOICES ),
             'birthdate':DateInput(attrs={'class':'form-control','type':'date'}),
         }
         labels = {
