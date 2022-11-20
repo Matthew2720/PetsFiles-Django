@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 # Modelos MER.
 class Veterinary(models.Model):
@@ -17,6 +19,7 @@ class Veterinary(models.Model):
 class User(AbstractUser):
     direccion = models.CharField(max_length=50,blank=True, null= True)
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT,null=True,blank=True)
+    is_doctor = models.BooleanField(default=False)
     
     def set_veterinary(self,id):
         self.veterinary = id
@@ -24,7 +27,7 @@ class User(AbstractUser):
 #EndUserModel
     
 class Client(models.Model):
-    veterinary = models.ForeignKey(Veterinary, on_delete=models.CASCADE,blank=True,null=True)
+    veterinary = models.ForeignKey(Veterinary, on_delete= models.PROTECT ,blank=True,null=True)
     name = models.CharField(max_length=50,blank=False,null=False)
     last_name = models.CharField(max_length=50,blank=False,null=False)
     identification = models.CharField(max_length=50,blank=True,null=True)
@@ -35,7 +38,7 @@ class Client(models.Model):
         return self.name
     
 class Pet(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete= models.PROTECT)
     namePet = models.CharField(max_length=30,blank=False,null=False)
     species = models.CharField(max_length=30,blank=True,null=True)
     birthdate = models.DateField(blank=True,null=True)
@@ -44,3 +47,16 @@ class Pet(models.Model):
     def __str__(self):
         return self.namePet
 
+class Date(models.Model):
+    pet = models.ForeignKey(Pet,on_delete= models.PROTECT)
+    client = models.ForeignKey(Client,on_delete= models.PROTECT)
+    doctor = models.ForeignKey(User,on_delete= models.PROTECT,limit_choices_to={'is_doctor': True})
+    date = models.DateField(default=timezone.now)
+    hour = models.TimeField(default=timezone.now)
+    room = models.CharField(max_length=15,null=False)
+    is_active = models.BooleanField(default=True)
+
+    def clean(self):
+        if self.date < timezone.localdate():
+            raise ValidationError ('No puede ser menor a la fecha actual')
+        return super().clean()

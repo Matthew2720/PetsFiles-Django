@@ -7,6 +7,7 @@ urlpatterns = [
     path("registro/cliente",views.registerClient, name="registerClient"),
     path("registro/mascota",views.registerPet, name="registerPet"),
     path("registro/empleado",views.registerEmployee, name="registerEmployee"),
+    path("registro/citas",views.registerDate, name="registerDate"),
     path("actualizar/empleado/<int:id>",views.updateEmployee,name='updateEmployee'),
     path("home/",views.home,name="home"),
     path("ver/clientes",views.detailClient,name='detailClient'),

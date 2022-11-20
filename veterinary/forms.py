@@ -1,4 +1,5 @@
-from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput,HiddenInput,DateInput
+from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput
+from django.forms import HiddenInput,DateInput,TimeInput,DateTimeInput
 from .models import *
 
 class VeterinaryForm(ModelForm):
@@ -101,4 +102,27 @@ class PetForm(ModelForm):
             'species':'Especie',
             'gender':'Genero',
             'birthdate':'Fecha de nacimiento'
+        }
+
+class DateForm(ModelForm):
+    
+    class Meta:
+        model = Date
+        exclude = ('is_active',)
+        CHOICES = (('1', 'Consultorio 1'),('2', 'Consultorio 2'),)
+        widgets = {
+            'pet': Select(attrs={'class':'form-control'}),
+            'client':Select(attrs={'class':'form-control'}),
+            'doctor':Select(attrs={'class':'form-control'}),
+            'room':Select(attrs={'class':'form-control'},choices= CHOICES ),
+            'date':DateInput(attrs={'class':'form-control','type':'date'}),
+            'hour':TimeInput(attrs={'class':'form-control','type':'time'})
+        }
+        labels = {
+            'pet': 'Mascota',
+            'client':'Cliente',
+            'doctor':'Especialista',
+            'room':'Consultorio',
+            'date':'Fecha',
+            'time':'Hora'
         }

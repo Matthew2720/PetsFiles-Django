@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required,permission_required
-from .forms import VeterinaryForm,UserForm,ClientForm,PetForm,UserFormWithoutPassword
+from django.contrib import messages
+from .forms import VeterinaryForm,UserForm,ClientForm,PetForm,UserFormWithoutPassword,DateForm
 from .models import User,Veterinary,Pet,Client
 
 
@@ -144,6 +145,20 @@ def registerEmployee(request):
     form = UserForm
     context = {'form':form}
     return render(request,'veterinary/registerEmployee.html',context)
+
+@login_required(login_url='login')
+def registerDate(request):
+    if request.method == 'POST':
+        form = DateForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('detailPet')
+        else:
+            messages.error(request,'La fecha no puede ser anterior a la actual')
+    else:
+        form = DateForm()
+    context = {'form' : form}
+    return render(request,'veterinary/registerDate.html',context)
 #endregion
 
 #region login/details
