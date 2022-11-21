@@ -1,11 +1,3 @@
-#carrusel {
-    position: relative;
-    left: 20%;
-    width: 43rem;
-    height: 22rem;
-    margin-left: 1rem
-}
-
 #login {
     height: 3rem
 }
@@ -17,10 +9,6 @@
     text-align: center;
     text-decoration: dashed
 }
-
-/* #aside1 {
-    height: 22rem;
-} */
 
 .contenido {
     padding-top: 2rem;
@@ -137,10 +125,15 @@ section{
     align-items: center;
 }
 
-.header {
-    color: #36A0FF;
-    font-size: 27px;
-    padding: 10px;
+.maincarrusel {
+    position: relative;
+    left: 25vw;
+    justify-content: center;
+}
+
+.imagencarrusel {
+    width: 50vw;
+    height: 25vw;
 }
 
 .bigicon {
@@ -265,3 +258,4 @@ h2 {
 #calendar {
     width: 100%;
 }
+
