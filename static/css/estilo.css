@@ -21,7 +21,7 @@
 #wpp {
     position: fixed;
     right: 2rem;
-    top: 30rem;
+    bottom: 10rem;
     background-color: green;
     border-radius: 100%;
 }
@@ -34,28 +34,12 @@
     margin-left: 20rem
 }
 
-#gato:hover {
-    position: relative;
-    animation-duration: 4s;
-    animation-name: gato;
-    animation-iteration-count: infinite;
-    animation-direction: alternate
-}
-
-@keyframes gato {
-    from {
-        transform: rotate(0deg)
-    }
-
-    to {
-        transform: rotate(500deg)
-    }
-}
 
 #empresa {
     margin-left: 7rem;
     font-family: cursive;
     text-align: left;
+    left: 6vw;
     color: #000
 }
 
@@ -68,21 +52,23 @@
 #follow {
     font-family: cursive;
     text-align: center;
+    left: 20vw;
     color: #000
 }
 
 #contacto {
     font-family: cursive;
     text-align: center;
+    left: 8vw;
     color: #000
 }
 
 #patas {
     position: absolute;
-    bottom: 4rem;
+    bottom: 1rem;
     width: 7rem;
     height: 7rem;
-    animation-duration: 4s;
+    animation-duration: 6s;
     animation-name: freddo;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -91,11 +77,12 @@
 
 @keyframes freddo {
     from {
-        left: 1rem
+        left: 1vw;
+    
     }
 
     to {
-        left: 74rem
+        left: 94vw;
     }
 }
 
@@ -126,6 +113,7 @@ section{
 }
 
 .maincarrusel {
+    margin-top: 2vw;
     position: relative;
     left: 25vw;
     justify-content: center;
@@ -231,7 +219,6 @@ h2 {
     justify-content: center;
     align-content: space-around;
     order: 1;
-    background-color: rgb(249,249,250);
 }
 
 .img-login{
@@ -253,6 +240,13 @@ h2 {
     order: 2;
     flex-grow: 1;
     justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: white;
+}
+
+.div-login label {
+    font-weight: bolder;
 }
 
 #calendar {

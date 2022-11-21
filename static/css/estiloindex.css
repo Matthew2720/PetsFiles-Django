@@ -1,0 +1,7 @@
+.left-menu, .contain_login{
+    background-image: url('/static/img/fondoindex.jpg');
+    background-size: 50%;
+    background-repeat:repeat;
+    opacity: 1;
+    overflow-x: hidden;
+}

@@ -51,7 +51,7 @@ class Date(models.Model):
     pet = models.ForeignKey(Pet,on_delete= models.PROTECT)
     client = models.ForeignKey(Client,on_delete= models.PROTECT)
     doctor = models.ForeignKey(User,on_delete= models.PROTECT,limit_choices_to={'is_doctor': True})
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(default="2022-11-22")
     hour = models.TimeField(default=timezone.now)
     room = models.CharField(max_length=15,null=False)
     is_active = models.BooleanField(default=True)
@@ -60,3 +60,6 @@ class Date(models.Model):
         if self.date < timezone.localdate():
             raise ValidationError ('No puede ser menor a la fecha actual')
         return super().clean()
+
+    def __str__(self):
+        return '%s' % (self.date)

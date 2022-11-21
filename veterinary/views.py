@@ -195,6 +195,7 @@ def detailEmployee(request):
 
 @login_required(login_url='login')
 def detailDate(request):
-    context = {}
+    dates = Date.objects.all()
+    context = {'Reservas': dates}
     return render(request,'veterinary/detailDate.html',context)
 #endregion

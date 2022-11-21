@@ -23,11 +23,13 @@
     </div>
   </div> {% endcomment %}
   <div class="caja3">
-    <div id="calendar" class="card bg-secondary" style="padding : 25px;">
+    <div id="calendar" class="card bg-dark" style="padding : 25px;color:white;margin: 1vw;">
 
     </div>
   </div>
 </div>
+
+{{Reservas}}
 {% endblock %}
 
 {% block 'script' %}
@@ -52,9 +54,18 @@
     }</script>
 <script>
     document.addEventListener('DOMContentLoaded', function (){
-      var calendarUI = document.getElementById('calendar');
+      var calendarUI = document.getElementById('calendar');;
       var calendar = new FullCalendar.Calendar(calendarUI,{
-
+          events : [
+             {
+              title: "Cita Rotwailer",
+              start : "2022-11-21",
+              },
+              {
+                title: "Cita Gato",
+                start : "2022-11-23",
+              }
+          ]
       });
       calendar.render();
     })
