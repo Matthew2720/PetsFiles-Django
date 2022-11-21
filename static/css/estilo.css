@@ -192,6 +192,7 @@ h2 {
     height: 95%;
     flex-grow: 1;
     order: 1 ;
+    max-width:18vw ;
 }
 
 .caja2 {
@@ -201,7 +202,7 @@ h2 {
     justify-content: space-between;
     flex-grow: 3;
     order: 3 ;
-    width: 10vw;
+    width: 10w;
 }
 
 .caja3{
@@ -259,4 +260,8 @@ h2 {
     order: 2;
     flex-grow: 1;
     justify-content: center;
+}
+
+#calendar {
+    width: 100%;
 }

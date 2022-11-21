@@ -105,7 +105,9 @@ class PetForm(ModelForm):
         }
 
 class DateForm(ModelForm):
-    
+    # relacion interna
+    # Cita = Date.objects.get(id = 1)
+    # query = Cita.pet.client.name
     class Meta:
         model = Date
         exclude = ('is_active',)

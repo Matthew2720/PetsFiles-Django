@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib import messages
 from .forms import VeterinaryForm,UserForm,ClientForm,PetForm,UserFormWithoutPassword,DateForm
-from .models import User,Veterinary,Pet,Client
+from .models import User,Veterinary,Pet,Client,Date
 
 
 def index(request):
@@ -192,4 +192,9 @@ def detailEmployee(request):
         employee = User.objects.all()
     context = {'employees':employee}
     return render (request, 'veterinary/detailEmployee.html', context)
+
+@login_required(login_url='login')
+def detailDate(request):
+    context = {}
+    return render(request,'veterinary/detailDate.html',context)
 #endregion
