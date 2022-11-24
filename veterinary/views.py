@@ -196,6 +196,16 @@ def detailEmployee(request):
 @login_required(login_url='login')
 def detailDate(request):
     dates = Date.objects.all()
-    context = {'Reservas': dates}
+    dates = dates.values('date','hour')
+    dateformat = []
+    hourformat = []
+    for c in dates:
+        dateformat.append(str(c['date']))
+        hourformat.append(str(c['hour']))
+    lista = []
+    for i in range(len(dateformat)):
+        lista.append([[dateformat[i]],[hourformat[i]]])
+    print(lista[0][0])
+    context = {'Reservas': dateformat,'Horas':hourformat}
     return render(request,'veterinary/detailDate.html',context)
 #endregion
