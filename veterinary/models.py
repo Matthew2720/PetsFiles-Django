@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from datetime import datetime
 
 # Modelos MER.
 class Veterinary(models.Model):
@@ -43,6 +44,7 @@ class Pet(models.Model):
     species = models.CharField(max_length=30,blank=True,null=True)
     birthdate = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=6 , blank=False, null = False, default='Desconocido')
+    # veterinary = models.CharField(max_length=50, default="None")
     
     def __str__(self):
         return self.namePet
@@ -51,8 +53,8 @@ class Date(models.Model):
     pet = models.ForeignKey(Pet,on_delete= models.PROTECT)
     client = models.ForeignKey(Client,on_delete= models.PROTECT)
     doctor = models.ForeignKey(User,on_delete= models.PROTECT,limit_choices_to={'is_doctor': True})
-    date = models.DateField(default="2022-11-22")
-    hour = models.TimeField(default=timezone.now)
+    date = models.DateField(default=datetime.today)
+    hour = models.TimeField(default=datetime.now)
     room = models.CharField(max_length=15,null=False)
     is_active = models.BooleanField(default=True)
 

@@ -158,7 +158,11 @@ section{
     height: 92vh;
     justify-content: space-between;
     align-content: space-around;
-    background-color: beige;
+    background-image: url('/static/img/fondoindex.jpg');
+    background-size: 50%;
+    background-repeat:repeat;
+    opacity: 1;
+    overflow-x: hidden;
 }
 
 h2 {
@@ -253,3 +257,11 @@ h2 {
     width: 100%;
 }
 
+a{
+    color: white;
+}
+
+.container {
+    padding: 15px;
+    color: white;
+}

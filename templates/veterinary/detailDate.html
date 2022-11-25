@@ -28,10 +28,6 @@
     </div>
   </div>
 </div>
-{% for c in Reservas %}
-  {{c}}
-{% endfor %}
-
 {% endblock %}
 
 {% block 'script' %}
@@ -59,10 +55,10 @@
       var calendarUI = document.getElementById('calendar');;
       var calendar = new FullCalendar.Calendar(calendarUI,{
           events : [
-          {% for c in Reservas %}
+          {% for date in lista %}
           {
-            title: "{{c}}",
-            start : "{{c}}",
+            title: " CONSULTORIO {{date.2.0}} ",
+            start : "{{date.0.0}}T{{date.1.0}}",
           },
           {% endfor %}
           ]

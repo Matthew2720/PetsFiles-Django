@@ -1,5 +1,5 @@
 from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput
-from django.forms import HiddenInput,DateInput,TimeInput,DateTimeInput
+from django.forms import HiddenInput,DateInput,TimeInput,DateTimeInput,ChoiceField
 from .models import *
 
 class VeterinaryForm(ModelForm):
@@ -89,10 +89,11 @@ class PetForm(ModelForm):
         model = Pet
         fields = '__all__'
         CHOICES = (('Macho', 'Macho'),('Hembra', 'Hembra'),)
+        CHOICESPECIES = (('Felino', 'Felino'),('Canino', 'Canino'),('Aves','Aves'),('Otro','Otro'))
         widgets = {
             'client': Select(attrs={'class':'form-control'}),
             'namePet':TextInput(attrs={'class':'form-control'}),
-            'species':TextInput(attrs={'class':'form-control'}),
+            'species':Select(attrs={'class':'form-control'},choices= CHOICESPECIES),
             'gender':Select(attrs={'class':'form-control'},choices= CHOICES ),
             'birthdate':DateInput(attrs={'class':'form-control','type':'date'}),
         }
@@ -111,7 +112,8 @@ class DateForm(ModelForm):
     class Meta:
         model = Date
         exclude = ('is_active',)
-        CHOICES = (('1', 'Consultorio 1'),('2', 'Consultorio 2'),)
+        CHOICES = (('1', 'Consultorio 1'),('2', 'Consultorio 2'),('3', 'Consultorio 3'),
+        ('4', 'Consultorio 4'),('5', 'Consultorio 5'),('6', 'Consultorio 6'),)
         widgets = {
             'pet': Select(attrs={'class':'form-control'}),
             'client':Select(attrs={'class':'form-control'}),

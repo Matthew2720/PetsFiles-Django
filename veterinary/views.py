@@ -152,7 +152,7 @@ def registerDate(request):
         form = DateForm(request.POST)
         if form.is_valid:
             form.save()
-            return redirect('detailPet')
+            return redirect('home')
         else:
             messages.error(request,'La fecha no puede ser anterior a la actual')
     else:
@@ -168,15 +168,18 @@ def home(request):
 
 @login_required(login_url='login')
 def detailClient(request):
+    VeterinaryLogued = request.user.veterinary
     if request.method == 'POST':
-        clients = Client.objects.filter(name__contains = request.POST.get('search',''))
+        clients = Client.objects.filter(name__contains = request.POST.get('search',''),veterinary = VeterinaryLogued)
     else:
-        clients = Client.objects.all()
+        clients = Client.objects.filter(veterinary= VeterinaryLogued)
     context = {'clients':clients}
     return render(request,'veterinary/detailClient.html',context)
 
 @login_required(login_url='login')
 def detailPet(request):
+    VeterinaryLogued = request.user.veterinary
+    VeterinaryClients = Client.objects.filter(veterinary = VeterinaryLogued)
     if request.method == 'POST':
         pet = Pet.objects.filter(namePet__contains = request.POST.get('search',''))
     else:
@@ -186,26 +189,31 @@ def detailPet(request):
 
 @login_required(login_url='login')
 def detailEmployee(request):
+    VeterinaryLogued = request.user.veterinary
     if request.method =='POST':
-        employee = User.objects.filter(name__contains = request.POST.get ('search', ''))
+        employee = User.objects.filter(first_name__contains = request.POST.get ('search', ''),veterinary = VeterinaryLogued)
     else:
-        employee = User.objects.all()
+        employee = User.objects.filter(veterinary= VeterinaryLogued)
     context = {'employees':employee}
     return render (request, 'veterinary/detailEmployee.html', context)
 
 @login_required(login_url='login')
 def detailDate(request):
     dates = Date.objects.all()
-    dates = dates.values('date','hour')
+    print(dates)
+    dates = dates.values('date','hour','room')
     dateformat = []
     hourformat = []
-    for c in dates:
-        dateformat.append(str(c['date']))
-        hourformat.append(str(c['hour']))
+    roomformat = []
     lista = []
+    for date in dates:
+        dateformat.append(str(date['date']))
+        hourformat.append(str(date['hour']))
+        roomformat.append(str(date['room']))
+    
     for i in range(len(dateformat)):
-        lista.append([[dateformat[i]],[hourformat[i]]])
-    print(lista[0][0])
-    context = {'Reservas': dateformat,'Horas':hourformat}
+        lista.append([[dateformat[i]],[hourformat[i]],[roomformat[i]]])
+    print(lista)
+    context = {'Reservas': dateformat,'lista':lista,'dates':dates}
     return render(request,'veterinary/detailDate.html',context)
 #endregion
