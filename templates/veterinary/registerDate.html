@@ -22,21 +22,21 @@
 </ul>
 {% endif %}
 
-<div class="left-menu">
+<div class="left-menu" style="max-width: 98vw;">
   <div class="caja1" >
     {% include 'layout/partials/leftmenu.html' %}
   </div>
   <div class="caja2" style="max-width: 20vw;">
-    <div id="calendar" class="container bg-dark" style="padding : 25px;color:white;margin: 1vw;">
+    <div id="calendar" class="container bg-dark" style="padding : 25px;color:white;">
 
     </div>
   </div>
-   <div class="caja3" style="margin-left: 1vw;">
+   <div class="caja3" style="margin-left: 0.2vw;">
     <div class="container bg-dark">
       <h3> Formulario de Citas</h3>
       <form method="POST">
         {% csrf_token %}
-        {{form.as_p}}
+        {{form.as_table}}
         <input type="submit" value="Enviar" class="btn btn-success">
       </form>
     </div>

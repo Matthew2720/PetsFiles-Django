@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib import messages
-from .forms import VeterinaryForm,UserForm,ClientForm,PetForm,UserFormWithoutPassword,DateForm
-from .models import User,Veterinary,Pet,Client,Date,Events
+from .forms import VeterinaryForm,UserForm,ClientForm,PetForm,UserFormWithoutPassword,EventForm
+from .models import User,Veterinary,Pet,Client,Events
 
 
 def index(request):
@@ -152,29 +152,26 @@ def registerDate(request):
     out = []
     for event in all_events_query:
         out.append({
-            'title': event.name,
+            'title': f"{event.pet}"+ "|" + f"{event.name}",
             'id': event.id,
             'start':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
             'end':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
         })
 
     if request.method == 'POST':
-        form = DateForm(request.POST)
+        form = EventForm(request.POST)
         if form.is_valid:
             form.save()
             return redirect('home')
         else:
             messages.error(request,'La fecha no puede ser anterior a la actual')
     else:
-        form = DateForm()
+        form = EventForm()
     context = {'form' : form ,"events": out}
     return render(request,'veterinary/registerDate.html',context)
 #endregion
 
 #region login/details
-@login_required(login_url='login')
-def home(request):
-    return render(request,'veterinary/home.html',{})
 
 @login_required(login_url='login')
 def detailClient(request):
@@ -207,39 +204,26 @@ def detailEmployee(request):
     context = {'employees':employee}
     return render (request, 'veterinary/detailEmployee.html', context)
 
-@login_required(login_url='login')
-def detailDate(request):
-    dates = Date.objects.all()
-    print(dates)
-    dates = dates.values('date','hour','room')
-    dateformat = []
-    hourformat = []
-    roomformat = []
-    lista = []
-    for date in dates:
-        dateformat.append(str(date['date']))
-        hourformat.append(str(date['hour']))
-        roomformat.append(str(date['room']))
-    
-    for i in range(len(dateformat)):
-        lista.append([[dateformat[i]],[hourformat[i]],[roomformat[i]]])
-    print(lista)
-    context = {'Reservas': dateformat,'lista':lista,'dates':dates}
-    return render(request,'veterinary/detailDate.html',context)
 #endregion
 
 #region calendar
-def pindex(request):
+@login_required(login_url='login')
+def home(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('home')
     all_events_query = Events.objects.all()
     out = []
+    form = EventForm()
     for event in all_events_query:
         out.append({
-            'title': event.name,
+            'title': f"{event.pet}"+ "|" + f"{event.name}",
             'id': event.id,
             'start':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
             'end':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
         })
-    context = {"events": out,}
-    return render(request,"veterinary/pindex.html",context)
-
+    context = {"events": out, "form" : form }
+    return render(request,"veterinary/home.html",context)
 #endregion

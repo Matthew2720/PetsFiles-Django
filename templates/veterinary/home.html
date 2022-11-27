@@ -1,10 +1,13 @@
 {% extends 'layout/base.html' %}
 
-{% block 'style' %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
-{% endblock %}
+{% block 'title' %} Citas {% endblock %}
 
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+<link rel="stylesheet" href="{% static 'fullcalendar/lib/main.css' %}">
+<script src={% static 'fullcalendar/lib/locales/es.js' %}></script>
+{% endblock %}
 
 {% block 'header' %}
 {% include 'layout/partials/headerbase.html' %}
@@ -12,21 +15,66 @@
 
 {% block 'content' %}
 <div class="left-menu">
-    <div class="caja1">
-        {% include 'layout/partials/leftmenu.html' %}
+  <div class="caja1">
+    <!-- Button trigger modal -->
+<button type="button" style="margin-bottom:20px;" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+  Agendar cita
+</button>
+    {% include 'layout/partials/leftmenu.html' %}
+  </div>
+  {% comment %} <div class="caja2">
+    <div>
+
     </div>
-    <div class="caja2">
-        <div>
-        </div>
+  </div> {% endcomment %}
+  <div class="caja3">
+    
+    <div id="calendar" class="card bg-dark" style="padding : 25px;color:white;margin: 1vw;">
     </div>
-    <div class="caja3">
-        <div>
-            <h2>{{request.user.veterinary}}</h2>
-        </div>
-    </div>
+  </div>
 </div>
-
-
+{% include 'layout/partials/modal.html' %}
 {% endblock %}
 
-{% block 'script' %}{% endblock %}
+{% block 'script' %}
+<script src="{% static 'fullcalendar/lib/main.js' %}"></script>
+<script>
+  function borrar(id) {
+    swal({
+      title: 'Esta seguro que desea borrar ?',
+      text: 'Si lo borras no podras recuperarlo',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          location.href = "/eliminar/clientes/" + id
+        }
+        else {
+          swal('No se borro el registro')
+        }
+      });
+  }
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var calendarUI = document.getElementById('calendar');;
+    var calendar = new FullCalendar.Calendar(calendarUI, {
+        editable:false,
+        locale: 'es',
+        events: [ 
+        {%for event in events %}
+        {
+            title: "{{event.title}}",
+            start: "{{event.start}}",
+            url: "#",
+        },
+        {% endfor %}
+            ]
+        });
+  calendar.render();
+    });
+
+</script>
+{% endblock %}

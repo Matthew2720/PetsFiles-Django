@@ -162,7 +162,7 @@ section{
     background-size: 50%;
     background-repeat:repeat;
     opacity: 1;
-    overflow-x: hidden;
+    overflow-x: hidden;;
 }
 
 h2 {
@@ -177,7 +177,7 @@ h2 {
     height: 95%;
     flex-grow: 1;
     order: 1 ;
-    max-width:18vw ;
+    max-width:12vw ;
 }
 
 .caja2 {

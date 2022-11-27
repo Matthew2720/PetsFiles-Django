@@ -2,6 +2,8 @@ from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput
 from django.forms import HiddenInput,DateInput,TimeInput,DateTimeInput,ChoiceField
 from .models import *
 
+class DateTimePickerInput(DateTimeInput):
+        input_type = 'datetime-local'
 class VeterinaryForm(ModelForm):
     class Meta:
         model = Veterinary
@@ -105,28 +107,29 @@ class PetForm(ModelForm):
             'birthdate':'Fecha de nacimiento'
         }
 
-class DateForm(ModelForm):
-    # relacion interna
-    # Cita = Date.objects.get(id = 1)
-    # query = Cita.pet.client.name
+class EventForm(ModelForm):
     class Meta:
-        model = Date
-        exclude = ('is_active',)
+        model = Events
+        exclude = ('is_active','end')
         CHOICES = (('1', 'Consultorio 1'),('2', 'Consultorio 2'),('3', 'Consultorio 3'),
         ('4', 'Consultorio 4'),('5', 'Consultorio 5'),('6', 'Consultorio 6'),)
+        CHOICESTYPE = (('Consulta', 'Consulta'),('Hospitalizacion', 'Hospitalizacion'),('Vacunacion', 'Vacunacion'),
+        ('Guarderia', 'Guarderia'),('Sala de belleza', 'Sala de belleza'),('Consulta intermitente', 'Consulta intermitente'),)
         widgets = {
+            'name':Select(attrs={'class':'form-control'},choices= CHOICESTYPE ),
+            'start' : DateTimePickerInput(attrs={'class':'form-control'}),
+            'end' : DateTimePickerInput(attrs={'class':'form-control'}),
             'pet': Select(attrs={'class':'form-control'}),
             'client':Select(attrs={'class':'form-control'}),
             'doctor':Select(attrs={'class':'form-control'}),
             'room':Select(attrs={'class':'form-control'},choices= CHOICES ),
-            'date':DateInput(attrs={'class':'form-control','type':'date'}),
-            'hour':TimeInput(attrs={'class':'form-control','type':'time'})
         }
         labels = {
             'pet': 'Mascota',
             'client':'Cliente',
             'doctor':'Especialista',
             'room':'Consultorio',
-            'date':'Fecha',
-            'time':'Hora'
+            'start':'Fecha',
+            'name':'Tipo de servicio'
         }
+
