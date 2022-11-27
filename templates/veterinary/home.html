@@ -29,7 +29,7 @@
   </div> {% endcomment %}
   <div class="caja3">
     
-    <div id="calendar" class="card bg-dark" style="padding : 25px;color:white;margin: 1vw;">
+    <div id="calendar" class="card bg-dark" style="padding : 25px;margin: 1vw;">
     </div>
   </div>
 </div>
@@ -39,40 +39,85 @@
 {% block 'script' %}
 <script src="{% static 'fullcalendar/lib/main.js' %}"></script>
 <script>
-  function borrar(id) {
-    swal({
-      title: 'Esta seguro que desea borrar ?',
-      text: 'Si lo borras no podras recuperarlo',
+  function borrarCita(id) {
+    swal("Que deseas hacer?", {
       icon: 'warning',
-      buttons: true,
-      dangerMode: true,
+      buttons: {
+        cancel: "Cancelar",
+        update: {
+          text: "Actualizar cita",
+          value: "update",
+        },
+        delete: {
+          text: "Eliminar cita",
+          value: "delete"
+        },
+      },
     })
-      .then((willDelete) => {
-        if (willDelete) {
-          location.href = "/eliminar/clientes/" + id
-        }
-        else {
-          swal('No se borro el registro')
-        }
-      });
+    .then((value) => {
+      switch (value) {
+     
+        case "delete":
+          swal({
+            title: 'Esta seguro que desea borrar ?',
+            text: 'Si lo borras no podras recuperarlo',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          })
+            .then((willDelete) => {
+              if (willDelete) {
+                location.href = "/eliminar/cita/" + id
+              }
+              else {
+                swal('No se borro el registro')
+              }
+            });
+          break;
+     
+        case "update":
+            location.href = "/actualizar/cita/" + id;
+          break;
+     
+        default:
+          swal("Operacion cancelada");
+      }
+    });
   }
-
 
   document.addEventListener('DOMContentLoaded', function () {
     var calendarUI = document.getElementById('calendar');;
     var calendar = new FullCalendar.Calendar(calendarUI, {
         editable:false,
         locale: 'es',
+        dayMaxEventRows: true, // for all non-TimeGrid views
+        views: {
+          dayGrid: {
+            dayMaxEventRows: 4
+          },
+          timeGrid: {
+            dayMaxEventRows: 4
+          },
+          week: {
+            dayMaxEventRows: 4
+          },
+          day: {
+            dayMaxEventRows: 4
+          }
+        },
         events: [ 
         {%for event in events %}
-        {
+        {   id: "{{event.id}}",
             title: "{{event.title}}",
             start: "{{event.start}}",
-            url: "#",
         },
-        {% endfor %}
-            ]
-        });
+        {% endfor %}],
+
+        eventClick: function(info) {
+          id = info.event.id
+          borrarCita(id)
+        }
+      });
   calendar.render();
     });
 

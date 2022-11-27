@@ -7,6 +7,9 @@ from .models import User,Veterinary,Pet,Client,Events
 
 def index(request):
     return render(request,'veterinary/index.html',{})
+
+def support(request):
+    return render(request,'veterinary/support.html',{})
     
 #region register client/pet
 @login_required(login_url='login')
@@ -67,6 +70,19 @@ def updatePet(request,id):
     return render(request,'veterinary/registerPet.html',context)
 
 @login_required(login_url='login')
+def updateDate(request,id):
+    date = Events.objects.get(id=id)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=date)
+        if form.is_valid():
+            form.save()
+            return redirect(home)
+    else:
+        form = EventForm(instance=date)
+    context = {'form':form}
+    return render(request,'veterinary/registerDate.html',context)
+
+@login_required(login_url='login')
 def updateEmployee(request,id):
     employee = User.objects.get(id=id)
     if request.method == 'POST':
@@ -103,6 +119,13 @@ def deletePet(request,id):
     pet = Pet.objects.get(id=id)
     pet.delete()
     return redirect('detailPet')
+
+@login_required(login_url='login')
+def deleteEvent(request,id):
+    event = Events.objects.get(id=id)
+    event.delete()
+    return redirect("home")
+
 
 #endregion
 
@@ -223,6 +246,9 @@ def home(request):
             'id': event.id,
             'start':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
             'end':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+            'client':event.client,
+            'pet':event.pet,
+            'room':event.room
         })
     context = {"events": out, "form" : form }
     return render(request,"veterinary/home.html",context)

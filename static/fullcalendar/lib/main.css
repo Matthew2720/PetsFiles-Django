@@ -1400,8 +1400,8 @@ A VERTICAL event
   display: table; /* clear floating */
     }
 .fc-theme-standard .fc-list-day-cushion {
-    background-color: rgba(208, 208, 208, 0.3);
-    background-color: var(--fc-neutral-bg-color, rgba(208, 208, 208, 0.3));
+    background-color: black;
+    background-color: black;
   }
 .fc-direction-ltr .fc-list-day-text,
 .fc-direction-rtl .fc-list-day-side-text {
@@ -1418,8 +1418,7 @@ A VERTICAL event
     cursor: pointer; /* whole row will seem clickable */
   }
 .fc .fc-list-event:hover td {
-    background-color: #f5f5f5;
-    background-color: var(--fc-list-event-hover-bg-color, #f5f5f5);
+    background-color: black;
   }
 .fc {
 

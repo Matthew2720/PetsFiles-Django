@@ -257,11 +257,15 @@ h2 {
     width: 100%;
 }
 
-a{
+.container {
+    padding: 15px;
     color: white;
 }
 
-.container {
-    padding: 15px;
+.fc-toolbar-title,.fc-scrollgrid,.fc-col-header-cell-cushion,.fc-event-time,.fc-daygrid-day-number{
+    color:white;
+}
+
+a {
     color: white;
 }
