@@ -18,4 +18,5 @@ urlpatterns = [
     path("eliminar/clientes/<int:id>",views.deleteClient,name="deleteClient"),
     path("eliminar/empleados/<int:id>",views.deleteEmployee,name="deleteEmployee"),
     path("eliminar/mascotas/<int:id>",views.deletePet,name="deletePet"),
+    path("pindex/",views.pindex,name="pindex"),
 ]

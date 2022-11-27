@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib import messages
 from .forms import VeterinaryForm,UserForm,ClientForm,PetForm,UserFormWithoutPassword,DateForm
-from .models import User,Veterinary,Pet,Client,Date
+from .models import User,Veterinary,Pet,Client,Date,Events
 
 
 def index(request):
@@ -148,6 +148,16 @@ def registerEmployee(request):
 
 @login_required(login_url='login')
 def registerDate(request):
+    all_events_query = Events.objects.all()
+    out = []
+    for event in all_events_query:
+        out.append({
+            'title': event.name,
+            'id': event.id,
+            'start':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+            'end':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+        })
+
     if request.method == 'POST':
         form = DateForm(request.POST)
         if form.is_valid:
@@ -157,7 +167,7 @@ def registerDate(request):
             messages.error(request,'La fecha no puede ser anterior a la actual')
     else:
         form = DateForm()
-    context = {'form' : form}
+    context = {'form' : form ,"events": out}
     return render(request,'veterinary/registerDate.html',context)
 #endregion
 
@@ -216,4 +226,20 @@ def detailDate(request):
     print(lista)
     context = {'Reservas': dateformat,'lista':lista,'dates':dates}
     return render(request,'veterinary/detailDate.html',context)
+#endregion
+
+#region calendar
+def pindex(request):
+    all_events_query = Events.objects.all()
+    out = []
+    for event in all_events_query:
+        out.append({
+            'title': event.name,
+            'id': event.id,
+            'start':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+            'end':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+        })
+    context = {"events": out,}
+    return render(request,"veterinary/pindex.html",context)
+
 #endregion

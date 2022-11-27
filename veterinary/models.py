@@ -53,7 +53,7 @@ class Date(models.Model):
     pet = models.ForeignKey(Pet,on_delete= models.PROTECT)
     client = models.ForeignKey(Client,on_delete= models.PROTECT)
     doctor = models.ForeignKey(User,on_delete= models.PROTECT,limit_choices_to={'is_doctor': True})
-    date = models.DateField(default=datetime.today)
+    date = models.DateField()
     hour = models.TimeField(default=datetime.now)
     room = models.CharField(max_length=15,null=False)
     is_active = models.BooleanField(default=True)
@@ -65,3 +65,11 @@ class Date(models.Model):
 
     def __str__(self):
         return '%s' % (self.date)
+
+class Events(models.Model):
+    name = models.CharField(max_length=255,null=True,blank=True)
+    start = models.DateTimeField(null=True,blank=True)
+    end = models.DateTimeField(null=True,blank=True)
+
+    def __str__(self):
+        return self.name
