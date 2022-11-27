@@ -1,11 +1,8 @@
 from django.contrib import admin
-from .models import Veterinary,Client,Pet,User,Date
+from .models import Veterinary,Client,Pet,User,Events
 
 admin.site.register(User)
 admin.site.register(Veterinary)
 admin.site.register(Client)
 admin.site.register(Pet)
-admin.site.register(Date)
-
-
-# Register your models here.
+admin.site.register(Events)

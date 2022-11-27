@@ -5,6 +5,8 @@
 {% block 'style' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+<link rel="stylesheet" href="{% static 'fullcalendar/lib/main.css' %}">
+<script src={% static 'fullcalendar/lib/locales/es.js' %}></script> 
 {% endblock %}
 
 {% block 'header' %}
@@ -20,18 +22,48 @@
 </ul>
 {% endif %}
 
-<div class="left-menu">
-  <div class="caja1">
+<div class="left-menu" style="max-width: 98vw;">
+  <div class="caja1" >
     {% include 'layout/partials/leftmenu.html' %}
   </div>
-   <div class="caja3">
+  <div class="caja2" style="max-width: 20vw;">
+    <div id="calendar" class="container bg-dark" style="padding : 25px;color:white;">
+
+    </div>
+  </div>
+   <div class="caja3" style="margin-left: 0.2vw;">
     <div class="container bg-dark">
       <h3> Formulario de Citas</h3>
       <form method="POST">
         {% csrf_token %}
-        {{form.as_p}}
+        {{form.as_table}}
         <input type="submit" value="Enviar" class="btn btn-success">
       </form>
     </div>
   </div>
 {% endblock %}
+
+{% block 'script' %}
+
+<script src="{% static 'fullcalendar/lib/main.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var calendarUI = document.getElementById('calendar');;
+  var calendar = new FullCalendar.Calendar(calendarUI, {
+      initialView: 'listDay',
+      editable:false,
+      locale: 'es',
+      events: [
+      {%for event in events %}
+      {
+          title: "{{event.title}}",
+          start: "{{event.start}}",
+          url: "#",
+      },
+      {% endfor %}
+          ]
+      });
+calendar.render();
+  });
+</script>
+{% endblock  %}
