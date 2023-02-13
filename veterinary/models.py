@@ -46,6 +46,9 @@ class Pet(models.Model):
     gender = models.CharField(max_length=6 , blank=False, null = False, default='Desconocido')
     # veterinary = models.CharField(max_length=50, default="None")
     
+    def client_name(self):
+        return self.pet.client.name
+
     def __str__(self):
         return self.namePet
 
@@ -63,6 +66,10 @@ class Events(models.Model):
     #     if self.start < datetime.now():
     #         raise ValidationError ('No puede ser menor a la fecha actual')
     #     return super().clean()
+
+    @property
+    def client_name(self):
+        return self.pet.client.name
 
     def __str__(self):
         return self.name
