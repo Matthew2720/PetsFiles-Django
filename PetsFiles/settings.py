@@ -141,5 +141,3 @@ AUTH_USER_MODEL = 'veterinary.User'
 
 LOGIN_REDIRECT_URL="home"
 LOGOUT_REDIRECT_URL = "index"
-
-MEDIA_URL = '/media/'

@@ -110,7 +110,7 @@ class PetForm(ModelForm):
 class EventForm(ModelForm):
     class Meta:
         model = Events
-        exclude = ('is_active','end','client')
+        exclude = ('is_active','end')
         CHOICES = (('1', 'Consultorio 1'),('2', 'Consultorio 2'),('3', 'Consultorio 3'),
         ('4', 'Consultorio 4'),('5', 'Consultorio 5'),('6', 'Consultorio 6'),)
         CHOICESTYPE = (('Consulta', 'Consulta'),('Hospitalizacion', 'Hospitalizacion'),('Vacunacion', 'Vacunacion'),
@@ -132,6 +132,4 @@ class EventForm(ModelForm):
             'start':'Fecha',
             'name':'Tipo de servicio'
         }
-
-
 

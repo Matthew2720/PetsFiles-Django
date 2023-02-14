@@ -242,11 +242,11 @@ def home(request):
     form = EventForm()
     for event in all_events_query:
         out.append({
-            'title': f"{event.pet}"+"|"+ f"{event.client_name}" +  "|" + f"{event.name}",
+            'title': f"{event.pet}"+ "|" + f"{event.name}",
             'id': event.id,
             'start':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
             'end':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
-            'client':event.pet.client_name,
+            'client':event.client,
             'pet':event.pet,
             'room':event.room
         })
