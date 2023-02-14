@@ -59,7 +59,7 @@ class Events(models.Model):
     doctor = models.ForeignKey(User,on_delete= models.PROTECT,limit_choices_to={'is_doctor': True})
     name = models.CharField(max_length=255,null=True,blank=True, default= "Consulta")
     end = models.DateTimeField(null=True,blank=True)
-    start = models.DateTimeField(null=True,blank=True, default = end)
+    start = models.DateTimeField(null=True,blank=True, default = datetime.now)
     room = models.CharField(max_length=15,null=False)
     is_active = models.BooleanField(default = True)
 
