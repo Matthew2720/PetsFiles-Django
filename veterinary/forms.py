@@ -120,13 +120,11 @@ class EventForm(ModelForm):
             'start' : DateTimePickerInput(attrs={'class':'form-control'}),
             'end' : DateTimePickerInput(attrs={'class':'form-control'}),
             'pet': Select(attrs={'class':'form-control'}),
-            'client':Select(attrs={'class':'form-control'}),
             'doctor':Select(attrs={'class':'form-control'}),
             'room':Select(attrs={'class':'form-control'},choices= CHOICES ),
         }
         labels = {
             'pet': 'Mascota',
-            'client':'Cliente',
             'doctor':'Especialista',
             'room':'Consultorio',
             'start':'Fecha',

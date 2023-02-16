@@ -55,7 +55,6 @@ class Pet(models.Model):
 
 class Events(models.Model):
     pet = models.ForeignKey(Pet,on_delete= models.PROTECT)
-    client = models.ForeignKey(Client,on_delete= models.PROTECT)
     doctor = models.ForeignKey(User,on_delete= models.PROTECT,limit_choices_to={'is_doctor': True})
     name = models.CharField(max_length=255,null=True,blank=True, default= "Consulta")
     end = models.DateTimeField(null=True,blank=True)
