@@ -1,5 +1,5 @@
 from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput
-from django.forms import HiddenInput,DateInput,TimeInput,DateTimeInput,ChoiceField
+from django.forms import HiddenInput,DateInput,ClearableFileInput,DateTimeInput,NumberInput
 from .models import *
 
 class DateTimePickerInput(DateTimeInput):
@@ -129,6 +129,38 @@ class EventForm(ModelForm):
             'room':'Consultorio',
             'start':'Fecha',
             'name':'Tipo de servicio'
+        }
+
+class CategoryForm(ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'
+        widgets = {
+            'name':TextInput(attrs={'class':'form-control'}),
+            'desc':TextInput(attrs={'class':'form-control'})
+        }
+        labels = {
+            'name': 'Nombre',
+            'desc': 'Descripcion'
+        }
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'cat', 'image', 'stock', 'pvp']
+        labels = {
+            'name': 'Nombre',
+            'cat': 'Categoría',
+            'image': 'Imagen',
+            'stock': 'Stock',
+            'pvp': 'Precio de venta'
+        }
+        widgets = {
+            'name': TextInput(attrs={'class': 'form-control'}),
+            'cat': Select(attrs={'class': 'form-control'}),
+            'image': ClearableFileInput(attrs={'class': 'form-control', 'multiple': True}),
+            'stock': NumberInput(attrs={'class': 'form-control'}),
+            'pvp': NumberInput(attrs={'class': 'form-control'}),
         }
 
 

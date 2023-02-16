@@ -93,7 +93,6 @@ class Category(models.Model):
         verbose_name_plural = 'Categorias'
         ordering = ['id']
 
-
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nombre', unique=True)
     cat = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría')
