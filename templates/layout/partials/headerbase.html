@@ -1,11 +1,9 @@
 {% load static %}
 <header>
 
-      <!-- logo -->
-
       <!-- enlaces -->
       {% if request.user.is_authenticated %}
-      <div class="container-fluid p-0">
+      <div class="container-fluid p-0" id="opciones">
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
             <a href="" class="navbar-brand d-block d-lg-none">
                 <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Safety</span>First</h1>
@@ -16,18 +14,14 @@
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
                   <a href="{% url 'index' %}" class="nav-item nav-link active">Inicio</a>
-                  <a href="{% url 'index' %}" class="nav-item nav-link" >Sobre Nosotros</a>
-                  <a href="{% url 'index' %}" class="nav-item nav-link" >Servicios</a>
-                  <a href="{% url 'index' %}" class="nav-item nav-link" >Precios</a>
-                    <a href="{% url 'registerVet' %}" class="nav-item nav-link">Registro</a>
+                  <a href="{% url 'home' %}"  class="nav-item nav-link" >Agenda</a>
+                  <a href="{% url 'logout' %}"class="nav-item nav-link" >Cerrar Sesion</a>
                         </div>
                     </div>
                     <a href="{% url 'login' %}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">INGRESAR</a>
                 </div>
-                <br>
-                <br>
       {% else %}
-      <div class="container-fluid p-0">
+      <div class="container-fluid p-0" id="opciones">
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
             <a href="" class="navbar-brand d-block d-lg-none">
                 <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Safety</span>First</h1>
@@ -45,9 +39,7 @@
                         </div>
                     </div>
                     <a href="{% url 'login' %}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">INGRESAR</a>
-                </div>  
-                <br>
-                <br>    
+                </div>    
       {% endif %}
       <!-- enlaces -->
     </nav>
