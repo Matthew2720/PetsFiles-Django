@@ -1,48 +1,53 @@
 {% load static %}
 <header>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
       <!-- logo -->
-      <a class="navbar-brand" href="#">
-        <img src="{% static 'img/logo.webp' %}" alt="Avatar Logo" style="width:100px;"
-          class="rounded-pill">
-      </a>
 
       <!-- enlaces -->
       {% if request.user.is_authenticated %}
-      <div class="collapse navbar-collapse" id="opciones">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="btn btn-online-dark" href="{% url 'index' %}">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-online-dark" href="{% url 'home' %}">Agenda</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-online-dark" href="{% url 'logout' %}">Cerrar Sesion</a>
-          </li>
-        </ul>
-      </div>
+      <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+            <a href="" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Safety</span>First</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                  <a href="{% url 'index' %}" class="nav-item nav-link active">Inicio</a>
+                  <a href="{% url 'index' %}" class="nav-item nav-link" >Sobre Nosotros</a>
+                  <a href="{% url 'index' %}" class="nav-item nav-link" >Servicios</a>
+                  <a href="{% url 'index' %}" class="nav-item nav-link" >Precios</a>
+                    <a href="{% url 'registerVet' %}" class="nav-item nav-link">Registro</a>
+                        </div>
+                    </div>
+                    <a href="{% url 'login' %}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">INGRESAR</a>
+                </div>
+                <br>
+                <br>
       {% else %}
-      <div class="collapse navbar-collapse" id="opciones">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="btn btn-online-dark" href="{% url 'index' %}">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-online-dark" href="{% url 'registerVet' %}">Registro</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-online-dark" href="{% url 'login' %}">Ingresar</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-online-dark" href="{% url 'support' %}">Soporte</a>
-          </li>
-        </ul>
-      </div>
+      <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+            <a href="" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Safety</span>First</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                  <a href="{% url 'index' %}" class="nav-item nav-link active">Inicio</a>
+                  <a href="{% url 'index' %}" class="nav-item nav-link" >Sobre Nosotros</a>
+                  <a href="{% url 'index' %}" class="nav-item nav-link" >Servicios</a>
+                  <a href="{% url 'index' %}" class="nav-item nav-link" >Precios</a>
+                    <a href="{% url 'registerVet' %}" class="nav-item nav-link">Registro</a>
+                        </div>
+                    </div>
+                    <a href="{% url 'login' %}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">INGRESAR</a>
+                </div>  
+                <br>
+                <br>    
       {% endif %}
       <!-- enlaces -->
     </nav>
