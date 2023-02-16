@@ -49,25 +49,9 @@
 
 
 <!-- Navbar Start -->
-<div class="container-fluid p-0" id="inicio" class="section">
-  <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
-      <a href="" class="navbar-brand d-block d-lg-none">
-          <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">File</span>Pets</h1>
-      </a>
-      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
-          <div class="navbar-nav mr-auto py-0">
-            <a href="#inicio" class="nav-item nav-link active" onclick="showSection('inicio');">Inicio</a>
-            <a href="#sobre-nosotros" class="nav-item nav-link" onclick="showSection('sobre-nosotros');">Sobre Nosotros</a>
-            <a href="#servicios" class="nav-item nav-link" onclick="showSection('servicios');">Servicios</a>
-            <a href="#precios" class="nav-item nav-link" onclick="showSection('precios');">Precios</a>
-              <a href="{% url 'registerVet' %}" class="nav-item nav-link">Registro</a>
-                  </div>
-              </div>
-              <a href="{% url 'login' %}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">INGRESAR</a>
-          </div>
+<div>
+    {% include 'layout/partials/headerbase.html' %}
+</div>
        
 <!-- Navbar End -->
 
