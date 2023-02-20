@@ -143,7 +143,7 @@ def registerVet(request):
                 )
             user.set_password(request.POST['password'])
             user.save()
-            user.groups.add(2)
+            user.groups.add()
             user.save()
             return redirect('index')
             

@@ -4,7 +4,7 @@ main {
     justify-content: center;
     align-content: center;
     width: 100vw;
-    background-image: url('/static/img/background1.png');
+    background-color: black;
     opacity: 0.8;
     height: 92vh;
 }

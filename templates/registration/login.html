@@ -17,7 +17,9 @@
 {% block 'content' %}
 
 <div class="contain_login">
-  <div class="div-login bg-dark" style="color:white;">
+  <div class="div-login bg-dark" style="color:black;">
+    <div class="card-title text-center mb-5 fw-light fs-5">
+      <div class="card border-0 shadow rounded-3 my-5" style="padding:30px;">
     <form class="formlogin"  method="post">
       <h2>Iniciar sesion</h2>
       {% csrf_token %}
@@ -25,9 +27,8 @@
       <button type="submit" class="btn btn-success">Entrar</button>
     </form>
   </div>
-  <div class="img-login">
-    <img src="{% static 'img/animales.webp' %}" alt=""> 
   </div>
+</div>
 </div>
 {% endblock  %}
 

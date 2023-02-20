@@ -74,7 +74,7 @@
               <img class="w-100" src="/static/img/perro2.webp" alt="Image">
               <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                   <div class="p-3" style="max-width: 900px;">
-                      <h1 class="display-3 text-white mb-3">Adminstra tus servicios de Spa y asea para mascotas</h1>
+                      <h1 class="display-3 text-white mb-3">Administra tus servicios de Spa y Aseo para mascotas</h1>
                   </div>
               </div>
           </div>
@@ -229,7 +229,7 @@
               <div class="d-flex flex-column text-center bg-white mb-2 p-3 p-sm-5">
                   <h3 class="flaticon-food display-3 font-weight-normal text-secondary mb-3"></h3>
                   <h3 class="mb-3">Inventario</h3>
-                  <p>Administracion y registro completo del invetario tanto de uso interno como de ventas, sistema de alertas oportunas ante la poco existencia de algun producto.</p>
+                  <p>Administracion y registro completo del inventario tanto de uso interno como de ventas, sistema de alertas oportunas ante la poco existencia de algun producto.</p>
               </div>
           </div>
           <div class="col-md-6 col-lg-4 mb-4">
@@ -252,7 +252,7 @@
               <div class="d-flex flex-column text-center bg-white mb-2 p-3 p-sm-5">
                   <h3 class="flaticon-doctor display-3 font-weight-normal text-secondary mb-3"></h3>
                   <h3 class="mb-3">Facturacion</h3>
-                  <p>Registro optimo y confiable de facturacion de lo diferentes servicios y productos de la veterinaria.</p>
+                  <p>Registro optimo y confiable de facturacion de los diferentes servicios y productos de la veterinaria.</p>
                   <br>
               </div>
           </div>
@@ -260,7 +260,7 @@
               <div class="d-flex flex-column text-center bg-white mb-2 p-3 p-sm-5">
                   <h3 class="flaticon-vaccine display-3 font-weight-normal text-secondary mb-3"></h3>
                   <h3 class="mb-3">Especialidades</h3>
-                  <p>Posibilidad de agendar diferentes especialidades que manaje la veterinaria, como ortopedia, radiografias, vacunacion, entre otras.</p>
+                  <p>Posibilidad de agendar diferentes especialidades que maneje la veterinaria, como ortopedia, radiografias, vacunacion, entre otras.</p>
               </div>
           </div>
       </div>
@@ -385,7 +385,7 @@
           <div class="card border-0 mb-2">
               <img class="card-img-top" src="/static/img/blog-1.jpg" alt="">
               <div class="card-body bg-light p-4">
-                  <h4 class="card-title text-truncate">Turorial de registro</h4>
+                  <h4 class="card-title text-truncate">Tutorial de registro</h4>
                   <div class="d-flex mb-3">
                       <small class="mr-2"><i class="fa fa-user text-muted"></i> Admin</small>
                       <small class="mr-2"><i class="fa fa-folder text-muted"></i> Web Design</small>
@@ -407,7 +407,7 @@
                       <small class="mr-2"><i class="fa fa-folder text-muted"></i> Web Design</small>
                       <small class="mr-2"><i class="fa fa-comments text-muted"></i> 15</small>
                   </div>
-                  <p>En este espacio encontraras una explicacion detallada de como agendar tus citas y diferetes servicios.</p>
+                  <p>En este espacio encontraras una explicacion detallada de como agendar tus citas y diferentes servicios.</p>
                   <br>
                   <a class="font-weight-bold" href="">Ver</a>
               </div>
@@ -417,13 +417,13 @@
           <div class="card border-0 mb-2">
               <img class="card-img-top" src="/static/img/blog-3.jpg" alt="">
               <div class="card-body bg-light p-4">
-                  <h4 class="card-title text-truncate">Turorial de facturacion e inventario</h4>
+                  <h4 class="card-title text-truncate">Tutorial de facturacion e inventario</h4>
                   <div class="d-flex mb-3">
                       <small class="mr-2"><i class="fa fa-user text-muted"></i> Admin</small>
                       <small class="mr-2"><i class="fa fa-folder text-muted"></i> Web Design</small>
                       <small class="mr-2"><i class="fa fa-comments text-muted"></i> 15</small>
                   </div>
-                  <p>Aqui encontras una explicacion clara de como manejar la facturacion y el inventario con todas sus funciones practicas.</p>
+                  <p>Aqui encontraras una explicacion clara de como manejar la facturacion y el inventario con todas sus funciones practicas.</p>
                   <a class="font-weight-bold" href="">Ver</a>
               </div>
           </div>
@@ -456,12 +456,15 @@
               <div class="col-md-4 mb-5">
                   <h5 class="text-primary mb-4">Links</h5>
                   <div class="d-flex flex-column justify-content-start">
-                      <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
-                      <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Sobre Nosotros</a>
-                      <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Servicios</a>
-                      <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Precios</a>
-                      <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Registro</a>
+                      <a class="text-white mb-2" href="{% url 'index' %}"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
+                      <a class="text-white mb-2" href="#sobre-nosotros"><i class="fa fa-angle-right mr-2"></i>Sobre Nosotros</a>
+                      <a class="text-white mb-2" href="#servicios"><i class="fa fa-angle-right mr-2"></i>Servicios</a>
+                      <a class="text-white mb-2" href="#precios"><i class="fa fa-angle-right mr-2"></i>Precios</a>
+                      <a class="text-white mb-2" href="{% url 'registerVet' %}"><i class="fa fa-angle-right mr-2"></i>Registro</a>
                   </div>
+              </div>
+              <div class="col-md-4 mb-5">
+                <img class="card-img-top" src="/static/img/logo.webp" alt="" style="padding-top: 50px;">
               </div>
           </div>
       </div>

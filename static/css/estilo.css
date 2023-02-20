@@ -1,68 +1,3 @@
-#login {
-    height: 3rem
-}
-
-#foo1 {
-    position: relative;
-    bottom: -21rem;
-    font-size: small;
-    text-align: center;
-    text-decoration: dashed
-}
-
-.contenido {
-    padding-top: 2rem;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    font-family: cursive;
-    text-align: center;
-}
-
-#wpp {
-    position: fixed;
-    right: 2rem;
-    bottom: 10rem;
-    background-color: green;
-    border-radius: 100%;
-}
-
-#iconousuario {
-    margin-left: 13rem
-}
-
-#gato {
-    margin-left: 20rem
-}
-
-
-#empresa {
-    margin-left: 7rem;
-    font-family: cursive;
-    text-align: left;
-    left: 6vw;
-    color: #000
-}
-
-#recursos {
-    font-family: cursive;
-    text-align: center;
-    color: #000
-}
-
-#follow {
-    font-family: cursive;
-    text-align: center;
-    left: 20vw;
-    color: #000
-}
-
-#contacto {
-    font-family: cursive;
-    text-align: center;
-    left: 8vw;
-    color: #000
-}
-
 #patas {
     position: absolute;
     bottom: 1rem;
@@ -112,17 +47,6 @@ section{
     align-items: center;
 }
 
-.maincarrusel {
-    margin-top: 2vw;
-    position: relative;
-    left: 25vw;
-    justify-content: center;
-}
-
-.imagencarrusel {
-    width: 50vw;
-    height: 25vw;
-}
 
 .bigicon {
     font-size: 35px;
