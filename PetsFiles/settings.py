@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-+y^b3m_)58d0r8z2*%3q%)d(-qi!9ihecaa-^(rqx%miqg#a&#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["mateohernandezr1196.pythonanywhere.com"]
 
 
 # Application definition
@@ -47,7 +47,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware" 
+    "django.middleware.clickjacking.XFrameOptionsMiddleware"
 ]
 
 ROOT_URLCONF = "PetsFiles.urls"
@@ -55,7 +55,7 @@ ROOT_URLCONF = "PetsFiles.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ['templates'],
+        "DIRS": ['templates','/home/mateohernandezr1196/PetsFiles-Django/templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -75,18 +75,25 @@ WSGI_APPLICATION = "PetsFiles.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-    # 'default': {  
-    #     'ENGINE': 'django.db.backends.mysql',  
-    #     'NAME': 'petsfiles',  
-    #     'USER': 'root',  
-    #     'PASSWORD': '',  
-    #     'HOST': '127.0.0.1',  
-    #     'PORT': '3306',  
-    # }  
+    # "default": {
+    #   "ENGINE": "django.db.backends.sqlite3",
+    #   "NAME": BASE_DIR / "db.sqlite3",
+    # }
+    'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'HOST': 'mateohernandezr1196.mysql.pythonanywhere-services.com',
+         'NAME': 'mateohernandezr1$petfiles',
+         'USER': 'mateohernandezr1',
+         'PASSWORD': 'PetsFiles123',
+         'CHARSET': 'utf8',
+         'OPTIONS': {
+
+                'init_command': 'SET default_storage_engine=INNODB',
+
+        },
+         #'HOST': '127.0.0.1',
+         #'PORT': '3306',
+     }
 }
 
 
@@ -126,10 +133,12 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    # '/var/www/static/',
-]
+STATIC_ROOT = '/home/mateohernandezr1196/PetsFiles-Django/static'
+
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+#     '/home/mateohernandezr1196/PetsFiles-Django/static',
+# ]
 
 
 # Default primary key field type

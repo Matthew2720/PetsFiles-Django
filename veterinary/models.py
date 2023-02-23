@@ -44,7 +44,7 @@ class Pet(models.Model):
     namePet = models.CharField(max_length=30,blank=False,null=False)
     species = models.CharField(max_length=30,blank=True,null=True)
     birthdate = models.DateField(blank=True,null=True)
-    gender = models.CharField(max_length=6 , blank=False, null = False, default='Desconocido')
+    gender = models.CharField(max_length=6 , blank=False, null = False, default='None')
     # veterinary = models.CharField(max_length=50, default="None")
     
     def client_name(self):
