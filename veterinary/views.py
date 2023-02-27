@@ -8,6 +8,7 @@ from .models import User, Veterinary, Pet, Client, Events
 def index(request):
     return render(request, 'veterinary/index.html', {})
 
+
 def support(request):
     return render(request, 'veterinary/support.html', {})
 
@@ -63,46 +64,48 @@ def deleteClient(request, id):
     return redirect('detailClient')
 # endregion
 
-
 # region pet
+
+
 @login_required(login_url='login')
 def registerPet(request):
+    VeterinaryLogued = request.user.veterinary
     if request.method == 'POST':
-        form = PetForm(request.POST)
+        form = PetForm(VeterinaryLogued, request.POST)
         if form.is_valid:
             form.save()
             return redirect('detailPet')
     else:
-        form = PetForm()
-        context = {
-            'form': form
-        }
-        return render(request, 'veterinary/registerPet.html', context)
+        form = PetForm(VeterinaryLogued)
+    context = {'form': form}
+    return render(request, 'veterinary/registerPet.html', context)
 
 
 @login_required(login_url='login')
 def detailPet(request):
     VeterinaryLogued = request.user.veterinary
-    VeterinaryClients = Client.objects.filter(veterinary=VeterinaryLogued)
     if request.method == 'POST':
-        pet = Pet.objects.filter(
-            namePet__contains=request.POST.get('search', ''))
+        search_query = request.POST.get('search', '')
+        pet = Pet.objects.select_related('client', 'client__veterinary').filter(
+            namePet__contains=search_query, client__veterinary=VeterinaryLogued)
     else:
-        pet = Pet.objects.all()
+        pet = Pet.objects.select_related('client', 'client__veterinary').filter(
+            client__veterinary=VeterinaryLogued)
     context = {'pets': pet}
     return render(request, 'veterinary/detailPet.html', context)
 
 
 @login_required(login_url='login')
 def updatePet(request, id):
+    veterinary_logued = request.user.veterinary
     pet = Pet.objects.get(id=id)
     if request.method == 'POST':
-        form = PetForm(request.POST, instance=pet)
+        form = PetForm(veterinary_logued, request.POST, instance=pet)
         if form.is_valid():
             form.save()
             return redirect(detailPet)
     else:
-        form = PetForm(instance=pet)
+        form = PetForm(veterinary_logued, instance=pet)
     context = {'form': form}
     return render(request, 'veterinary/registerPet.html', context)
 
@@ -119,6 +122,7 @@ def deletePet(request, id):
 
 @login_required(login_url='login')
 def registerDate(request):
+    veterinaryLogued = request.user.veterinary
     all_events_query = Events.objects.all()
     out = []
     for event in all_events_query:
@@ -130,7 +134,7 @@ def registerDate(request):
         })
 
     if request.method == 'POST':
-        form = EventForm(request.POST)
+        form = EventForm(veterinaryLogued, request.POST)
         if form.is_valid:
             form.save()
             return redirect('home')
@@ -138,7 +142,7 @@ def registerDate(request):
             messages.error(
                 request, 'La fecha no puede ser anterior a la actual')
     else:
-        form = EventForm()
+        form = EventForm(veterinaryLogued)
     context = {'form': form, "events": out}
     return render(request, 'veterinary/registerDate.html', context)
 
@@ -147,14 +151,16 @@ def registerDate(request):
 
 @login_required(login_url='login')
 def home(request):
+    veterinary_logued = request.user.veterinary
     if request.method == 'POST':
-        form = EventForm(request.POST)
+        form = EventForm(veterinary_logued, request.POST)
         if form.is_valid:
             form.save()
             return redirect('home')
-    all_events_query = Events.objects.all()
+    all_events_query = Events.objects.select_related(
+        'pet__client__veterinary').filter(pet__client__veterinary=veterinary_logued)
     out = []
-    form = EventForm()
+    form = EventForm(veterinary_logued)
     for event in all_events_query:
         out.append({
             'title': f"{event.pet}"+"|" + f"{event.client_name}" + "|" + f"{event.name}",
@@ -171,14 +177,15 @@ def home(request):
 
 @login_required(login_url='login')
 def updateDate(request, id):
+    veterinary_logued = request.user.veterinary
     date = Events.objects.get(id=id)
     if request.method == 'POST':
-        form = EventForm(request.POST, instance=date)
+        form = EventForm(veterinary_logued, request.POST, instance=date)
         if form.is_valid():
             form.save()
             return redirect(home)
     else:
-        form = EventForm(instance=date)
+        form = EventForm(veterinary_logued, instance=date)
     context = {'form': form}
     return render(request, 'veterinary/registerDate.html', context)
 
@@ -206,6 +213,11 @@ def registerEmployee(request):
         user.set_password(request.POST['password'])
         user.save()
         user.groups.add(request.POST['groups'])
+        # Si el grupo seleccionado es "Medico Veterinario"
+        if request.POST['groups'] == '4' or request.POST['groups'] == '3'or request.POST['groups'] == 3 or request.POST['groups'] == 4:
+            user.is_doctor = True
+            user.save()
+            print(user.is_doctor)
         user.save()
         return redirect('detailEmployee')
     form = UserForm
@@ -252,6 +264,7 @@ def deleteEmployee(request, id):
 # endregion
 
 # region register veterinary
+
 
 def registerVet(request):
     if request.method == 'POST':

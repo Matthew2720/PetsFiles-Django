@@ -87,6 +87,10 @@ class ClientForm(ModelForm):
         }
 
 class PetForm(ModelForm):
+    def __init__(self, VeterinaryLogued, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['client'].queryset = Client.objects.filter(veterinary=VeterinaryLogued)
+
     class Meta:
         model = Pet
         fields = '__all__'
@@ -107,28 +111,46 @@ class PetForm(ModelForm):
             'birthdate':'Fecha de nacimiento'
         }
 
+
 class EventForm(ModelForm):
+    def __init__(self, VeterinaryLogued, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['pet'].queryset = Pet.objects.select_related('client__veterinary').filter(client__veterinary=VeterinaryLogued)
+        self.fields['doctor'].queryset = User.objects.filter(veterinary=VeterinaryLogued, is_doctor=True)
+
     class Meta:
         model = Events
-        exclude = ('is_active','end','client')
-        CHOICES = (('1', 'Consultorio 1'),('2', 'Consultorio 2'),('3', 'Consultorio 3'),
-        ('4', 'Consultorio 4'),('5', 'Consultorio 5'),('6', 'Consultorio 6'),)
-        CHOICESTYPE = (('Consulta', 'Consulta'),('Hospitalizacion', 'Hospitalizacion'),('Vacunacion', 'Vacunacion'),
-        ('Guarderia', 'Guarderia'),('Sala de belleza', 'Sala de belleza'),('Consulta intermitente', 'Consulta intermitente'),)
+        exclude = ('is_active', 'end', 'client')
+        CHOICES = (
+            ('1', 'Consultorio 1'),
+            ('2', 'Consultorio 2'),
+            ('3', 'Consultorio 3'),
+            ('4', 'Consultorio 4'),
+            ('5', 'Consultorio 5'),
+            ('6', 'Consultorio 6'),
+        )
+        CHOICESTYPE = (
+            ('Consulta', 'Consulta'),
+            ('Hospitalizacion', 'Hospitalizacion'),
+            ('Vacunacion', 'Vacunacion'),
+            ('Guarderia', 'Guarderia'),
+            ('Sala de belleza', 'Sala de belleza'),
+            ('Consulta intermitente', 'Consulta intermitente'),
+        )
         widgets = {
-            'name':Select(attrs={'class':'form-control'},choices= CHOICESTYPE ),
-            'start' : DateTimePickerInput(attrs={'class':'form-control'}),
-            'end' : DateTimePickerInput(attrs={'class':'form-control'}),
-            'pet': Select(attrs={'class':'form-control'}),
-            'doctor':Select(attrs={'class':'form-control'}),
-            'room':Select(attrs={'class':'form-control'},choices= CHOICES ),
+            'name': Select(attrs={'class': 'form-control'}, choices=CHOICESTYPE),
+            'start': DateTimePickerInput(attrs={'class': 'form-control'}),
+            'end': DateTimePickerInput(attrs={'class': 'form-control'}),
+            'pet': Select(attrs={'class': 'form-control'}),
+            'doctor': Select(attrs={'class': 'form-control'}),
+            'room': Select(attrs={'class': 'form-control'}, choices=CHOICES),
         }
         labels = {
             'pet': 'Mascota',
-            'doctor':'Especialista',
-            'room':'Consultorio',
-            'start':'Fecha',
-            'name':'Tipo de servicio'
+            'doctor': 'Especialista',
+            'room': 'Consultorio',
+            'start': 'Fecha',
+            'name': 'Tipo de servicio'
         }
 
 class CategoryForm(ModelForm):
