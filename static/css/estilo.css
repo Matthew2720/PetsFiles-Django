@@ -82,11 +82,16 @@ section{
     height: 92vh;
     justify-content: space-between;
     align-content: space-around;
-    background-image: url('/static/img/fondoindex.jpg');
+    background-color: #181818;
     background-size: 50%;
     background-repeat:repeat;
     opacity: 1;
     overflow-x: hidden;;
+}
+
+.left-menu .btn-dark {
+    background-color: #ED6436;
+    width: 100%;
 }
 
 h2 {
