@@ -1,32 +1,70 @@
-from django.shortcuts import render,redirect
-from django.contrib.auth.decorators import login_required,permission_required
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
-from .forms import VeterinaryForm,UserForm,ClientForm,PetForm,UserFormWithoutPassword,EventForm
-from .models import User,Veterinary,Pet,Client,Events
+from .forms import VeterinaryForm, UserForm, ClientForm, PetForm, UserFormWithoutPassword, EventForm
+from .models import User, Veterinary, Pet, Client, Events
 
 
 def index(request):
-    return render(request,'veterinary/index.html',{})
+    return render(request, 'veterinary/index.html', {})
 
 def support(request):
-    return render(request,'veterinary/support.html',{})
-    
-#region register client/pet
+    return render(request, 'veterinary/support.html', {})
+
+# region register client
+
+
 @login_required(login_url='login')
 def registerClient(request):
     VeterinaryLogued = request.user.veterinary
     if request.method == 'POST':
-        formClient=ClientForm(request.POST)
+        formClient = ClientForm(request.POST)
         if formClient.is_valid:
             formClient.save()
             return redirect('detailClient')
     else:
-        formClient = ClientForm(initial={'veterinary':VeterinaryLogued})
+        formClient = ClientForm(initial={'veterinary': VeterinaryLogued})
         context = {
-            'formClient':formClient
+            'formClient': formClient
         }
-        return render(request,'veterinary/registerClient.html',context)
+        return render(request, 'veterinary/registerClient.html', context)
 
+
+@login_required(login_url='login')
+def detailClient(request):
+    VeterinaryLogued = request.user.veterinary
+    if request.method == 'POST':
+        clients = Client.objects.filter(name__contains=request.POST.get(
+            'search', ''), veterinary=VeterinaryLogued)
+    else:
+        clients = Client.objects.filter(veterinary=VeterinaryLogued)
+    context = {'clients': clients}
+    return render(request, 'veterinary/detailClient.html', context)
+
+
+@login_required(login_url='login')
+def updateClient(request, id):
+    client = Client.objects.get(id=id)
+    if request.method == 'POST':
+        form = ClientForm(request.POST, instance=client)
+        if form.is_valid():
+            form.save()
+            return redirect(detailClient)
+    else:
+        form = ClientForm(instance=client)
+    context = {'formClient': form}
+    return render(request, 'veterinary/registerClient.html', context)
+
+
+@login_required(login_url='login')
+def deleteClient(request, id):
+    client = Client.objects.get(id=id)
+    client.delete()
+    return redirect('detailClient')
+# endregion
+
+
+# region pet
 @login_required(login_url='login')
 def registerPet(request):
     if request.method == 'POST':
@@ -37,27 +75,26 @@ def registerPet(request):
     else:
         form = PetForm()
         context = {
-            'form':form
+            'form': form
         }
-        return render(request,'veterinary/registerPet.html',context)
-#endregion
+        return render(request, 'veterinary/registerPet.html', context)
 
-#region update
+
 @login_required(login_url='login')
-def updateClient(request,id):
-    client = Client.objects.get(id=id)
+def detailPet(request):
+    VeterinaryLogued = request.user.veterinary
+    VeterinaryClients = Client.objects.filter(veterinary=VeterinaryLogued)
     if request.method == 'POST':
-        form = ClientForm(request.POST, instance=client)
-        if form.is_valid():
-            form.save()
-            return redirect(detailClient)
+        pet = Pet.objects.filter(
+            namePet__contains=request.POST.get('search', ''))
     else:
-        form = ClientForm(instance=client)
-    context= {'formClient':form}
-    return render(request,'veterinary/registerClient.html',context)
-    
+        pet = Pet.objects.all()
+    context = {'pets': pet}
+    return render(request, 'veterinary/detailPet.html', context)
+
+
 @login_required(login_url='login')
-def updatePet(request,id):
+def updatePet(request, id):
     pet = Pet.objects.get(id=id)
     if request.method == 'POST':
         form = PetForm(request.POST, instance=pet)
@@ -66,108 +103,19 @@ def updatePet(request,id):
             return redirect(detailPet)
     else:
         form = PetForm(instance=pet)
-    context= {'form':form}
-    return render(request,'veterinary/registerPet.html',context)
+    context = {'form': form}
+    return render(request, 'veterinary/registerPet.html', context)
+
 
 @login_required(login_url='login')
-def updateDate(request,id):
-    date = Events.objects.get(id=id)
-    if request.method == 'POST':
-        form = EventForm(request.POST, instance=date)
-        if form.is_valid():
-            form.save()
-            return redirect(home)
-    else:
-        form = EventForm(instance=date)
-    context = {'form':form}
-    return render(request,'veterinary/registerDate.html',context)
-
-@login_required(login_url='login')
-def updateEmployee(request,id):
-    employee = User.objects.get(id=id)
-    if request.method == 'POST':
-        actualizar = User.objects.update_or_create(
-            id  =  id,
-            defaults={
-            'username': request.POST['username'],
-            'first_name': request.POST['first_name'],
-            'last_name': request.POST['last_name'] ,
-            'direccion': request.POST['direccion'] ,
-            'email': request.POST['email']})
-        return redirect(detailEmployee)
-    else:
-        form = UserFormWithoutPassword(instance=employee)
-    context= {'form':form}
-    return render(request,'veterinary/registerEmployee.html',context)
-#endregion
-
-#region delete
-@login_required(login_url='login')
-def deleteClient(request,id):
-    client = Client.objects.get(id=id)
-    client.delete()
-    return redirect('detailClient')
-
-@login_required(login_url='login')
-def deleteEmployee(request,id):
-    user = User.objects.get(id=id)
-    user.delete()
-    return redirect('detailEmployee')
-
-@login_required(login_url='login')
-def deletePet(request,id):
+def deletePet(request, id):
     pet = Pet.objects.get(id=id)
     pet.delete()
     return redirect('detailPet')
+# endregion
 
-@login_required(login_url='login')
-def deleteEvent(request,id):
-    event = Events.objects.get(id=id)
-    event.delete()
-    return redirect("home")
+# region calendar
 
-
-#endregion
-
-#region register veterinary/employee
-def registerVet(request):
-    if request.method == 'POST':
-        form = VeterinaryForm(request.POST)
-        if form.is_valid:
-            form.save()
-            nit = request.POST['nit']
-            veterinary = Veterinary.objects.get(nit = nit)
-            user = User.objects.create(
-                username = request.POST['nameVeterinary'],password=request.POST['password'],
-                veterinary= veterinary
-                )
-            user.set_password(request.POST['password'])
-            user.save()
-            user.groups.add()
-            user.save()
-            return redirect('index')
-            
-    form = VeterinaryForm()
-    context = {'form':form}
-    return render(request,'veterinary/register.html',context)
-
-@login_required(login_url='login')
-def registerEmployee(request):
-    VeterinaryLogued = request.user.veterinary
-    if request.method == 'POST':
-            user = User.objects.create(
-                username = request.POST['username'],first_name = request.POST['first_name'],last_name = request.POST['last_name'],
-                password=request.POST['password'],direccion = request.POST['direccion'],email = request.POST['email'],
-                veterinary= VeterinaryLogued
-                )
-            user.set_password(request.POST['password'])
-            user.save()
-            user.groups.add(request.POST['groups'])
-            user.save()
-            return redirect('detailEmployee')
-    form = UserForm
-    context = {'form':form}
-    return render(request,'veterinary/registerEmployee.html',context)
 
 @login_required(login_url='login')
 def registerDate(request):
@@ -175,10 +123,10 @@ def registerDate(request):
     out = []
     for event in all_events_query:
         out.append({
-            'title': f"{event.pet}"+ "|" + f"{event.name}",
+            'title': f"{event.pet}" + "|" + f"{event.name}",
             'id': event.id,
-            'start':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
-            'end':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+            'start': event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+            'end': event.start.strftime("%Y-%m-%dT%H:%M:%S"),
         })
 
     if request.method == 'POST':
@@ -187,49 +135,16 @@ def registerDate(request):
             form.save()
             return redirect('home')
         else:
-            messages.error(request,'La fecha no puede ser anterior a la actual')
+            messages.error(
+                request, 'La fecha no puede ser anterior a la actual')
     else:
         form = EventForm()
-    context = {'form' : form ,"events": out}
-    return render(request,'veterinary/registerDate.html',context)
-#endregion
+    context = {'form': form, "events": out}
+    return render(request, 'veterinary/registerDate.html', context)
 
-#region login/details
+# detail event
 
-@login_required(login_url='login')
-def detailClient(request):
-    VeterinaryLogued = request.user.veterinary
-    if request.method == 'POST':
-        clients = Client.objects.filter(name__contains = request.POST.get('search',''),veterinary = VeterinaryLogued)
-    else:
-        clients = Client.objects.filter(veterinary= VeterinaryLogued)
-    context = {'clients':clients}
-    return render(request,'veterinary/detailClient.html',context)
 
-@login_required(login_url='login')
-def detailPet(request):
-    VeterinaryLogued = request.user.veterinary
-    VeterinaryClients = Client.objects.filter(veterinary = VeterinaryLogued)
-    if request.method == 'POST':
-        pet = Pet.objects.filter(namePet__contains = request.POST.get('search',''))
-    else:
-        pet = Pet.objects.all()
-    context = {'pets':pet}
-    return render(request,'veterinary/detailPet.html',context)
-
-@login_required(login_url='login')
-def detailEmployee(request):
-    VeterinaryLogued = request.user.veterinary
-    if request.method =='POST':
-        employee = User.objects.filter(first_name__contains = request.POST.get ('search', ''),veterinary = VeterinaryLogued)
-    else:
-        employee = User.objects.filter(veterinary= VeterinaryLogued)
-    context = {'employees':employee}
-    return render (request, 'veterinary/detailEmployee.html', context)
-
-#endregion
-
-#region calendar
 @login_required(login_url='login')
 def home(request):
     if request.method == 'POST':
@@ -242,14 +157,121 @@ def home(request):
     form = EventForm()
     for event in all_events_query:
         out.append({
-            'title': f"{event.pet}"+"|"+ f"{event.client_name}" +  "|" + f"{event.name}",
+            'title': f"{event.pet}"+"|" + f"{event.client_name}" + "|" + f"{event.name}",
             'id': event.id,
-            'start':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
-            'end':event.start.strftime("%Y-%m-%dT%H:%M:%S"),
-            'client':event.pet.client_name,
-            'pet':event.pet,
-            'room':event.room
+            'start': event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+            'end': event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+            'client': event.pet.client_name,
+            'pet': event.pet,
+            'room': event.room
         })
-    context = {"events": out, "form" : form }
-    return render(request,"veterinary/home.html",context)
-#endregion
+    context = {"events": out, "form": form}
+    return render(request, "veterinary/home.html", context)
+
+
+@login_required(login_url='login')
+def updateDate(request, id):
+    date = Events.objects.get(id=id)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=date)
+        if form.is_valid():
+            form.save()
+            return redirect(home)
+    else:
+        form = EventForm(instance=date)
+    context = {'form': form}
+    return render(request, 'veterinary/registerDate.html', context)
+
+
+@login_required(login_url='login')
+def deleteEvent(request, id):
+    event = Events.objects.get(id=id)
+    event.delete()
+    return redirect("home")
+
+# endregion
+
+# region employee
+
+
+@login_required(login_url='login')
+def registerEmployee(request):
+    VeterinaryLogued = request.user.veterinary
+    if request.method == 'POST':
+        user = User.objects.create(
+            username=request.POST['username'], first_name=request.POST['first_name'], last_name=request.POST['last_name'],
+            password=request.POST['password'], direccion=request.POST['direccion'], email=request.POST['email'],
+            veterinary=VeterinaryLogued
+        )
+        user.set_password(request.POST['password'])
+        user.save()
+        user.groups.add(request.POST['groups'])
+        user.save()
+        return redirect('detailEmployee')
+    form = UserForm
+    context = {'form': form}
+    return render(request, 'veterinary/registerEmployee.html', context)
+
+
+@login_required(login_url='login')
+def detailEmployee(request):
+    VeterinaryLogued = request.user.veterinary
+    if request.method == 'POST':
+        employee = User.objects.filter(first_name__contains=request.POST.get(
+            'search', ''), veterinary=VeterinaryLogued)
+    else:
+        employee = User.objects.filter(veterinary=VeterinaryLogued)
+    context = {'employees': employee}
+    return render(request, 'veterinary/detailEmployee.html', context)
+
+
+@login_required(login_url='login')
+def updateEmployee(request, id):
+    employee = User.objects.get(id=id)
+    if request.method == 'POST':
+        actualizar = User.objects.update_or_create(
+            id=id,
+            defaults={
+                'username': request.POST['username'],
+                'first_name': request.POST['first_name'],
+                'last_name': request.POST['last_name'],
+                'direccion': request.POST['direccion'],
+                'email': request.POST['email']})
+        return redirect(detailEmployee)
+    else:
+        form = UserFormWithoutPassword(instance=employee)
+    context = {'form': form}
+    return render(request, 'veterinary/registerEmployee.html', context)
+
+
+@login_required(login_url='login')
+def deleteEmployee(request, id):
+    user = User.objects.get(id=id)
+    user.delete()
+    return redirect('detailEmployee')
+# endregion
+
+# region register veterinary
+
+def registerVet(request):
+    if request.method == 'POST':
+        form = VeterinaryForm(request.POST)
+        if form.is_valid:
+            form.save()
+            nit = request.POST['nit']
+            veterinary = Veterinary.objects.get(nit=nit)
+            user = User.objects.create(
+                username=request.POST['nameVeterinary'], password=request.POST['password'],
+                veterinary=veterinary
+            )
+            user.set_password(request.POST['password'])
+            user.save()
+            user.groups.add()
+            user.save()
+            return redirect('index')
+
+    form = VeterinaryForm()
+    context = {'form': form}
+    return render(request, 'veterinary/register.html', context)
+
+# endregion
