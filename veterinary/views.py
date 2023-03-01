@@ -12,7 +12,7 @@ def index(request):
 def support(request):
     return render(request, 'veterinary/support.html', {})
 
-# region register client
+# region client
 
 
 @login_required(login_url='login')
@@ -59,8 +59,12 @@ def updateClient(request, id):
 
 @login_required(login_url='login')
 def deleteClient(request, id):
-    client = Client.objects.get(id=id)
-    client.delete()
+    try:
+        client = Client.objects.get(id=id)
+        client.delete()
+        messages.success(request, 'El cliente se elimino correctamente')
+    except:
+        messages.error(request, 'No se puede eliminar porque tiene mascotas asociadas')
     return redirect('detailClient')
 # endregion
 

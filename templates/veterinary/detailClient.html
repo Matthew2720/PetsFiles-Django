@@ -34,6 +34,13 @@
   <div class="caja3">
     <div class="container">
         <table class="table table-dark">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
             <tr>
                 <th>Nombre</th>
                 <th>Apellidos</th>
