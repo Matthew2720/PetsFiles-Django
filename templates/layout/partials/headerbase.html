@@ -15,8 +15,26 @@
                 <div class="navbar-nav mr-auto py-0">
                   <a href="{% url 'index' %}" class="nav-item nav-link active">Inicio</a>
                   <a href="{% url 'home' %}"  class="nav-item nav-link" >Agenda</a>
-                  <a href="{% url 'logout' %}"class="nav-item nav-link" >Cerrar Sesion</a>
-                        </div>
+                  <a href="{% url 'logout' %}" class="nav-item nav-link" >Cerrar Sesion</a>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                      Servicios
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{% url 'detailPet'  %}">Mascotas</a>
+                      <a class="dropdown-item" href="{% url 'detailClient' %}">Clientes</a>
+                      <a class="dropdown-item" href="{% url 'detailEmployee' %}">Colegas</a>
+                      <a class="dropdown-item" href="{% url 'registerDate' %}">Citas</a>
+                      <a class="dropdown-item" href="#">Clinica</a>
+                      <a class="dropdown-item" href="#">Guarderia</a>
+                      <a class="dropdown-item" href="#">Hospitalizacion</a>
+                      <a class="dropdown-item" href="#">Peluqueria</a>
+                      <a class="dropdown-item" href="{% url 'detailProduct' %}">Inventario</a>
+                    </div>
+                  </li>
+                </div>
+            </div>
+        </nav>
       {% else %}
       <div class="container-fluid p-0" id="opciones" id="inicio" class="section">
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
