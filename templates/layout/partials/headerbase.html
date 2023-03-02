@@ -28,14 +28,15 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
-                    <a href="{% url 'index' %}#inicio" class="nav-item nav-link active" onclick="showSection('inicio');">Inicio</a>
+                    <a href="{% url 'index' %}" class="nav-item nav-link active">Inicio</a>
                     <a href="{% url 'index' %}#sobre-nosotros" class="nav-item nav-link" onclick="showSection('sobre-nosotros');">Sobre Nosotros</a>
                     <a href="{% url 'index' %}#servicios" class="nav-item nav-link" onclick="showSection('servicios');">Servicios</a>
                     <a href="{% url 'index' %}#precios" class="nav-item nav-link" onclick="showSection('precios');">Precios</a>
                       <a href="{% url 'registerVet' %}" class="nav-item nav-link">Registro</a>
+                      <a href="{% url 'login' %}" class="nav-item nav-link active" style="margin-left: 370px;">INGRESAR</a>
                           </div>
                       </div>
-                      <a href="{% url 'login' %}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">INGRESAR</a>
+                      
                   </div>  
       {% endif %}
       <!-- enlaces -->
