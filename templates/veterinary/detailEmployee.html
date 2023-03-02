@@ -13,46 +13,67 @@
 {% endblock %}
 
 {% block 'content' %}
-<div class="left-menu">
-  <div class="column-1">
-    {% include 'layout/partials/leftmenu.html' %}
-  </div>
-  <div class="column-2" >
-    <div class="column-2-1" style="flex-grow:0;">
-      <div class="table table-dark">
-          <form action="" method="POST">
-            <a href=" {% url 'registerEmployee' %}" class="btn btn-secondary">Crear Empleado</a>
-            {% csrf_token %}
-              <label style="margin-left:400px;" >BUSCAR EMPLEADO</label>
-              <input type="text" class="form-control-sm" name="search">
-              <input type="submit" class="btn btn-secondary" value="Buscar">
-          </form>
+<div class="container-fluid" style="background-color: #181818;">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="left-menu">
+        <div class="caja1">
+          {% include 'layout/partials/leftmenu.html' %}
+        </div>
       </div>
     </div>
-    <div class="column-2-2">
+    <div class="col-md-7">
+        <div class="table-responsive">
           <table class="table table-dark">
+            <thead>
               <tr>
-                  <th>Nombre Usuario</th>
-                  <th>Nombres</th>
-                  <th>Apellidos</th>
-                  <th>Direccion</th>
-                  <th>Email</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-          {% for employee in employees %}
+                <th>Nombre Usuario</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Direccion</th>
+                <th>Email</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for employee in employees %}
               <tr>
-                  <th>{{employee.username}}</th>
-                  <th>{{employee.first_name}}</th>
-                  <th>{{employee.last_name}}</th>
-                  <th>{{employee.direccion}}</th>
-                  <th>{{employee.email}}</th>
-                  <th><a href="{% url 'updateEmployee' id=employee.id %}" class="btn btn-primary">Actualizar perfil</a></th> 
-                  <th><button onclick = "borrar('{{employee.id}}')" class="btn btn-danger">Eliminar</button></th> 
-          {% endfor %}
+                <td>{{employee.username}}</td>
+                <td>{{employee.first_name}}</td>
+                <td>{{employee.last_name}}</td>
+                <td>{{employee.direccion}}</td>
+                <td>{{employee.email}}</td>
+                <td><a href="{% url 'updateEmployee' id=employee.id %}" class="btn btn-primary">Actualizar perfil</a></td> 
+                <td><button onclick = "borrar('{{employee.id}}')" class="btn btn-danger">Eliminar</button></td> 
+              </tr>
+              {% endfor %}
+            </tbody>
           </table>
       </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-dark text-white">
+        <div class="card-body text-center">
+          <form action="" method="POST" style="margin-top: 3vh;">
+            {% csrf_token %}
+            <div class="form-group">
+              <label>BUSCAR EMPLEADO</label>
+              <div class="input-group">
+                <input type="text" class="form-control" name="search">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-secondary">Buscar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <a href="{% url 'registerEmployee' %}" class="btn btn-secondary mt-3">Crear Empleado</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 {% endblock %}
 
 {% block 'script' %}

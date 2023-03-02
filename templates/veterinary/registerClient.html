@@ -12,12 +12,18 @@
 {% endblock %}
 
 {% block 'content' %}
-<div class="left-menu">
-  <div class="caja1">
-    {% include 'layout/partials/leftmenu.html' %}
-  </div>
-  <div class="caja3">
-    <div class="bg-dark" style="padding:1vw;color:white; height:60vh;">
+<div class="container-fluid" style="background-color: #181818;">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="left-menu">
+        <div class="caja1">
+          {% include 'layout/partials/leftmenu.html' %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="caja3">
+        <div class="container bg-dark">
       <h3> Formulario de Clientes</h3>
       <form method="POST">
         {% csrf_token %}
@@ -26,5 +32,7 @@
       </form>
     </div>
   </div>
+</div>
+</div>
 </div>
 {% endblock %}
