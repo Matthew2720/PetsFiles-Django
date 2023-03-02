@@ -13,27 +13,20 @@
 {% endblock %}
 
 {% block 'content' %}
-<div class="left-menu">
-  <div class="caja1">
-    {% include 'layout/partials/leftmenu.html' %}
-  </div>
-  <div class="caja2">
-    <div style="width: 80%; background-color: rgb(52,58,64);color:white; text-align: center;padding-left: 10px;padding-right: 10px;">
-        <form action="" method="POST" style="margin-top:3vh ;">
-          {% csrf_token %}
-            <label >BUSCAR MASCOTAS</label>
-            <input type="text" class="form-control" name="search">
-            <input type="submit" class="btn btn-secondary" value="Buscar" style="margin-top: 30px ;">
-        </form>
-        <a href=" {% url 'registerClient' %}" class="btn btn-secondary" style="margin-top: 10vh;">Crear Cliente</a>
-        <a href=" {% url 'registerPet' %}" class="btn btn-info" style="margin-top: 10vh;">Crear Mascota</a>
-
-    </div>
-  </div>
-  <div class="caja3">
-    <div class="container">
-        <table class="table table-dark">
-            <tr>
+<div class="container-fluid" style="background-color: #181818;">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="left-menu">
+          <div class="caja1">
+            {% include 'layout/partials/leftmenu.html' %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="table-responsive">
+          <table class="table table-dark">
+            <thead>
+              <tr>
                 <th>Propietario</th>
                 <th>Nombre Mascota</th>
                 <th>Especie</th>
@@ -42,21 +35,42 @@
                 <th></th>
                 <th></th>
               </tr>
-        {% for pet in pets %}
-            <tr>
-                <th>{{pet.client}}</th>
-                <th>{{pet.namePet}}</th>
-                <th>{{pet.species}}</th>
-                <th>{{pet.gender}}</th>
-                <th>{{pet.birthdate}}</th>
-                <th><a href="{% url 'updatePet' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a></th> 
-                <th><button onclick = "borrar('{{pet.id}}')" class="btn btn-danger">Eliminar</button></th> 
-            </tr>
-        {% endfor %}
-        </table>
+            </thead>
+            <tbody>
+              {% for pet in pets %}
+              <tr>
+                <td>{{pet.client}}</td>
+                <td>{{pet.namePet}}</td>
+                <td>{{pet.species}}</td>
+                <td>{{pet.gender}}</td>
+                <td>{{pet.birthdate}}</td>
+                <td><a href="{% url 'updatePet' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a></td> 
+                <td><button onclick="borrar('{{pet.id}}')" class="btn btn-danger">Eliminar</button></td> 
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card bg-dark text-white">
+          <div class="card-body text-center">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <label for="search" class="form-label">BUSCAR MASCOTAS</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" name="search">
+                <button type="submit" class="btn btn-secondary">Buscar</button>
+              </div>
+            </form>
+            <a href="{% url 'registerClient' %}" class="btn btn-secondary mt-3">Crear Cliente</a>
+            <a href="{% url 'registerPet' %}" class="btn btn-info mt-3">Crear Mascota</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+  
 {% endblock %}
 
 {% block 'script' %}

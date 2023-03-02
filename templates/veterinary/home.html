@@ -14,18 +14,23 @@
 {% endblock %}
 
 {% block 'content' %}
-<div class="left-menu">
-  <div class="column-1">
-    <!-- Button trigger modal -->
-<button type="button" style="margin-bottom:20px;" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
-  Agendar cita
-</button>
-    {% include 'layout/partials/leftmenu.html' %}
-  </div>
-  <div class="column-2">
-    <div class="column-2-2">
-      
-      <div id="calendar" class="card bg-dark" style="padding : 25px;margin: 1vw;">
+<div class="container-fluid" style="background-color: #181818;">
+  <div class="row">
+    <div class="col-md-1">
+      <div class="left-menu">
+        <div class="caja1">
+          <!-- Button trigger modal -->
+          <button type="button" style="margin-bottom:20px;" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            Agendar cita
+          </button>
+          {% include 'layout/partials/leftmenu.html' %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-11">
+      <div class="caja3">
+        <div id="calendar" class="card bg-dark" style="padding : 25px;margin: 1vw;">
+        </div>
       </div>
     </div>
   </div>
