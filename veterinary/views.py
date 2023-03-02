@@ -292,3 +292,9 @@ def registerVet(request):
     return render(request, 'veterinary/register.html', context)
 
 # endregion
+
+#region product
+def detailProduct(request):
+    return render(request, 'veterinary/detailProduct.html',{})
+
+#endregion
