@@ -17,7 +17,7 @@
                   <a href="{% url 'home' %}"  class="nav-item nav-link" >Agenda</a>
                   <a href="{% url 'logout' %}" class="nav-item nav-link" >Cerrar Sesion</a>
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Servicios
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -27,11 +27,13 @@
                       <a class="dropdown-item" href="{% url 'registerDate' %}">Citas</a>
                       <a class="dropdown-item" href="#">Clinica</a>
                       <a class="dropdown-item" href="#">Guarderia</a>
-                      <a class="dropdown-item" href="#">Hospitalizacion</a>
                       <a class="dropdown-item" href="#">Peluqueria</a>
                       <a class="dropdown-item" href="{% url 'detailProduct' %}">Inventario</a>
                     </div>
                   </li>
+                  <button type="button" class="btn btn-secondary" style="background-color: #ED6436; border: 1px solid #ED6436;" data-toggle="modal" data-target="#exampleModal">
+                    Agendar cita
+                  </button>
                 </div>
             </div>
         </nav>
