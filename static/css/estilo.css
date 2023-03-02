@@ -106,7 +106,7 @@ h2 {
     height: 95%;
     flex-grow: 1;
     order: 1 ;
-    max-width:12vw ;
+    width: 120px;
 }
 
 .caja2 {
@@ -184,6 +184,9 @@ h2 {
 
 #calendar {
     width: 100%;
+    height: 80vh;
+    overflow-y: hidden;
+
 }
 
 .container {
@@ -198,3 +201,37 @@ h2 {
 a {
     color: white;
 }
+
+/* prueba */
+.container2 {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    background-color: #181818;
+}
+  
+.column-1 {
+flex-grow: 0;
+flex-shrink: 0;
+height: 100%;
+width: 120px;
+}
+
+.column-2 {
+display: flex;
+flex-direction: column;
+flex-grow: 1;
+flex-shrink: 1;
+height: 100%;
+}
+
+.column-2-1 {
+flex-grow: 0.15;
+flex-shrink: 0;
+}
+
+.column-2-2 {
+flex-grow: 1;
+flex-shrink: 1;
+}
+  

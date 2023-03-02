@@ -12,17 +12,62 @@
 {% endblock %}
 
 {% block 'content' %}
+
 <div class="left-menu">
-  <div class="caja1">
+  <div class="caja 1">
+    
     {% include 'layout/partials/leftmenu.html' %}
+
   </div>
-  {% comment %} <div class="caja2">
-    <div>
-
+  <div class="column-2">
+    <div class="column-2-1">
+      <div>
+        <button class="btn btn-success flex"> Crear </button>
+      </div>
     </div>
-  </div> {% endcomment %}
-  <div class="caja3">
+    <div class="column-2-2">
+      <table class="table table-dark">
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Precio</th>
 
+              </tr>
+          </thead>
+          <tbody>
+              {% for product in page_obj %}
+                  <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.cat }}</td>
+                      <td>{{ product.stock }}</td>
+                      <td>{{ product.pvp }}</td>
+
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      <div class="pagination">
+          <span class="step-links">
+              {% if page_obj.has_previous %}
+                  <a href="?page=1">&laquo; Primero</a>
+                  <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+              {% endif %}
+
+              <span class="current-page">
+                  Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+              </span>
+
+              {% if page_obj.has_next %}
+                  <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                  <a href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a>
+              {% endif %}
+          </span>
+        </div>
+    </div>
   </div>
 </div>
 {% endblock %}
@@ -46,25 +91,6 @@
         }
       });
   }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    var calendarUI = document.getElementById('calendar');;
-    var calendar = new FullCalendar.Calendar(calendarUI, {
-      editable:false,
-      eventLimit:true,
-      locale: 'es',
-      events: [
-        {% for date in lista %}
-          {
-        title: " CONSULTORIO {{date.2.0}} ",
-        start: "{{date.0.0}}T{{date.1.0}}",
-        url: '{% url 'index' %}',
-          },
-      {% endfor %}
-          ]
-      });
-  calendar.render();
-    });
 
 </script>
 {% endblock %}

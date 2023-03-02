@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from .forms import VeterinaryForm, UserForm, ClientForm, PetForm, UserFormWithoutPassword, EventForm
-from .models import User, Veterinary, Pet, Client, Events
+from .models import User, Veterinary, Pet, Client, Events,Product
 
 
 def index(request):
@@ -126,8 +127,9 @@ def deletePet(request, id):
 
 @login_required(login_url='login')
 def registerDate(request):
-    veterinaryLogued = request.user.veterinary
-    all_events_query = Events.objects.all()
+    veterinary_logued = request.user.veterinary
+    all_events_query = Events.objects.select_related(
+        'pet__client__veterinary').filter(pet__client__veterinary=veterinary_logued)
     out = []
     for event in all_events_query:
         out.append({
@@ -137,21 +139,11 @@ def registerDate(request):
             'end': event.start.strftime("%Y-%m-%dT%H:%M:%S"),
         })
 
-    if request.method == 'POST':
-        form = EventForm(veterinaryLogued, request.POST)
-        if form.is_valid:
-            form.save()
-            return redirect('home')
-        else:
-            messages.error(
-                request, 'La fecha no puede ser anterior a la actual')
-    else:
-        form = EventForm(veterinaryLogued)
+    form = EventForm(veterinary_logued)
     context = {'form': form, "events": out}
     return render(request, 'veterinary/registerDate.html', context)
 
 # detail event
-
 
 @login_required(login_url='login')
 def home(request):
@@ -295,6 +287,13 @@ def registerVet(request):
 
 #region product
 def detailProduct(request):
-    return render(request, 'veterinary/detailProduct.html',{})
+    products = Product.objects.all().order_by('name')
+    paginator = Paginator(products, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj
+    }
+    return render(request, 'veterinary/detailProduct.html',context)
 
 #endregion
