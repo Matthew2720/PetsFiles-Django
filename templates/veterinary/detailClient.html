@@ -13,16 +13,23 @@
 {% endblock %}
 
 {% block 'content' %}
-<div class="container-fluid" style="background-color: #181818;">
+<div class="container-fluid" style="background-color: #181818; height: 100vh;">
     <div class="row">
-      <div class="col-md-2">
-        <div class="left-menu">
-          <div class="caja1">
-            {% include 'layout/partials/leftmenu.html' %}
-          </div>
+      <div class="col-md-12" style="padding-right: 100px; padding-left: 100px;">
+        <div class="card bg-dark text-white">
+          <div class="card-body text-center">
+          <form action="" method="POST" style="margin-top:3vh ;">
+            {% csrf_token %}
+            <label >BUSCAR CLIENTES</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" name="search">
+              <button type="submit" class="btn btn-secondary">Buscar</button>
+            </div>
+          </form>
+          <a href="{% url 'registerClient' %}" class="btn btn-secondary" style="margin-top: 30px;">Crear Cliente</a>
+          <a href="{% url 'registerPet' %}" class="btn btn-info" style="margin-top: 30px;">Crear Mascota</a>
         </div>
       </div>
-      <div class="col-md-7">
         <div class="table-responsive">
           <table class="table table-dark">
             {% if messages %}
@@ -57,22 +64,6 @@
               {% endfor %}
             </tbody>
           </table>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card bg-dark text-white">
-            <div class="card-body text-center">
-            <form action="" method="POST" style="margin-top:3vh ;">
-              {% csrf_token %}
-              <label >BUSCAR CLIENTES</label>
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" name="search">
-                <button type="submit" class="btn btn-secondary">Buscar</button>
-              </div>
-            </form>
-            <a href="{% url 'registerClient' %}" class="btn btn-secondary" style="margin-top: 30px;">Crear Cliente</a>
-            <a href="{% url 'registerPet' %}" class="btn btn-info" style="margin-top: 30px;">Crear Mascota</a>
-          </div>
         </div>
       </div>
     </div>
