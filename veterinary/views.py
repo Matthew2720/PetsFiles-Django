@@ -184,7 +184,7 @@ def updateDate(request, id):
     else:
         form = EventForm(veterinary_logued, instance=date)
     context = {'form': form}
-    return render(request, 'veterinary/registerDate.html', context)
+    return render(request, 'veterinary/updateDate.html', context)
 
 
 @login_required(login_url='login')

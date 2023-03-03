@@ -17,14 +17,14 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Actualizar producto</h4>
+        <h4 class="modal-title" id="myModalLabel">Actualizar cita</h4>
       </div>
       <div class="modal-body">
         <form method="post" id="update-form">
           {% csrf_token %}
           {{ form.as_p }}
           <input type="submit" class="btn btn-success" value="Actualizar">
-          <a href="{% url 'detailProduct' %}" class="btn btn-danger">Cancelar</a>
+          <a href="{% url 'home' %}" class="btn btn-danger">Cancelar</a>
         </form>
       </div>
     </div>
