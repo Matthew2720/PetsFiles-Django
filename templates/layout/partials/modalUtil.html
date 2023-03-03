@@ -9,14 +9,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <!-- Aquí va el formulario 1 -->
-        {{ form1 }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="show-examplemodal2">Siguiente</button>
-      </div>
+      <form method="POST">
+          <div class="modal-body">
+            {% csrf_token %}
+            {{ form1 }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary" id="show-examplemodal2">Enviar</button>
+          </div>
+      </form>
     </div>
   </div>
 </div>
@@ -31,14 +33,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <!-- Aquí va el formulario 2 -->
-        {{ form2 }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Enviar</button>
-      </div>
+      <form method="POST">
+        <div class="modal-body">
+          {% csrf_token %}
+          {{ form2 }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

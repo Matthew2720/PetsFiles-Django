@@ -21,5 +21,6 @@ urlpatterns = [
     path("eliminar/empleados/<int:id>",views.deleteEmployee,name="deleteEmployee"),
     path("eliminar/mascotas/<int:id>",views.deletePet,name="deletePet"),
     path("support",views.support,name="support"),
-    path("ver/productos",views.detailProduct,name="detailProduct")
+    path("ver/productos",views.detailProduct,name="detailProduct"),
+    path("eliminar/producto/<int:id>",views.deleteProduct,name="deleteProduct"),
 ]

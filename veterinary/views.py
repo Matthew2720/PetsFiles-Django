@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
-from .forms import VeterinaryForm, UserForm, ClientForm, PetForm, UserFormWithoutPassword, EventForm,CategoryForm,ProductForm
+from .forms import VeterinaryForm, UserForm, ClientForm, PetForm, UserFormWithoutPassword, EventForm,CategoryForm,ProductForm,OrderForm
 from .models import User, Veterinary, Pet, Client, Events,Product
 
 
@@ -287,17 +287,25 @@ def registerVet(request):
 # endregion
 
 #region product
+@login_required
 def detailProduct(request):
-    products = Product.objects.filter(name__contains=request.POST.get(
-            'search', '')).order_by('name')
+    products = Product.objects.all()
+    form1 = CategoryForm(request.POST or None)
+    form2 = ProductForm(request.POST or None)
+    order_form = OrderForm(request.GET or None)
+
+    if order_form.is_valid():
+        order_by = order_form.cleaned_data['order_by']
+        if order_by:
+            products = products.order_by(order_by)
+
+    products = products.filter(name__contains=request.POST.get('search', ''))
     paginator = Paginator(products, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    form1 = CategoryForm(request.POST or None)
-    form2 = ProductForm(request.POST or None)
-    
+
     if request.method == 'POST':
-        if form1.is_valid():
+        if form1.is_valid() and request.POST.get('desc') != None:
             form1.save()
             messages.success(request,"Categoria agregada")
             return HttpResponseRedirect(request.path_info)
@@ -307,11 +315,17 @@ def detailProduct(request):
             return HttpResponseRedirect(request.path_info)
 
     context = {
-        'form2': form2,
         'form1': form1,
+        'form2': form2,
+        'order_form': order_form,
         'page_obj': page_obj,
     }
 
-    return render(request, 'veterinary/detailProduct.html',context)
+    return render(request, 'veterinary/detailProduct.html', context)
 
+@login_required(login_url='login')
+def deleteProduct(request, id):
+    product = Product.objects.get(id=id)
+    product.delete()
+    return redirect('detailProduct')
 #endregion

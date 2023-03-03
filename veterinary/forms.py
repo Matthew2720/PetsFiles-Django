@@ -1,5 +1,5 @@
 from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput
-from django.forms import HiddenInput,DateInput,DateTimeInput,NumberInput
+from django.forms import HiddenInput,DateInput,DateTimeInput,NumberInput,ChoiceField,Form
 from .models import *
 
 class DateTimePickerInput(DateTimeInput):
@@ -165,8 +165,32 @@ class CategoryForm(ModelForm):
             'name': 'Nombre',
             'desc': 'Descripcion'
         }
+        
+
+class OrderForm(Form):
+    ORDER_CHOICES = (
+        ('name', 'Nombre Ascendente'),
+        ('-name', 'Nombre Descendente'),
+        ('cat__name', 'Categoría Ascendente'),
+        ('-cat__name', 'Categoría Descendente'),
+        ('stock', 'Stock Ascendente'),
+        ('-stock', 'Stock Descendente'),
+        ('pvp', 'Precio Ascendente'),
+        ('-pvp', 'Precio Descendente'),
+    )
+    
+    order_by = ChoiceField(choices=ORDER_CHOICES, required=False,label='Ordenar por')
+
 
 class ProductForm(ModelForm):
+    order_choices = (
+        ('name', 'Nombre'),
+        ('cat', 'Categoría'),
+        ('stock', 'Stock'),
+        ('pvp', 'Precio de venta'),
+    )
+    order_by = ChoiceField(choices=order_choices, required=False, label='Ordenar por')
+
     class Meta:
         model = Product
         fields = ['name', 'cat', 'stock', 'pvp']
