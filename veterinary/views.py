@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
-from .forms import VeterinaryForm, UserForm, ClientForm, PetForm, UserFormWithoutPassword, EventForm
+from .forms import VeterinaryForm, UserForm, ClientForm, PetForm, UserFormWithoutPassword, EventForm,CategoryForm,ProductForm
 from .models import User, Veterinary, Pet, Client, Events,Product
 
 
@@ -291,9 +292,41 @@ def detailProduct(request):
     paginator = Paginator(products, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {
-        'page_obj': page_obj
+    form1 = CategoryForm(request.POST or None)
+    form2 = ProductForm(request.POST or None)
+    
+    if request.method == 'POST':
+        if form1.is_valid():
+            form1.save()
+            messages.success(request,"Categoria agregada")
+            return HttpResponseRedirect(request.path_info)
+        elif form2.is_valid():
+            form2.save()
+            messages.success(request,"Producto agregado")
+            return HttpResponseRedirect(request.path_info)
+
+    modal_data1 = {
+        'modal_id': 'myModal1',
+        'modal_title': 'Formulario 1',
+        'btn_submit_text': 'Guardar Cambios',
+        'btn_cancel_text': 'Cerrar',
+        'form': form1,
     }
+
+    modal_data2 = {
+        'modal_id': 'myModal2',
+        'modal_title': 'Formulario 2',
+        'btn_submit_text': 'Guardar Cambios',
+        'btn_cancel_text': 'Cerrar',
+        'form': form2,
+    }
+
+    context = {
+        'modal_data1': modal_data1,
+        'modal_data2': modal_data2,
+        'page_obj': page_obj,
+    }
+
     return render(request, 'veterinary/detailProduct.html',context)
 
 #endregion
