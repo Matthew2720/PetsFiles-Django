@@ -9,6 +9,7 @@
 
 {% block 'header' %}
 {% include 'layout/partials/headerbase.html' %}
+{% include 'layout/partials/modalUtil.html' %}
 {% endblock %}
 
 {% block 'content' %}
@@ -25,7 +26,12 @@
                 <button type="submit" class="btn btn-secondary">Buscar</button>
               </div>
             </form>
-            <a href="{% url 'registerClient' %}" class="btn btn-secondary">Crear Producto</a>
+            <button type="button" class="btn btn-secondary" style="background-color: #ED6436; border: 1px solid #ED6436;" data-toggle="modal" data-target="#exampleModal">
+              Crear categoría
+            </button>
+            <button type="button" class="btn btn-secondary" style="background-color: #ED6436; border: 1px solid #ED6436;" data-toggle="modal" data-target="#exampleModal2">
+              Crear producto
+            </button>
           </div>
        
       </div>
@@ -106,5 +112,16 @@
       });
   }
 
+</script>
+<script>
+  $(document).ready(function() {
+    $('#examplemodal').modal('show'); // Muestra el primer modal al cargar la página
+
+    // Abre el segundo modal cuando se hace clic en el botón "Siguiente"
+    $('#show-examplemodal2').click(function() {
+      $('#examplemodal').modal('hide'); // Oculta el primer modal
+      $('#examplemodal2').modal('show'); // Muestra el segundo modal
+    });
+  });
 </script>
 {% endblock %}

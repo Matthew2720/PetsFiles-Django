@@ -305,25 +305,9 @@ def detailProduct(request):
             messages.success(request,"Producto agregado")
             return HttpResponseRedirect(request.path_info)
 
-    modal_data1 = {
-        'modal_id': 'myModal1',
-        'modal_title': 'Formulario 1',
-        'btn_submit_text': 'Guardar Cambios',
-        'btn_cancel_text': 'Cerrar',
-        'form': form1,
-    }
-
-    modal_data2 = {
-        'modal_id': 'myModal2',
-        'modal_title': 'Formulario 2',
-        'btn_submit_text': 'Guardar Cambios',
-        'btn_cancel_text': 'Cerrar',
-        'form': form2,
-    }
-
     context = {
-        'modal_data1': modal_data1,
-        'modal_data2': modal_data2,
+        'form2': form2,
+        'form1': form1,
         'page_obj': page_obj,
     }
 
