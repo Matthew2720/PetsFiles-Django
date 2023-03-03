@@ -183,14 +183,6 @@ class OrderForm(Form):
 
 
 class ProductForm(ModelForm):
-    order_choices = (
-        ('name', 'Nombre'),
-        ('cat', 'Categoría'),
-        ('stock', 'Stock'),
-        ('pvp', 'Precio de venta'),
-    )
-    order_by = ChoiceField(choices=order_choices, required=False, label='Ordenar por')
-
     class Meta:
         model = Product
         fields = ['name', 'cat', 'stock', 'pvp']

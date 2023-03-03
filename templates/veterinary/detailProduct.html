@@ -134,7 +134,7 @@
           break;
      
         case "update":
-            location.href = "/actualizar/cita/" + id;
+            location.href = "/actualizar/producto/" + id;
           break;
      
         default:
@@ -143,16 +143,5 @@
     });
   }
 
-</script>
-<script>
-  $(document).ready(function() {
-    $('#examplemodal').modal('show'); // Muestra el primer modal al cargar la página
-
-    // Abre el segundo modal cuando se hace clic en el botón "Siguiente"
-    $('#show-examplemodal2').click(function() {
-      $('#examplemodal').modal('hide'); // Oculta el primer modal
-      $('#examplemodal2').modal('show'); // Muestra el segundo modal
-    });
-  });
 </script>
 {% endblock %}

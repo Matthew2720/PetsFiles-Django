@@ -23,4 +23,5 @@ urlpatterns = [
     path("support",views.support,name="support"),
     path("ver/productos",views.detailProduct,name="detailProduct"),
     path("eliminar/producto/<int:id>",views.deleteProduct,name="deleteProduct"),
+    path("actualizar/producto/<int:id>",views.updateProduct,name="updateProduct"),
 ]

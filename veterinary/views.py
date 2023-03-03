@@ -328,4 +328,19 @@ def deleteProduct(request, id):
     product = Product.objects.get(id=id)
     product.delete()
     return redirect('detailProduct')
+
+@login_required(login_url='login')
+def updateProduct(request,id):
+    # veterinary_logued = request.user.veterinary
+    product = Product.objects.get(id=id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('detailProduct')
+    else:
+        form = ProductForm(instance=product)
+    context = {'form': form}
+    return render(request, 'veterinary/updateProduct.html', context)
+
 #endregion
