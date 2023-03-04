@@ -20,42 +20,20 @@ def support(request):
 
 @login_required(login_url='login')
 def detailClient(request):
-    veterinary = request.user.veterinary
-    form = ClientForm(veterinary, initial={'veterinary': veterinary})
+    VeterinaryLogued = request.user.veterinary
+    form = ClientForm(initial={'veterinary': VeterinaryLogued})
     if request.method == 'POST':
-        clients = Client.objects.filter(name__contains=request.POST.get('search', ''), veterinary=veterinary)
-        form = ClientForm(request.POST, initial={'veterinary': veterinary})
-        if form.is_valid():
-            try:
-                client = form.save(commit=False)
-                client.veterinary = veterinary
-                client.save()
-                print("________________________________________________")
-                print(veterinary)
-
-                
-                # Validar que el email y documento sean únicos para la veterinaria
-                email = form.cleaned_data.get('email')
-                identification = form.cleaned_data.get('identification')
-                
-                if Client.objects.filter(veterinary=veterinary, email=email).exists():
-                    raise ValidationError('El correo ya está registrado en la veterinaria.')
-                
-                if Client.objects.filter(veterinary=veterinary, identification=identification).exists():
-                    raise ValidationError('El número de documento ya está registrado en la veterinaria.')
-                    
-                client.save()
-            except Exception as e:
-                print(traceback.format_exc())
-                messages.error(request, 'Error al guardar el cliente.')
-        else:
-            print(form.errors)
-            messages.error(request, 'Error al guardar el cliente.')
-
+        clients = Client.objects.filter(name__contains=request.POST.get(
+            'search', ''), veterinary=VeterinaryLogued)
+        formClient = ClientForm(request.POST, initial={'veterinary': VeterinaryLogued})
+        if formClient.is_valid():
+            client = formClient.save(commit=False)
+            client.veterinary = VeterinaryLogued
+            client.save()
+            return redirect('detailClient')
     else:
-        clients = Client.objects.filter(veterinary=veterinary)
-
-    context = {'clients': clients, 'form': form}
+        clients = Client.objects.filter(veterinary=VeterinaryLogued)
+    context = {'clients': clients, 'form':form}
     return render(request, 'veterinary/detailClient.html', context)
 
 @login_required(login_url='login')

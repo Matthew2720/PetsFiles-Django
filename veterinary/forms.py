@@ -67,13 +67,12 @@ class ClientForm(ModelForm):
 
     class Meta:
         model = Client
-        # exclude = ('veterinary',)
         fields = '__all__'
         widgets = {
             'veterinary': HiddenInput(attrs={'class':'form-control form-input'}),
             'name':TextInput(attrs={'class':'form-control form-input'}),
             'last_name':TextInput(attrs={'class':'form-control form-input'}),
-            'identification':TextInput(attrs={'class':'form-control form-input'}),
+            'document':TextInput(attrs={'class':'form-control form-input'}),
             'email':EmailInput(attrs={'class':'form-control form-input'}),
             'phone':TextInput(attrs={'class':'form-control form-input'}),
         }
@@ -83,7 +82,7 @@ class ClientForm(ModelForm):
             'last_name':'Apellidos',
             'email':'Email',
             'phone':'Telefono',
-            'identification':'Cedula'
+            'document':'Cedula'
         }
 
 class PetForm(ModelForm):
