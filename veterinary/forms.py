@@ -198,5 +198,22 @@ class ProductForm(ModelForm):
             'pvp': NumberInput(attrs={'class': 'form-control'}),
         }
 
+#Cambios
+class SaleForm(forms.ModelForm):
+    class Meta:
+        model = Sale
+        fields = ['client_name', 'client_phone', 'client_email']
+
+class DetSaleForm(forms.ModelForm):
+    class Meta:
+        model = DetSale
+        fields = ['product', 'quantity', 'price']
+
+DetSaleFormSet = forms.modelformset_factory(
+    DetSale,
+    form=DetSaleForm,
+    extra=1,  # número mínimo de instancias
+    can_delete=True,  # permitir borrar instancias
+)
 
 

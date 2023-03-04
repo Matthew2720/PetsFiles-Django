@@ -68,11 +68,6 @@ class Events(models.Model):
     room = models.CharField(max_length=15,null=False)
     is_active = models.BooleanField(default = True)
 
-    # def clean(self):
-    #     if self.start < datetime.now():
-    #         raise ValidationError ('No puede ser menor a la fecha actual')
-    #     return super().clean()
-
     @property
     def client_name(self):
         return self.pet.client.name
