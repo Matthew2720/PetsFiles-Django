@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404
-import traceback
 from django.http import HttpResponseRedirect
-from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
@@ -20,20 +19,24 @@ def support(request):
 
 @login_required(login_url='login')
 def detailClient(request):
-    VeterinaryLogued = request.user.veterinary
-    form = ClientForm(initial={'veterinary': VeterinaryLogued})
+    veterinaryLogued = request.user.veterinary
+    form = ClientForm(initial={'veterinary': veterinaryLogued})
     if request.method == 'POST':
-        clients = Client.objects.filter(name__contains=request.POST.get(
-            'search', ''), veterinary=VeterinaryLogued)
-        formClient = ClientForm(request.POST, initial={'veterinary': VeterinaryLogued})
-        if formClient.is_valid():
-            client = formClient.save(commit=False)
-            client.veterinary = VeterinaryLogued
-            client.save()
-            return redirect('detailClient')
+        search_query = request.POST.get('search', '')
+        clients = Client.objects.filter(name__contains=search_query, veterinary=veterinaryLogued)
+        form_client = ClientForm(request.POST)
+        if form_client.is_valid():
+            document = form_client.cleaned_data['document']
+            email = form_client.cleaned_data['email']
+            if Client.objects.filter(Q(document=document) | Q(email=email)).exists():
+                messages.error(request, 'Ya existe un cliente con el mismo documento o correo electrónico.')
+            else:
+                form_client.save()
+                messages.success(request, 'Cliente creado correctamente.')
+                return redirect('detailClient')
     else:
-        clients = Client.objects.filter(veterinary=VeterinaryLogued)
-    context = {'clients': clients, 'form':form}
+        clients = Client.objects.filter(veterinary=veterinaryLogued)
+    context = {'clients': clients, 'form': form}
     return render(request, 'veterinary/detailClient.html', context)
 
 @login_required(login_url='login')
@@ -42,13 +45,23 @@ def updateClient(request, id):
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
         if form.is_valid():
-            form.save()
-            return redirect(detailClient)
+            identification = form.cleaned_data['document']
+            email = form.cleaned_data['email']
+            existing_client_identification = Client.objects.filter(document=identification).exclude(id=id).exists()
+            existing_client_email = Client.objects.filter(email=email).exclude(id=id).exists()
+            if existing_client_identification:
+                messages.error(request, 'El documento ya existe')
+                return render(request, 'veterinary/updateClient.html', {'form': form})
+            elif existing_client_email:
+                messages.error(request, 'El email ya existe')
+                return render(request, 'veterinary/updateClient.html', {'form': form})
+            else:
+                form.save()
+                return redirect(detailClient)
     else:
         form = ClientForm(instance=client)
     context = {'form': form}
     return render(request, 'veterinary/updateClient.html', context)
-
 
 @login_required(login_url='login')
 def deleteClient(request, id):
