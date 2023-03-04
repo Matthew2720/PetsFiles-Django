@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
+import traceback
 from django.http import HttpResponseRedirect
+from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
@@ -16,34 +18,45 @@ def support(request):
 
 # region client
 
-
-@login_required(login_url='login')
-def registerClient(request):
-    VeterinaryLogued = request.user.veterinary
-    if request.method == 'POST':
-        formClient = ClientForm(request.POST)
-        if formClient.is_valid:
-            formClient.save()
-            return redirect('detailClient')
-    else:
-        formClient = ClientForm(initial={'veterinary': VeterinaryLogued})
-        context = {
-            'formClient': formClient
-        }
-        return render(request, 'veterinary/registerClient.html', context)
-
-
 @login_required(login_url='login')
 def detailClient(request):
-    VeterinaryLogued = request.user.veterinary
+    veterinary = request.user.veterinary
+    form = ClientForm(veterinary, initial={'veterinary': veterinary})
     if request.method == 'POST':
-        clients = Client.objects.filter(name__contains=request.POST.get(
-            'search', ''), veterinary=VeterinaryLogued)
-    else:
-        clients = Client.objects.filter(veterinary=VeterinaryLogued)
-    context = {'clients': clients}
-    return render(request, 'veterinary/detailClient.html', context)
+        clients = Client.objects.filter(name__contains=request.POST.get('search', ''), veterinary=veterinary)
+        form = ClientForm(request.POST, initial={'veterinary': veterinary})
+        if form.is_valid():
+            try:
+                client = form.save(commit=False)
+                client.veterinary = veterinary
+                client.save()
+                print("________________________________________________")
+                print(veterinary)
 
+                
+                # Validar que el email y documento sean únicos para la veterinaria
+                email = form.cleaned_data.get('email')
+                identification = form.cleaned_data.get('identification')
+                
+                if Client.objects.filter(veterinary=veterinary, email=email).exists():
+                    raise ValidationError('El correo ya está registrado en la veterinaria.')
+                
+                if Client.objects.filter(veterinary=veterinary, identification=identification).exists():
+                    raise ValidationError('El número de documento ya está registrado en la veterinaria.')
+                    
+                client.save()
+            except Exception as e:
+                print(traceback.format_exc())
+                messages.error(request, 'Error al guardar el cliente.')
+        else:
+            print(form.errors)
+            messages.error(request, 'Error al guardar el cliente.')
+
+    else:
+        clients = Client.objects.filter(veterinary=veterinary)
+
+    context = {'clients': clients, 'form': form}
+    return render(request, 'veterinary/detailClient.html', context)
 
 @login_required(login_url='login')
 def updateClient(request, id):
@@ -55,8 +68,8 @@ def updateClient(request, id):
             return redirect(detailClient)
     else:
         form = ClientForm(instance=client)
-    context = {'formClient': form}
-    return render(request, 'veterinary/registerClient.html', context)
+    context = {'form': form}
+    return render(request, 'veterinary/updateClient.html', context)
 
 
 @login_required(login_url='login')

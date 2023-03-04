@@ -4,6 +4,7 @@ from datetime import datetime
 from django.forms import model_to_dict
 from PetsFiles.settings import MEDIA_URL, STATIC_URL
 from django.conf import settings
+import uuid
 
 
 # Modelos MER.
@@ -30,15 +31,19 @@ class User(AbstractUser):
 #EndUserModel
     
 class Client(models.Model):
-    veterinary = models.ForeignKey(Veterinary, on_delete= models.PROTECT ,blank=True,null=True)
-    name = models.CharField(max_length=50,blank=False,null=False)
-    last_name = models.CharField(max_length=50,blank=False,null=False)
-    identification = models.CharField(max_length=50,blank=True,null=True)
-    email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=15,blank=True,null=True)
-    
+    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=False, null=False)
+    last_name = models.CharField(max_length=50, blank=False, null=False)
+    document = models.CharField(max_length=20, unique=False, blank=True, null=True)
+    email = models.EmailField(max_length=254, unique=False, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    global_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+
     def __str__(self):
         return self.name
+
+    class Meta:
+        unique_together = ('document', 'email', 'veterinary')
     
 class Pet(models.Model):
     client = models.ForeignKey(Client, on_delete= models.PROTECT)
