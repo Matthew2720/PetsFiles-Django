@@ -14,8 +14,11 @@ from .forms import (
     CategoryForm,
     ProductForm,
     OrderForm,
+    SaleForm,
+    DetSaleForm, SaleFormSet
 )
-from .models import User, Veterinary, Pet, Client, Events, Product
+from django.forms import modelformset_factory
+from .models import User, Veterinary, Pet, Client, Events, Product,Sale,DetSale
 
 
 def index(request):
@@ -404,3 +407,38 @@ def updateProduct(request, id):
 
 
 # endregion
+
+#region sale
+
+@login_required(login_url="login")
+def sale_list(request):
+    sales = Sale.objects.filter(created_by=request.user)
+    return render(request, 'veterinary/sale_list.html', {'sales': sales})
+
+@login_required(login_url="login")
+def create_sale(request):
+    if request.method == 'POST':
+        sale_form = SaleForm(request.POST)
+        det_sale_formset = SaleFormSet(request.POST, queryset=DetSale.objects.none())
+
+        if sale_form.is_valid() and det_sale_formset.is_valid():
+            sale = sale_form.save()
+
+            det_sale_instances = det_sale_formset.save(commit=False)
+            for det_sale_instance in det_sale_instances:
+                det_sale_instance.sale = sale
+                det_sale_instance.save()
+
+            return redirect('sale_list')
+
+    else:
+        sale_form = SaleForm()
+        det_sale_formset = SaleFormSet(queryset=DetSale.objects.none())
+
+    context = {
+        'sale_form': sale_form,
+        'det_sale_formset': det_sale_formset,
+    }
+    return render(request, 'veterinary/create_sale.html', context)
+
+#endregion

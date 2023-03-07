@@ -1,0 +1,52 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Actualizar producto{% endblock %}
+
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block 'content' %}
+  <div class="container mt-4">
+    <h2>Lista de Ventas</h2>
+    <hr>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Número de Factura</th>
+            <th>Cliente</th>
+            <th>Total</th>
+            <th>Fecha de Creación</th>
+            <th>Creado por</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sale in sales %}
+            <tr>
+              <td>{{ sale.invoice_number }}</td>
+              <td>{{ sale.client }}</td>
+              <td>{{ sale.total }}</td>
+              <td>{{ sale.created_date }}</td>
+              <td>{{ sale.created_by }}</td>
+              <td>
+                <a href="#" class="btn btn-primary btn-sm">Ver</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="6">No hay ventas registradas.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Actualizar producto{% endblock %}
+
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="container-md">
+    <div class="table-responsive-md">
+        <form method="post">
+            {% csrf_token %}
+            {{ sale_form.as_table }}
+
+            {{ det_sale_formset.management_form }}
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="formset_table">
+                    {% for form in det_sale_formset %}
+                    <tr class="formset_row">
+                        {{ form.as_table }}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-end mb-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-success" id="add_product_btn">Agregar producto</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block 'script' %}
+<script>
+    $(document).ready(function() {
+        var form_count = {{ det_sale_formset.total_form_count }};
+
+        $('#add_product_btn').click(function() {
+            var form_template = $('#formset_table').find('.formset_row:last').clone(true);
+            form_template.find('input, select').each(function() {
+                var id_regex = /id_(\d|__prefix__)-/;
+                var id_replace = 'id_' + form_count + '-';
+                var name_regex = /(\d|__prefix__)/g;
+                var name_replace = form_count;
+                $(this).attr({
+                    'id': $(this).attr('id').replace(id_regex, 'id_' + form_count + '-'),
+                    'name': $(this).attr('name').replace(name_regex, name_replace),
+                    'value': ''
+                });
+            });
+            form_template.find('label').each(function() {
+                var for_attr = $(this).attr('for');
+                $(this).attr('for', for_attr.replace(id_regex, 'id_' + form_count + '-'));
+            });
+            form_template.appendTo($('#formset_table'));
+            form_count++;
+        });
+    });
+</script>
+{% endblock %}

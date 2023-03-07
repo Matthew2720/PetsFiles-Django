@@ -1,5 +1,8 @@
-from django.forms import ModelForm,TextInput,EmailInput,Select,PasswordInput
+from django.forms import ModelForm, TextInput, EmailInput, Select, PasswordInput, CharField, DecimalField, \
+    inlineformset_factory
 from django.forms import HiddenInput,DateInput,DateTimeInput,NumberInput,ChoiceField,Form
+from xdg.Exceptions import ValidationError
+
 from .models import *
 
 class DateTimePickerInput(DateTimeInput):
@@ -198,22 +201,47 @@ class ProductForm(ModelForm):
             'pvp': NumberInput(attrs={'class': 'form-control'}),
         }
 
-#Cambios
-#class SaleForm(forms.ModelForm):
-#    class Meta:
-#        model = Sale
-#        fields = ['client_name', 'client_phone', 'client_email']
 
-#class DetSaleForm(forms.ModelForm):
-#    class Meta:
-#        model = DetSale
-#        fields = ['product', 'quantity', 'price']
+class SaleForm(ModelForm):
+    client_document = CharField(max_length=20, required=True, label='Cliente (documento)', widget=TextInput(attrs={'class': 'form-control', 'autocomplete': 'off'}))
+    sub_total = DecimalField(max_digits=8, decimal_places=2, required=True, label='Subtotal', widget=NumberInput(attrs={'class': 'form-control', 'step': '0.01'}))
+    iva = DecimalField(max_digits=8, decimal_places=2, required=True, label='IVA', widget=NumberInput(attrs={'class': 'form-control', 'step': '0.01'}))
+    total = DecimalField(max_digits=8, decimal_places=2, required=True, label='Total', widget=NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'readonly': False}))
 
-#DetSaleFormSet = forms.modelformset_factory(
-#    DetSale,
-#    form=DetSaleForm,
-#    extra=1,  # número mínimo de instancias
-#    can_delete=True,  # permitir borrar instancias
-#)
+    class Meta:
+        model = Sale
+        exclude = ['client']
+
+    def clean_client_document(self):
+        client_document = self.cleaned_data.get('client_document')
+        try:
+            client = Client.objects.get(document=client_document)
+        except Client.DoesNotExist:
+            raise ValidationError("El cliente no existe.")
+        return client_document
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.client = Client.objects.get(document=self.cleaned_data['client_document'])
+        if commit:
+            instance.save()
+        return instance
 
 
+
+class DetSaleForm(ModelForm):
+    class Meta:
+        model = DetSale
+        fields = ['product', 'quantity', 'price']
+        widgets = {
+            'product': Select(attrs={'class': 'form-control'}),
+            'quantity': NumberInput(attrs={'class': 'form-control'}),
+            'price': NumberInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['product'].queryset = Product.objects.all()
+
+
+SaleFormSet = inlineformset_factory(Sale, DetSale, form=DetSaleForm, extra=1)
