@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/layout/base2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/veterinary/create_sale2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/veterinary/create_sale.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/create_sale.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/estilo.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/layout/partials/headerbase.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/partials/headerbase.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/veterinary/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/veterinary/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +57,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/mateo/PetsFiles-Django",
+    "last_opened_file_path": "/home/mateo/PetsFiles-Django/templates/layout",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -59,6 +67,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/layout" />
+      <recent name="$PROJECT_DIR$/templates/veterinary" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="PetsFiles-Django" type="Python.DjangoServer" factoryName="Django server">
       <module name="PetsFiles-Django" />
@@ -114,7 +128,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="errores" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
@@ -125,16 +139,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/veterinary/views.py</url>
-          <line>441</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

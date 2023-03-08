@@ -209,48 +209,65 @@ class ProductForm(ModelForm):
 
 
 class SaleForm(ModelForm):
-    client_document = CharField(max_length=20, required=True, label='Cliente (documento)',
-                                widget=TextInput(attrs={'class': 'form-control', 'autocomplete': 'off'}))
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = Sale
-        exclude = ['client', 'created_by', 'total']
-
-    def clean_client_document(self):
-        client_document = self.cleaned_data.get('client_document')
-        try:
-            client = Client.objects.get(document=client_document)
-        except Client.DoesNotExist:
-            raise ValidationError("El cliente no existe.")
-        return client_document
-
-    def save(self, commit=True):
-        instance = super().save(commit=False)
-        instance.client = Client.objects.get(document=self.cleaned_data['client_document'])
-        if commit:
-            instance.save()
-        return instance
+        fields = '__all__'
+        widgets = {
+            'cli': Select(attrs={
+                'class': 'form-control select2',
+                'style': 'width: 100%'
+            }),
+            'date_joined': DateInput(
+                format='%Y-%m-%d',
+                attrs={
+                    'value': datetime.now().strftime('%Y-%m-%d'),
+                    'autocomplete': 'off',
+                    'class': 'form-control datetimepicker-input',
+                    'id': 'date_joined',
+                    'data-target': '#date_joined',
+                    'data-toggle': 'datetimepicker'
+                }
+            ),
+            'iva': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'subtotal': TextInput(attrs={
+                'readonly': True,
+                'class': 'form-control',
+            }),
+            'total': TextInput(attrs={
+                'readonly': True,
+                'class': 'form-control',
+            })
+        }
 
 
 class DetSaleForm(ModelForm):
-    iva = DecimalField(max_digits=8, decimal_places=2, label='IVA',
-                       widget=NumberInput(attrs={'class': 'form-control', 'step': '0.01' , 'name': 'iva'}))
-    subtotal = DecimalField(max_digits=10, decimal_places=2, label='Subtotal',
-                            widget=NumberInput(attrs={'class': 'form-control', 'readonly': True, 'name': 'subtotal'}))
-    pvp = DecimalField(max_digits=10, decimal_places=2, label='Precio',
-                       widget=NumberInput(attrs={'class': 'form-control', 'readonly': True, 'name': 'pvp'}))
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     class Meta:
         model = DetSale
-        fields = ['product', 'quantity']
-
+        fields = '__all__'
         widgets = {
-            'product': Select(attrs={'class': 'form-control', 'onChange': 'update_price()', 'name': 'product'}),
-            'quantity': NumberInput(attrs={'class': 'form-control', 'min': 1 , 'name': 'quantity'}),
+            'sale': HiddenInput(attrs={
+                'class': 'form-control',
+            }),
+            'prod': Select(attrs={
+                'class': 'form-control select2',
+                'style': 'width: 100%'
+            }),
+            'price': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'cant': TextInput(attrs={
+                'class': 'form-control',
+            }),
+            'subtotal': TextInput(attrs={
+                'readonly': True,
+                'class': 'form-control',
+            }),
         }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['product'].queryset = Product.objects.all()
-
-
-SaleFormSet = inlineformset_factory(Sale, DetSale, form=DetSaleForm, extra=8)

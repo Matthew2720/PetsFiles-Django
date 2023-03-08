@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.db.models import Q
-from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.db.models import Q
+from django.db import transaction
+from django.forms import formset_factory
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+
 from .forms import (
     VeterinaryForm,
     UserForm,
@@ -15,10 +18,9 @@ from .forms import (
     ProductForm,
     OrderForm,
     SaleForm,
-    DetSaleForm, SaleFormSet
+    DetSaleForm,
 )
-from django.forms import modelformset_factory
-from .models import User, Veterinary, Pet, Client, Events, Product,Sale,DetSale
+from .models import User, Veterinary, Pet, Client, Events, Product
 
 
 def index(request):
@@ -126,8 +128,6 @@ def detailPet(request):
     return render(request, "veterinary/detailPet.html", context)
 
 
-
-
 @login_required(login_url="login")
 def updatePet(request, id):
     veterinary_logued = request.user.veterinary
@@ -197,10 +197,10 @@ def home(request):
         out.append(
             {
                 "title": f"{event.pet}"
-                + "|"
-                + f"{event.client_name}"
-                + "|"
-                + f"{event.name}",
+                         + "|"
+                         + f"{event.client_name}"
+                         + "|"
+                         + f"{event.name}",
                 "id": event.id,
                 "start": event.start.strftime("%Y-%m-%dT%H:%M:%S"),
                 "end": event.start.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -258,10 +258,10 @@ def registerEmployee(request):
         user.groups.add(request.POST["groups"])
         # Si el grupo seleccionado es "Medico Veterinario"
         if (
-            request.POST["groups"] == "4"
-            or request.POST["groups"] == "3"
-            or request.POST["groups"] == 3
-            or request.POST["groups"] == 4
+                request.POST["groups"] == "4"
+                or request.POST["groups"] == "3"
+                or request.POST["groups"] == 3
+                or request.POST["groups"] == 4
         ):
             user.is_doctor = True
             user.save()
@@ -408,37 +408,45 @@ def updateProduct(request, id):
 
 # endregion
 
-#region sale
-
-@login_required(login_url="login")
-def sale_list(request):
-    sales = Sale.objects.filter(created_by=request.user)
-    return render(request, 'veterinary/sale_list.html', {'sales': sales})
-
-@login_required(login_url="login")
 def create_sale(request):
+    DetSaleFormSet = formset_factory(DetSaleForm, extra=1)
+
     if request.method == 'POST':
         sale_form = SaleForm(request.POST)
-        det_sale_formset = SaleFormSet(request.POST, queryset=DetSale.objects.none())
+        det_formset = DetSaleFormSet(request.POST)
 
-        if sale_form.is_valid() and det_sale_formset.is_valid():
-            sale = sale_form.save()
+        if sale_form.is_valid() and det_formset.is_valid():
+            with transaction.atomic():
+                # guardar la venta
+                sale = sale_form.save()
 
-            det_sale_instances = det_sale_formset.save(commit=False)
-            for det_sale_instance in det_sale_instances:
-                det_sale_instance.sale = sale
-                det_sale_instance.save()
+                # guardar los detalles de la venta
+                for det_form in det_formset:
+                    det = det_form.save(commit=False)
+                    det.sale = sale
+                    det.save()
+
+                # Actualizar la venta con el total
+                sale.total = sale.subtotal * (1 + sale.iva / 100)
+                sale.save()
 
             return redirect('sale_list')
-
+        else:
+            print(det_formset.errors)
+            print(sale_form.errors.get_json_data().values())
+            context = {
+                'sale_form': sale_form,
+                'det_formset': det_formset,
+                'errors': list(sale_form.errors.get_json_data().values()) + det_formset.errors,
+            }
     else:
         sale_form = SaleForm()
-        det_sale_formset = SaleFormSet(queryset=DetSale.objects.none())
+        det_formset = DetSaleFormSet()
+        context = {
+            'sale_form': sale_form,
+            'det_formset': det_formset,
+        }
 
-    context = {
-        'sale_form': sale_form,
-        'det_sale_formset': det_sale_formset,
-    }
-    return render(request, 'veterinary/create_sale.html', context)
+    return render(request, 'veterinary/create_sale2.html', context)
 
-#endregion
+

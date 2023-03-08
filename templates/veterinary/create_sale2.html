@@ -1,0 +1,135 @@
+{% extends 'layout/base2.html' %}
+
+{% block title %}Crear Venta{% endblock %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+{% block header %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container-md">
+    <div class="table-responsive-md">
+        {% if errors %}
+          <ul class="errors">
+            {% for field_errors in errors %}
+              {% for error in field_errors %}
+                <li>{{ error.message }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+
+        <form method="POST">
+          {% csrf_token %}
+          <table>
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-md-9">{{ sale_form.cli }}</td>
+                <td class="col-md-3">{{ sale_form.date_joined }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <form method="POST">
+            {% csrf_token %}
+            <table>
+              <thead>
+                  <tr>
+                      <th>Producto</th>
+                      <th>Precio</th>
+                      <th>Cantidad</th>
+                      <th>Subtotal</th>
+                      <th>Eliminar</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {{ det_formset.management_form }}
+                {% for det_form in det_formset %}
+                    <tr class="formset_row">
+                        <td> {{ det_form.prod  }}</td>
+                        <td>{{ det_form.price }}</td>
+                        <td>{{ det_form.cant }}</td>
+                        <td>{{ det_form.subtotal }}
+                        <td><button type="button" class="btn btn-danger btn-sm remove-form-row">Eliminar</button></td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          <button type="submit" class="btn btn-success btn-sm">Agregar producto</button>
+          <div class="table-responsive-md float-end" style="margin-top: 50px;">
+            <table>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td class="text-right font-weight-bold">Subtotal:</td>
+                  <td>{{ sale_form.subtotal }}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td class="text-right font-weight-bold">IVA:</td>
+                  <td>{{ sale_form.iva }}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td class="text-right font-weight-bold">Total:</td>
+                  <td>{{ sale_form.total }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </form>
+        </form>
+            <!-- Botón para agregar un nuevo formulario -->
+        <button id="add-det-sale-form" type="button" class="btn btn-primary">
+            Agregar producto
+        </button>
+
+        <!-- Plantilla de formulario de detalle de venta -->
+        <div id="det-sale-form-template" style="display: none">
+            {{ det_formset.empty_form.as_p }}
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var form_count = {{ det_formset.total_form_count }};
+
+        $('.add-form-row').click(function() {
+            var new_form = $('.formset_row').clone();
+            new_form.find(':input').val('');
+            new_form.find('input[id$="-prod"]').attr('name', 'form-' + form_count + '-prod');
+            new_form.find('input[id$="-price"]').attr('name', 'form-' + form_count + '-price');
+            new_form.find('input[id$="-cant"]').attr('name', 'form-' + form_count + '-cant');
+            new_form.find('input[id$="-subtotal"]').attr('name', 'form-' + form_count + '-subtotal');
+            new_form.find('.remove-form-row').click(function() {
+                $(this).parents('.formset_row').remove();
+                form_count--;
+            });
+            $('.formset_table tbody').append(new_form);
+            form_count++;
+        });
+
+        $('.remove-form-row').click(function() {
+            $(this).parents('.formset_row').remove();
+            form_count--;
+        });
+    });
+</script>
+
+{% endblock %}
+
+
+

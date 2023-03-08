@@ -46,6 +46,10 @@ class Client(models.Model):
     class Meta:
         unique_together = ('document', 'email', 'veterinary')
 
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
 
 class Pet(models.Model):
     client = models.ForeignKey(Client, on_delete=models.PROTECT)
@@ -54,13 +58,11 @@ class Pet(models.Model):
     birthdate = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=6, blank=False, null=False, default='Desconocido')
 
-    # veterinary = models.CharField(max_length=50, default="None")
+    def __str__(self):
+        return self.namePet
 
     def client_name(self):
         return self.pet.client.name
-
-    def __str__(self):
-        return self.namePet
 
 
 class Events(models.Model):
@@ -127,19 +129,49 @@ class Product(models.Model):
 
 
 class Sale(models.Model):
-    created_date = models.DateTimeField(auto_now_add=True, null=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, default=0)
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    cli = models.ForeignKey(Client, on_delete=models.CASCADE)
+    date_joined = models.DateField(default=datetime.now)
+    subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    total = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+
+    def __str__(self):
+        return self.cli.name
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['cli'] = self.cli.toJSON()
+        item['subtotal'] = format(self.subtotal, '.2f')
+        item['iva'] = format(self.iva, '.2f')
+        item['total'] = format(self.total, '.2f')
+        item['date_joined'] = self.date_joined.strftime('%Y-%m-%d')
+        item['det'] = [i.toJSON() for i in self.detsale_set.all()]
+        return item
+
+    class Meta:
+        verbose_name = 'Venta'
+        verbose_name_plural = 'Ventas'
+        ordering = ['id']
 
 
 class DetSale(models.Model):
-    sale = models.ForeignKey(Sale, on_delete=models.CASCADE, related_name='details')
-    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='details')
-    quantity = models.PositiveIntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    iva = models.DecimalField(max_digits=10, decimal_places=2)
-    subtotal = models.DecimalField(max_digits=10, decimal_places=2)
+    sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
+    prod = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    cant = models.IntegerField(default=0)
+    subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
 
     def __str__(self):
-        return f"Sale: {self.sale.id} - Product: {self.product.name} - Quantity: {self.quantity} - Price: {self.price}"
+        return self.prod.name
+
+    def toJSON(self):
+        item = model_to_dict(self, exclude=['sale'])
+        item['prod'] = self.prod.toJSON()
+        item['price'] = format(self.price, '.2f')
+        item['subtotal'] = format(self.subtotal, '.2f')
+        return item
+
+    class Meta:
+        verbose_name = 'Detalle de Venta'
+        verbose_name_plural = 'Detalle de Ventas'
+        ordering = ['id']
