@@ -1,6 +1,6 @@
 {% extends 'layout/base.html' %}
 
-{% block 'title' %} Actualizar producto{% endblock %}
+{% block 'title' %}Crear Venta{% endblock %}
 
 {% block 'style' %}
 {% load static %}
@@ -14,67 +14,78 @@
 {% block 'content' %}
 <div class="container-md">
     <div class="table-responsive-md">
-        <form method="post">
+        <form method="post" id="sale-form">
             {% csrf_token %}
             {{ sale_form.as_table }}
-
-            {{ det_sale_formset.management_form }}
-
-            <table class="table table-striped">
+            <table id="sale-table">
                 <thead>
                     <tr>
                         <th>Producto</th>
                         <th>Cantidad</th>
                         <th>Precio</th>
+                        <th>IVA (%)</th>
+                        <th>Subtotal</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
-                <tbody id="formset_table">
+                <tbody>
                     {% for form in det_sale_formset %}
                     <tr class="formset_row">
-                        {{ form.as_table }}
+                        <td>{{ form.product }}</td>
+                        <td>{{ form.quantity }}</td>
+                        <td>
+                            <input type="number" class="form-control" step="0.01" readonly value="{% if form.product.value %}{{ form.product.value.pvp }}{% endif %}">
+                        </td>
+                        <td>{{ form.iva }}</td>
+                        <td>{{ form.subtotal }}</td>
+                        <td><button type="button" class="btn btn-danger btn-sm remove-form-row">Eliminar</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
-            <div class="d-flex justify-content-end mb-3">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+            <div class="form-group">
+                <label for="{{ det_sale_formset.empty_form.sale_total.id_for_label }}">Total:</label>
+                {{ det_sale_formset.empty_form.sale_total }}
             </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
-
         <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-success" id="add_product_btn">Agregar producto</button>
+            <button type="button" class="btn btn-success add-form-row" id="add-form-row">Agregar producto</button>
         </div>
     </div>
 </div>
-
-{% endblock %}
-
-{% block 'script' %}
 <script>
-    $(document).ready(function() {
-        var form_count = {{ det_sale_formset.total_form_count }};
+$(document).ready(function() {
+    // Count the number of forms already rendered and use as index for new form.
+    let formIndex = $('.formset_row').length;
 
-        $('#add_product_btn').click(function() {
-            var form_template = $('#formset_table').find('.formset_row:last').clone(true);
-            form_template.find('input, select').each(function() {
-                var id_regex = /id_(\d|__prefix__)-/;
-                var id_replace = 'id_' + form_count + '-';
-                var name_regex = /(\d|__prefix__)/g;
-                var name_replace = form_count;
-                $(this).attr({
-                    'id': $(this).attr('id').replace(id_regex, 'id_' + form_count + '-'),
-                    'name': $(this).attr('name').replace(name_regex, name_replace),
-                    'value': ''
-                });
-            });
-            form_template.find('label').each(function() {
-                var for_attr = $(this).attr('for');
-                $(this).attr('for', for_attr.replace(id_regex, 'id_' + form_count + '-'));
-            });
-            form_template.appendTo($('#formset_table'));
-            form_count++;
-        });
+    $(document).on('click', '.remove-form-row', function() {
+        let formCount = $('.formset_row').length;
+        if (formCount > 1) {
+            $(this).closest('tr').remove();
+            formIndex--;
+        } else {
+            alert("No se pueden eliminar todas las filas.");
+        }
     });
+
+    $(document).on('click', '.add-form-row', function() {
+    let lastForm = $('.formset_row:last');
+    let newForm = lastForm.clone(true);
+    newForm.find(':input').each(function() {
+        let name = $(this).attr('name').replace('-' + (formIndex-1) + '-', '-' + formIndex + '-');
+        $(this).attr({'name': name, 'id': 'id_' + name}).val('');
+    });
+    newForm.find('.errorlist').remove();
+    newForm.removeClass('has-error');
+    newForm.insertAfter(lastForm);
+    formIndex++;
+});
+
+
+});
 </script>
 {% endblock %}
+
+
+
