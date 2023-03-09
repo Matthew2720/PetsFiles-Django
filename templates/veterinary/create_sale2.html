@@ -1,52 +1,50 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Búsqueda de productos</title>
+{% extends 'layout/base2.html' %}
+{% load static %}
+
+{% block style %}
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#search-input').autocomplete({
-                source: function(request, response) {
-                    $.ajax({
-                        url: '/search/',
-                        dataType: 'json',
-                        data: {
-                            term: request.term
-                        },
-                        success: function(data) {
-                            response(data.results);
-                        }
-                    });
-                },
-                minLength: 3,
-                select: function(event, ui) {
-                    $('#product-name').text(ui.item.full_name);
-                    $('#product-stock').text(ui.item.stock);
-                    $('#product-pvp').text(ui.item.pvp);
-                }
-            }).autocomplete('instance')._renderItem = function(ul, item) {
-                return $('<li>')
-                    .append('<div>' + item.full_name + ' - ' + item.stock + ' unidades</div>')
-                    .appendTo(ul);
-            };
-        });
-    </script>
-</head>
-<body>
-    <h1>Búsqueda de productos</h1>
-    <div>
-        <label for="search-input">Buscar producto:</label>
-        <input type="text" id="search-input">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/carrito.js' %}"></script>
+{% endblock  %}
+
+{% block header %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock  %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Factura</h1>
+        <div class="form-group">
+            <label for="search-input">Buscar producto:</label>
+            <input type="text" class="form-control" id="search-input" >
+        </div>
+        <div class="table-responsive">
+            <table class="table" id="cart">
+                 <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Stock</th>
+                        <th>PVP</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4">Subtotal:</th>
+                        <td id="subtotal">0.00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
-    <div>
-        <h2>Resultado de la búsqueda:</h2>
-        <h4>Nombre del producto: <span id="product-name"></span></h4>
-        <h4>Cantidad en stock: <span id="product-stock"></span></h4>
-        <h4>Precio: <span id="product-pvp"></span></h4>
-    </div>
-</body>
-</html>
+{% endblock  %}
+
+
 
