@@ -4,8 +4,9 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.db import transaction
 from django.forms import formset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.http import require_GET
 
 from .forms import (
     VeterinaryForm,
@@ -408,6 +409,8 @@ def updateProduct(request, id):
 
 # endregion
 
+#region sale
+
 def create_sale(request):
     DetSaleFormSet = formset_factory(DetSaleForm, extra=1)
 
@@ -450,3 +453,14 @@ def create_sale(request):
     return render(request, 'veterinary/create_sale2.html', context)
 
 
+def create_sale2(request):
+    return render(request, 'veterinary/create_sale2.html', {})
+
+@require_GET
+def search(request):
+    query = request.GET.get('q', '')
+    products = Product.objects.filter(Q(name__icontains=query) | Q(cat__name__icontains=query))
+    results = [product.toJSON() for product in products]
+    return JsonResponse({'results': results})
+
+#endregion

@@ -120,6 +120,7 @@ class Product(models.Model):
         item['full_name'] = '{} / {}'.format(self.name, self.cat.name)
         item['cat'] = self.cat.toJSON()
         item['pvp'] = format(self.pvp, '.2f')
+        item['stock'] = self.stock
         return item
 
     class Meta:
