@@ -1,7 +1,6 @@
 from django.forms import ModelForm, TextInput, EmailInput, Select, PasswordInput, CharField, DecimalField, \
     inlineformset_factory
 from django.forms import HiddenInput,DateInput,DateTimeInput,NumberInput,ChoiceField,Form
-from xdg.Exceptions import ValidationError
 
 from .models import *
 
@@ -216,8 +215,8 @@ class SaleForm(ModelForm):
         client_document = self.cleaned_data.get('client_document')
         try:
             client = Client.objects.get(document=client_document)
-        except Client.DoesNotExist:
-            raise ValidationError("El cliente no existe.")
+        except Exception as e:
+            print("El cliente no existe."+e)
         return client_document
 
     def save(self, commit=True):

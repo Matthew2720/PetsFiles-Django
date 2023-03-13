@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="" />
+    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetsFiles/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PetsFiles/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetsFiles/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/PetsFiles/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/layout/partials/contenidoindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/partials/contenidoindex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/veterinary/support.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/support.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,24 +58,25 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
+    "settings.editor.selected.configurable": "com.jetbrains.django.DjangoModulesConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
     <configuration name="PetsFiles-Django" type="Python.DjangoServer" factoryName="Django server">
-      <module name="PetsFiles-Django" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="PetsFiles.settings" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\fredy romero\AppData\Local\Programs\Python\Python311\python.exe" />
+      <option name="SDK_NAME" value="Python 3.11" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
       <option name="launchJavascriptDebuger" value="false" />
       <option name="port" value="8000" />
       <option name="host" value="" />
@@ -91,6 +101,7 @@
       <workItem from="1678199921328" duration="7047000" />
       <workItem from="1678207275059" duration="2812000" />
       <workItem from="1678210691092" duration="1848000" />
+      <workItem from="1678708410980" duration="9899000" />
     </task>
     <servers />
   </component>

@@ -1,4 +1,5 @@
 from django.urls import path
+from .views import send_email
 
 from . import views
 
@@ -25,4 +26,5 @@ urlpatterns = [
     path("actualizar/producto/<int:id>", views.updateProduct, name="updateProduct"),
     path("ver/ventas", views.sale_list, name="sale_list"),
     path("registrar/venta", views.create_sale, name="create_sale"),
+    path('send_email/', send_email, name='send_email'),
 ]
