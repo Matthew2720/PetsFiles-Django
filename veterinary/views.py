@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -454,13 +456,24 @@ def create_sale(request):
 
 
 def create_sale2(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print("JSON OBTENIDO")
+        print(data)
+        return render(request, 'veterinary/create_sale2.html', {})
     return render(request, 'veterinary/create_sale2.html', {})
 
 @require_GET
 def search(request):
-    query = request.GET.get('q', '')
-    products = Product.objects.filter(Q(name__icontains=query) | Q(cat__name__icontains=query))
-    results = [product.toJSON() for product in products]
-    return JsonResponse({'results': results})
+    term = request.GET.get('term')
+    if term:
+        results = Product.objects.filter(Q(name__icontains=term))
+        data = [{'idProduct':r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
+        return JsonResponse({'results': data})
+    else:
+        results = Product.objects.all()
+        data = [{'idProduct':r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
+        return JsonResponse({'results': data})
+
 
 #endregion

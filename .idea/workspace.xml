@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="Cambios trabajando">
-      <change afterPath="$PROJECT_DIR$/static/js/carrito.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout/base2.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/base2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/carrito.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/carrito.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/veterinary/create_sale2.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/create_sale2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +104,9 @@
       <workItem from="1678207275059" duration="2812000" />
       <workItem from="1678210691092" duration="13756000" />
       <workItem from="1678370021175" duration="4726000" />
+      <workItem from="1678436034796" duration="1591000" />
+      <workItem from="1678484492232" duration="1050000" />
+      <workItem from="1678656241836" duration="11688000" />
     </task>
     <task id="LOCAL-00001" summary="Cambios trabajando">
       <created>1678296210042</created>
