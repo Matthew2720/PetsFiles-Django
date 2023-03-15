@@ -69,7 +69,7 @@ $(document).ready(function() {
     var pvp = $(this).closest('tr').data('pvp');
     var iva = $(this).closest('tr').find('.iva-input').val();
     var subtotal = quantity * (pvp + (pvp * (iva/100)));
-    $(this).closest('tr').find('.subtotal').text(subtotal.toFixed(2));
+    $(this).closest('tr').find('.subtotal').text(subtotal.toFixed(0));
     updateSubtotal();
   });
 
@@ -89,10 +89,10 @@ $(document).ready(function() {
       totalIva += rowTotalIva;
       var rowSubtotal = pvp * quantity + rowTotalIva;
       subtotal += rowSubtotal;
-      $(this).find('.subtotal').text(rowSubtotal.toFixed(2));
+      $(this).find('.subtotal').text(rowSubtotal.toFixed(0));
     });
-    $('#totalIva').text(totalIva.toFixed(2));
-    $('#total').text(subtotal.toFixed(2));
+    $('#totalIva').text(totalIva.toFixed(0));
+    $('#total').text(subtotal.toFixed(0));
   }
 
   function createCartJson() {
@@ -116,7 +116,7 @@ $(document).ready(function() {
               'quantity': quantity,
               'pvp': pvp,
               'iva': iva,
-              'subtotal': rowSubtotal.toFixed(2)
+              'subtotal': rowSubtotal.toFixed(0)
           };
           products.push(product);
       });
@@ -124,7 +124,7 @@ $(document).ready(function() {
       var cartJson = {
           'products': products,
           'total': parseFloat($('#total').text()),
-          'total_iva': totalIva.toFixed(2)
+          'total_iva': totalIva.toFixed(0)
       };
 
       return cartJson;
@@ -135,14 +135,21 @@ $(document).ready(function() {
     console.log(cartJson); // muestra el json en la consola
     var csrfToken = $('#sale-form [name="csrfmiddlewaretoken"]').val();
     $.ajax({
-        url: "/registrar/venta",
+        url: "/procesar/factura",
         type: "POST",
         dataType: "json",
         data: JSON.stringify(cartJson),
         beforeSend: function(xhr) {
             xhr.setRequestHeader("X-CSRFToken", csrfToken);
         },
-    });
+        success: function(data) {
+            alert('Datos enviados');
+            window.location.replace('/registrar/venta');
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(xhr.status + ": " + xhr.responseText);
+        }
+    })
 });
 
 });

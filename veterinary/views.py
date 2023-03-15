@@ -1,13 +1,15 @@
+import base64
 import json
-
+from decimal import Decimal
+from datetime import date
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Q, F
 from django.db import transaction
 from django.forms import formset_factory
-from django.http import HttpResponseRedirect,JsonResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET
 
 from .forms import (
@@ -23,7 +25,7 @@ from .forms import (
     SaleForm,
     DetSaleForm,
 )
-from .models import User, Veterinary, Pet, Client, Events, Product
+from .models import User, Veterinary, Pet, Client, Events, Product, DetSale, Sale
 
 
 def index(request):
@@ -348,7 +350,6 @@ def registerVet(request):
 
 # endregion
 
-
 # region product
 @login_required
 def detailProduct(request):
@@ -413,55 +414,83 @@ def updateProduct(request, id):
 
 #region sale
 
+from datetime import date
+
+
 def create_sale(request):
-    DetSaleFormSet = formset_factory(DetSaleForm, extra=1)
-
     if request.method == 'POST':
-        sale_form = SaleForm(request.POST)
-        det_formset = DetSaleFormSet(request.POST)
+        form = SaleForm(request.POST)
+        if form.is_valid():
+            # Obtener el objeto Cliente y la fecha de la venta
+            client = form.cleaned_data['cli']
+            date = form.cleaned_data['date_joined']
 
-        if sale_form.is_valid() and det_formset.is_valid():
-            with transaction.atomic():
-                # guardar la venta
-                sale = sale_form.save()
-
-                # guardar los detalles de la venta
-                for det_form in det_formset:
-                    det = det_form.save(commit=False)
-                    det.sale = sale
-                    det.save()
-
-                # Actualizar la venta con el total
-                sale.total = sale.subtotal * (1 + sale.iva / 100)
-                sale.save()
-
-            return redirect('sale_list')
-        else:
-            print(det_formset.errors)
-            print(sale_form.errors.get_json_data().values())
-            context = {
-                'sale_form': sale_form,
-                'det_formset': det_formset,
-                'errors': list(sale_form.errors.get_json_data().values()) + det_formset.errors,
+            # Guardar los datos de la venta en sesión
+            request.session['sale_data'] = {
+                'client_id': client.id,
+                'client_name': client.name +" " + client.last_name,
+                'client_document': client.document,
+                'date': date.strftime('%Y-%m-%d %H:%M:%S %z')
             }
+            return redirect('create_sale2')
     else:
-        sale_form = SaleForm()
-        det_formset = DetSaleFormSet()
-        context = {
-            'sale_form': sale_form,
-            'det_formset': det_formset,
-        }
-
-    return render(request, 'veterinary/create_sale2.html', context)
+        form = SaleForm()
+    return render(request, 'veterinary/create_sale.html', {'form': form})
 
 
 def create_sale2(request):
+    sale_data = request.session.get('sale_data')
+
     if request.method == 'POST':
-        data = json.loads(request.body)
-        print("JSON OBTENIDO")
-        print(data)
-        return render(request, 'veterinary/create_sale2.html', {})
-    return render(request, 'veterinary/create_sale2.html', {})
+        # Cargar el JSON con los productos
+        cart_json = json.loads(request.body)
+        products = cart_json['products']
+        total = cart_json['total']
+        total_iva = int(cart_json['total_iva'])
+        subtotal = total-total_iva
+        client_id = sale_data.get('client_id')
+        date = sale_data.get('date')
+
+        # Crear la instancia de la venta
+        sale = Sale.objects.create(
+            cli_id=client_id,
+            date_joined=date,
+            subtotal=Decimal(subtotal),
+            iva=total_iva,
+            total=Decimal(total)
+        )
+
+        # Guardar los detalles de la venta
+        for product in products:
+            prod = Product.objects.get(id=product['id'])
+            prod.stock = F('stock') - int(product['quantity'])
+            prod.save()
+
+            det_sale = DetSale.objects.create(
+                sale=sale,
+                prod=get_object_or_404(Product, id=product['id']),
+                cant=int(product['quantity']),
+                price=Decimal(product['pvp']),
+                iva=Decimal(product['iva']),
+                subtotal=Decimal(product['subtotal'])
+            )
+        try:
+            del request.session['sale_data']
+            return redirect('create_sale')
+        except Exception as e:
+            print(e)
+            return HttpResponse("Error al eliminar los datos de la sesión")
+
+
+    # Mostrar la información de la venta en la página
+    context = {
+        'client_name': sale_data.get('client_name'),
+        'client_document': sale_data.get('client_document'),
+        'date': sale_data.get('date'),
+        'id': sale_data.get('client_id')
+    }
+    return render(request, 'veterinary/create_sale2.html', context)
+
 
 @require_GET
 def search(request):
@@ -475,5 +504,11 @@ def search(request):
         data = [{'idProduct':r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
         return JsonResponse({'results': data})
 
+
+def check_sale_data(request):
+    if 'sale_data' not in request.session:
+        return JsonResponse({'status': 'not_found'})
+    else:
+        return JsonResponse({'status': 'found'})
 
 #endregion

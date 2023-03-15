@@ -17,9 +17,23 @@
 {% block content %}
 <div class="container">
     <h1 class="text-center">Factura</h1>
-    <form id="sale-form">
+    <form id="sale-form" method="POST" action="{% url 'create_sale2' %}">
         {% csrf_token %}
         <div class="form-group">
+            <div class="table-responsive w-100">
+                <table class="table">
+                    <thead>
+                        <td>Nombre cliente</td>
+                        <td>Documento </td>
+                        <td>Fecha </td>
+                    </thead>
+                    <tr>
+                        <td>{{ client_name }}</td>
+                        <td>{{ client_document }}</td>
+                        <td>{{ date }}</td>
+                    </tr>
+                </table>
+            </div>
             <label for="search-input">Buscar producto:</label>
             <input type="text" class="form-control" id="search-input">
         </div>
@@ -45,10 +59,30 @@
                     </tr>
                 </tfoot>
             </table>
-            <button id="send-json" class="btn btn-success">Enviar Json</button>
+            <button id="send-json" class="btn btn-success" type="button">Guardar</button>
         </div>
     </form>
 </div>
+
+<script>
+function checkSaleData() {
+    // Realiza una petición AJAX para verificar si la variable sale_data existe en sesión
+    $.ajax({
+        type: "GET",
+        url: "/check_sale_data/",
+        success: function(response) {
+            // Si la variable sale_data ya no existe en sesión, redirecciona a la página deseada
+            if (response.status === "not_found") {
+                window.location.replace("/registrar/venta");
+            }
+        }
+    });
+    console.log("Existe!")
+}
+
+// Verifica si la variable sale_data existe en sesión cada 5 segundos
+setInterval(checkSaleData, 1000);
+</script>
 {% endblock  %}
 
 

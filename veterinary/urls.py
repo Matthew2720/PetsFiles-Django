@@ -23,7 +23,8 @@ urlpatterns = [
     path("ver/productos", views.detailProduct, name="detailProduct"),
     path("eliminar/producto/<int:id>", views.deleteProduct, name="deleteProduct"),
     path("actualizar/producto/<int:id>", views.updateProduct, name="updateProduct"),
-    path("registrar/venta", views.create_sale2, name="create_sale"),
+    path("registrar/venta", views.create_sale, name="create_sale"),
+    path("procesar/factura", views.create_sale2, name="create_sale2"),
     path('search/', views.search, name='search'),
-    #path("ver/ventas", views.sale_list, name="sale_list"),
+    path('check_sale_data/', views.check_sale_data, name='check_sale_data'),
 ]

@@ -131,7 +131,7 @@ class Product(models.Model):
 
 class Sale(models.Model):
     cli = models.ForeignKey(Client, on_delete=models.CASCADE)
-    date_joined = models.DateField(default=datetime.now)
+    date_joined = models.DateTimeField(default=datetime.now)
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     total = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
@@ -145,7 +145,7 @@ class Sale(models.Model):
         item['subtotal'] = format(self.subtotal, '.2f')
         item['iva'] = format(self.iva, '.2f')
         item['total'] = format(self.total, '.2f')
-        item['date_joined'] = self.date_joined.strftime('%Y-%m-%d')
+        item['date_joined'] = self.date_joined
         item['det'] = [i.toJSON() for i in self.detsale_set.all()]
         return item
 
@@ -160,6 +160,7 @@ class DetSale(models.Model):
     prod = models.ForeignKey(Product, on_delete=models.CASCADE)
     price = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     cant = models.IntegerField(default=0)
+    iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
 
     def __str__(self):

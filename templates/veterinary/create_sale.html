@@ -1,91 +1,37 @@
-{% extends 'layout/base.html' %}
-
-{% block 'title' %}Crear Venta{% endblock %}
-
-{% block 'style' %}
+{% extends 'layout/base2.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
-{% endblock %}
 
-{% block 'header' %}
+{% block style %}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% endblock  %}
+
+{% block header %}
 {% include 'layout/partials/headerbase.html' %}
-{% endblock %}
+{% endblock  %}
 
-{% block 'content' %}
-<div class="container-md">
-    <div class="table-responsive-md">
-        <form method="post" id="sale-form">
-            {% csrf_token %}
-            {{ sale_form.as_table }}
-            <table id="sale-table">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th>IVA (%)</th>
-                        <th>Subtotal</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for form in det_sale_formset %}
-                    <tr class="formset_row">
-                        <td>{{ form.product }}</td>
-                        <td>{{ form.quantity }}</td>
-                        <td>
-                            <input type="number" class="form-control" step="0.01" readonly value="{% if form.product.value %}{{ form.product.value.pvp }}{% endif %}">
-                        </td>
-                        <td>{{ form.iva }}</td>
-                        <td>{{ form.subtotal }}</td>
-                        <td><button type="button" class="btn btn-danger btn-sm remove-form-row">Eliminar</button></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Factura</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="table-responsive w-100">
+            <table class="table">
+                <tr>
+                    <td>{{ form.cli }}</td>
+                    <td>{{ form.date_joined }}</td>
+                    <td>
+                        <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                    </td>
+                </tr>
             </table>
-            <div class="form-group">
-                <label for="{{ det_sale_formset.empty_form.sale_total.id_for_label }}">Total:</label>
-                {{ det_sale_formset.empty_form.sale_total }}
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-success add-form-row" id="add-form-row">Agregar producto</button>
         </div>
-    </div>
+    </form>
 </div>
-<script>
-$(document).ready(function() {
-    // Count the number of forms already rendered and use as index for new form.
-    let formIndex = $('.formset_row').length;
-
-    $(document).on('click', '.remove-form-row', function() {
-        let formCount = $('.formset_row').length;
-        if (formCount > 1) {
-            $(this).closest('tr').remove();
-            formIndex--;
-        } else {
-            alert("No se pueden eliminar todas las filas.");
-        }
-    });
-
-    $(document).on('click', '.add-form-row', function() {
-    let lastForm = $('.formset_row:last');
-    let newForm = lastForm.clone(true);
-    newForm.find(':input').each(function() {
-        let name = $(this).attr('name').replace('-' + (formIndex-1) + '-', '-' + formIndex + '-');
-        $(this).attr({'name': name, 'id': 'id_' + name}).val('');
-    });
-    newForm.find('.errorlist').remove();
-    newForm.removeClass('has-error');
-    newForm.insertAfter(lastForm);
-    formIndex++;
-});
-
-
-});
-</script>
-{% endblock %}
+{% endblock  %}
 
 
 

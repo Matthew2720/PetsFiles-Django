@@ -209,39 +209,20 @@ class ProductForm(ModelForm):
 
 
 class SaleForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     class Meta:
         model = Sale
-        fields = '__all__'
+        fields = ['cli', 'date_joined']
         widgets = {
             'cli': Select(attrs={
                 'class': 'form-control select2',
-                'style': 'width: 100%'
             }),
-            'date_joined': DateInput(
-                format='%Y-%m-%d',
+            'date_joined': DateTimeInput(
                 attrs={
-                    'value': datetime.now().strftime('%Y-%m-%d'),
-                    'autocomplete': 'off',
-                    'class': 'form-control datetimepicker-input',
-                    'id': 'date_joined',
-                    'data-target': '#date_joined',
-                    'data-toggle': 'datetimepicker'
-                }
-            ),
-            'iva': TextInput(attrs={
-                'class': 'form-control',
-            }),
-            'subtotal': TextInput(attrs={
-                'readonly': True,
-                'class': 'form-control',
-            }),
-            'total': TextInput(attrs={
-                'readonly': True,
-                'class': 'form-control',
-            })
+                    'class': 'form-control',
+                    'readonly': 'readonly',
+                },
+                format='%d/%m/%Y %H:%M:%S'  # especifica el formato deseado
+            )
         }
 
 
