@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/static/css/navstyle.css" afterDir="false" />
+    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="Cambios trabajando">
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PetsFiles/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PetsFiles/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/estilo.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/estilobase.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilobase.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout/partials/contenidoindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/partials/contenidoindex.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout/partials/headerbase.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/partials/headerbase.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/veterinary/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/veterinary/create_sale2.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/create_sale2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/veterinary/sale_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/sale_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/veterinary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +25,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -47,25 +44,30 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/fredy romero/PycharmProjects/PetsFiles-Django",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "com.jetbrains.django.DjangoModulesConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mateo/PetsFiles-Django/templates/layout&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/layout" />
+      <recent name="$PROJECT_DIR$/templates/veterinary" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="PetsFiles-Django" type="Python.DjangoServer" factoryName="Django server">
       <module name="PetsFiles-Django" />
@@ -103,13 +105,29 @@
       <workItem from="1678198686458" duration="1194000" />
       <workItem from="1678199921328" duration="7047000" />
       <workItem from="1678207275059" duration="2812000" />
-      <workItem from="1678210691092" duration="1848000" />
-      <workItem from="1678708410980" duration="10617000" />
-      <workItem from="1678721595757" duration="68000" />
-      <workItem from="1678721666198" duration="3317000" />
-      <workItem from="1678966125127" duration="180000" />
-      <workItem from="1678966399535" duration="10516000" />
+      <workItem from="1678210691092" duration="13756000" />
+      <workItem from="1678370021175" duration="4726000" />
+      <workItem from="1678436034796" duration="1591000" />
+      <workItem from="1678484492232" duration="1050000" />
+      <workItem from="1678656241836" duration="11688000" />
+      <workItem from="1678706357455" duration="2490000" />
+      <workItem from="1678713745094" duration="10491000" />
+      <workItem from="1678795825254" duration="11633000" />
+      <workItem from="1678819456145" duration="16307000" />
+      <workItem from="1678880193693" duration="715000" />
+      <workItem from="1678881382094" duration="381000" />
+      <workItem from="1678914004884" duration="566000" />
+      <workItem from="1678914592848" duration="983000" />
+      <workItem from="1678915594680" duration="9300000" />
     </task>
+    <task id="LOCAL-00001" summary="Cambios trabajando">
+      <created>1678296210042</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1678296210042</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,7 +144,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="errores" />
+                        <option value="HEAD" />
                       </list>
                     </value>
                   </entry>
@@ -137,5 +155,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cambios trabajando" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios trabajando" />
   </component>
 </project>
