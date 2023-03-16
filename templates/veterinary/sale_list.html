@@ -33,7 +33,7 @@
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Buscar venta...">
           <span class="input-group-btn">
-            <button class="btn btn-info" type="submit">Buscar</button>
+            <button class="btn btn-primary" type="submit">Buscar</button>
           </span>
         </div>
       </form>
@@ -60,7 +60,7 @@
           <td>{{ sale.cli.name }} {{ sale.cli.last_name }}</td>
           <td>{{ sale.date_joined|date:"d/m/Y H:i" }}</td>
           <td>$ {{ sale.subtotal }}</td>
-          <td>% {{ sale.iva }}</td>
+          <td>$ {{ sale.iva }}</td>
           <td>$ {{ sale.total }}</td>
           <td>
             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#sale-modal-{{ sale.id }}">Ver detalle</a>
