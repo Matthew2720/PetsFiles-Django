@@ -62,7 +62,7 @@
               {% for product in page_obj %}
                   <tr>
                       <th scope="row">{{ forloop.counter }}</th>
-                      <td><a class="btn btn-dark" onclick="borrar({{product.id}})">{{ product.name }}<a></td>
+                      <td><a class="btn btn-dark" onclick="borrar({{product.id}})">{{ product.name }}</a></td>
                       <td>{{ product.cat }}</td>
                       <td>{{ product.stock }}</td>
                       <td>{{ product.pvp }}</td>

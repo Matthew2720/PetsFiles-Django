@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -28,7 +30,20 @@ def index(request):
 def support(request):
     return render(request, "veterinary/support.html", {})
 
-
+def send_email(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        nombre = request.POST['Nombre']
+        mensaje = request.POST['message']
+        send_mail(
+            'Asunto del Correo',
+            'Hola, ' + nombre + ' ha enviado un mensaje: ' + mensaje + ' Puedes contactarlo a través de su correo electrónico: ' + email,
+            settings.EMAIL_HOST_USER,
+            ['godofreddo017@gmail.com'],
+            fail_silently=False,
+        )
+        messages.success(request, "El correo fue enviado correctamente")
+        return redirect('support')
 # region client
 
 
