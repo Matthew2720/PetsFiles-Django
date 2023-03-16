@@ -412,10 +412,7 @@ def updateProduct(request, id):
 
 # endregion
 
-#region sale
-
-from datetime import date
-
+# region sale
 
 def create_sale(request):
     if request.method == 'POST':
@@ -428,7 +425,7 @@ def create_sale(request):
             # Guardar los datos de la venta en sesión
             request.session['sale_data'] = {
                 'client_id': client.id,
-                'client_name': client.name +" " + client.last_name,
+                'client_name': client.name + " " + client.last_name,
                 'client_document': client.document,
                 'date': date.strftime('%Y-%m-%d %H:%M:%S %z')
             }
@@ -447,7 +444,7 @@ def create_sale2(request):
         products = cart_json['products']
         total = cart_json['total']
         total_iva = int(cart_json['total_iva'])
-        subtotal = total-total_iva
+        subtotal = total - total_iva
         client_id = sale_data.get('client_id')
         date = sale_data.get('date')
 
@@ -481,7 +478,6 @@ def create_sale2(request):
             print(e)
             return HttpResponse("Error al eliminar los datos de la sesión")
 
-
     # Mostrar la información de la venta en la página
     context = {
         'client_name': sale_data.get('client_name'),
@@ -497,11 +493,11 @@ def search(request):
     term = request.GET.get('term')
     if term:
         results = Product.objects.filter(Q(name__icontains=term))
-        data = [{'idProduct':r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
+        data = [{'idProduct': r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
         return JsonResponse({'results': data})
     else:
         results = Product.objects.all()
-        data = [{'idProduct':r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
+        data = [{'idProduct': r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
         return JsonResponse({'results': data})
 
 
@@ -511,4 +507,22 @@ def check_sale_data(request):
     else:
         return JsonResponse({'status': 'found'})
 
-#endregion
+
+def list_sale(request):
+    query = request.GET.get('q')
+    if query:
+        sales = Sale.objects.filter(Q(id__icontains=query) | Q(cli__document__icontains=query)).select_related(
+            'cli').prefetch_related('detsale_set')
+    else:
+        sales = Sale.objects.select_related('cli').prefetch_related('detsale_set')
+
+    for sale in sales:
+        print(f"Sale #{sale.id} - Client: {sale.cli.name}")
+        for det in sale.detsale_set.all():
+            det.subtotal = det.price * (1 + det.iva / 100)
+            det.subtotal = det.subtotal.quantize(Decimal('0.01'))
+
+    context = {'sales': sales}
+    return render(request, 'veterinary/sale_list.html', context)
+
+# endregion

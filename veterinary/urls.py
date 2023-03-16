@@ -27,4 +27,5 @@ urlpatterns = [
     path("procesar/factura", views.create_sale2, name="create_sale2"),
     path('search/', views.search, name='search'),
     path('check_sale_data/', views.check_sale_data, name='check_sale_data'),
+    path('ver/ventas', views.list_sale, name=' list_sale')
 ]
