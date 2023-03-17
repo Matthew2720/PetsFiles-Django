@@ -16,6 +16,8 @@ from django.forms import formset_factory
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET
+from django.http import FileResponse
+
 
 from .forms import (
     VeterinaryForm,
@@ -544,3 +546,10 @@ def list_sale(request):
     return render(request, 'veterinary/sale_list.html', context)
 
 # endregion
+# region pdf
+
+def manual_usuario_view (request):
+    filename = 'manual_usuario.pdf'
+    file = open(filename, 'rb')
+    response = FileResponse(file, content_type='application/pdf')
+    return response
