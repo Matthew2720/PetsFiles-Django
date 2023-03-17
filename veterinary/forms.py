@@ -1,7 +1,6 @@
 from django.forms import ModelForm, TextInput, EmailInput, Select, PasswordInput, CharField, DecimalField, \
     inlineformset_factory
 from django.forms import HiddenInput, DateInput, DateTimeInput, NumberInput, ChoiceField, Form
-from xdg.Exceptions import ValidationError
 
 from .models import *
 

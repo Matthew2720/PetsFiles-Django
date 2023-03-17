@@ -40,6 +40,7 @@ def index(request):
 def support(request):
     return render(request, "veterinary/support.html", {})
 
+
 def send_email(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -54,6 +55,8 @@ def send_email(request):
         )
         messages.success(request, "La solicitud fue enviada correctamente")
         return redirect('support')
+
+
 # region client
 
 
@@ -466,6 +469,13 @@ def create_sale2(request):
         client_id = sale_data.get('client_id')
         date = sale_data.get('date')
 
+        if len(products) == 0:
+            return HttpResponse("No se pueden guardar ventas sin productos")
+
+        total_quantity = sum(int(product['quantity']) for product in products)
+        if total_quantity == 0:
+            return HttpResponse("No se pueden guardar ventas sin productos con stock")
+
         # Crear la instancia de la venta
         sale = Sale.objects.create(
             cli_id=client_id,
@@ -481,14 +491,15 @@ def create_sale2(request):
             prod.stock = F('stock') - int(product['quantity'])
             prod.save()
 
-            det_sale = DetSale.objects.create(
-                sale=sale,
-                prod=get_object_or_404(Product, id=product['id']),
-                cant=int(product['quantity']),
-                price=Decimal(product['pvp']),
-                iva=Decimal(product['iva']),
-                subtotal=Decimal(product['subtotal'])
-            )
+            if int(product['quantity']) > 0:
+                det_sale = DetSale.objects.create(
+                    sale=sale,
+                    prod=get_object_or_404(Product, id=product['id']),
+                    cant=int(product['quantity']),
+                    price=Decimal(product['pvp']),
+                    iva=Decimal(product['iva']),
+                    subtotal=Decimal(product['subtotal'])
+                )
         try:
             del request.session['sale_data']
             return redirect('create_sale')
@@ -537,7 +548,7 @@ def list_sale(request):
     for sale in sales:
         print(f"Sale #{sale.id} - Client: {sale.cli.name}")
         for det in sale.detsale_set.all():
-            det.subtotal = det.price * (1 + det.iva / 100)
+            det.subtotal = det.cant * (det.price * (1 + det.iva / 100))
             det.subtotal = det.subtotal.quantize(Decimal('0.01'))
 
     context = {'sales': sales}
