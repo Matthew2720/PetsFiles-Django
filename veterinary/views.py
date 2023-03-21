@@ -30,7 +30,7 @@ from .forms import (
     SaleForm,
     DetSaleForm,
 )
-from .models import User, Veterinary, Pet, Client, Events, Product, DetSale, Sale
+from .models import User, Veterinary, Pet, Client, Events, Product, DetSale, Sale, Services
 
 
 def index(request):
@@ -212,7 +212,16 @@ def home(request):
     if request.method == "POST":
         form = EventForm(veterinary_logued, request.POST)
         if form.is_valid:
-            form.save()
+            event = form.save()
+            if event.name == 'GU' or event.name == 'PE ' or event.name == 'CL':
+                service = Services.objects.create(
+                    pet=event.pet,
+                    type=event.name,
+                    start=event.start,
+                    end=None,
+                    details='Detalles adicionales'
+                )
+                print('Servicio creado')
             return redirect("home")
     all_events_query = Events.objects.select_related("pet__client__veterinary").filter(
         pet__client__veterinary=veterinary_logued
@@ -223,8 +232,6 @@ def home(request):
         out.append(
             {
                 "title": f"{event.pet}"
-                         + "|"
-                         + f"{event.client_name}"
                          + "|"
                          + f"{event.name}",
                 "id": event.id,

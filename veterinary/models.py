@@ -33,7 +33,7 @@ class User(AbstractUser):
 
 class Client(models.Model):
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, blank=True, null=True)
-    name = models.CharField(max_length=50, blank=False, null=False)
+    name = models.CharField(max_length=50, blank=False, null=False, verbose_name='Cliente')
     last_name = models.CharField(max_length=50, blank=False, null=False)
     document = models.CharField(max_length=20, unique=False, blank=True, null=True)
     email = models.EmailField(max_length=254, unique=False, blank=True, null=True)
@@ -52,17 +52,29 @@ class Client(models.Model):
 
 
 class Pet(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.PROTECT)
-    namePet = models.CharField(max_length=30, blank=False, null=False)
-    species = models.CharField(max_length=30, blank=True, null=True)
-    birthdate = models.DateField(blank=True, null=True)
-    gender = models.CharField(max_length=6, blank=False, null=False, default='Desconocido')
+    client = models.ForeignKey(Client, on_delete=models.PROTECT, related_name='pets')
+    namePet = models.CharField(max_length=30, blank=False, null=False, verbose_name='nombre')
+    species = models.CharField(max_length=30, blank=True, null=True, verbose_name='especie')
+    birthdate = models.DateField(blank=True, null=True, verbose_name='fecha de nacimiento')
+    gender = models.CharField(max_length=6, blank=False, null=False, default='Desconocido', verbose_name='género')
 
     def __str__(self):
         return self.namePet
 
     def client_name(self):
-        return self.pet.client.name
+        return self.client.name
+
+
+class Services(models.Model):
+    SERVICES = [('CL', 'Clínica'), ('GU', 'Guardería'), ('PE', 'Peluquería')]
+
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='servicios')
+    type = models.CharField(max_length=2, choices=SERVICES, verbose_name='tipo_servicio')
+    start = models.DateTimeField(verbose_name='fecha_inicio')
+    end = models.DateTimeField(null=True, blank=True, verbose_name='fecha_final')
+    details = models.TextField(null=True, blank=True, verbose_name='observaciones')
+    state = models.CharField(max_length=10, verbose_name='Estado', default='Activo')
+    total_time = models.DateTimeField(null=True, blank=True, verbose_name='Tiempo')
 
 
 class Events(models.Model):
@@ -73,11 +85,6 @@ class Events(models.Model):
     start = models.DateTimeField(null=True, blank=True, default=datetime.now)
     room = models.CharField(max_length=15, null=False)
     is_active = models.BooleanField(default=True)
-
-    # def clean(self):
-    #     if self.start < datetime.now():
-    #         raise ValidationError ('No puede ser menor a la fecha actual')
-    #     return super().clean()
 
     @property
     def client_name(self):

@@ -1,5 +1,5 @@
 from django.forms import ModelForm, TextInput, EmailInput, Select, PasswordInput, CharField, DecimalField, \
-    inlineformset_factory
+    inlineformset_factory, DateTimeField
 from django.forms import HiddenInput, DateInput, DateTimeInput, NumberInput, ChoiceField, Form
 
 from .models import *
@@ -110,11 +110,22 @@ class PetForm(ModelForm):
         }
         labels = {
             'client': 'Cliente',
-            'namePet': 'Nombre de la Mascota',
-            'species': 'Especie',
-            'gender': 'Genero',
-            'birthdate': 'Fecha de nacimiento'
         }
+
+
+class ServicesForm(ModelForm):
+    start = DateTimeField(
+        widget=DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'})
+    )
+    end = DateTimeField(
+        widget=DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+        required=False
+    )
+    select = Select(attrs={'class': 'form-control'})
+
+    class Meta:
+        model = Services
+        fields = ['pet', 'type', 'start', 'end', 'details']
 
 
 class EventForm(ModelForm):
@@ -136,12 +147,12 @@ class EventForm(ModelForm):
             ('6', 'Consultorio 6'),
         )
         CHOICESTYPE = (
-            ('Consulta', 'Consulta'),
-            ('Hospitalizacion', 'Hospitalizacion'),
-            ('Vacunacion', 'Vacunacion'),
-            ('Guarderia', 'Guarderia'),
-            ('Sala de belleza', 'Sala de belleza'),
-            ('Consulta intermitente', 'Consulta intermitente'),
+            ('CO', 'Consulta'),
+            ('CL', 'Clinica'),
+            ('VA', 'Vacunacion'),
+            ('GU', 'Guarderia'),
+            ('PE', 'Peluqueria'),
+            ('CI', 'Consulta intermitente'),
         )
         widgets = {
             'name': Select(attrs={'class': 'form-control'}, choices=CHOICESTYPE),
