@@ -2,26 +2,28 @@ $(document).ready(function() {
   var products = [];
 
   $('#search-input').autocomplete({
-    source: function(request, response) {
-      $.ajax({
-        url: '/search/',
-        dataType: 'json',
-        data: {
-          term: request.term
-        },
-        success: function(data) {
-          var results = '';
-          for (var i = 0; i < data.results.length; i++) {
-            var id = data.results[i].idProduct;
-            var name = data.results[i].full_name;
-            var stock = data.results[i].stock;
-            var pvp = data.results[i].pvp;
-            results += '<tr data-id="' + id + '" data-name="' + name + '" data-stock="' + stock + '" data-pvp="' + pvp + '"><td>' + name + '</td><td>' + stock + '</td><td>' + pvp + '</td></tr>';
-          }
-          response(data.results);
-        }
-      });
+source: function(request, response) {
+  $.ajax({
+    url: '/search/',
+    dataType: 'json',
+    data: {
+      term: request.term
     },
+    success: function(data) {
+      var results = '';
+      for (var i = 0; i < data.results.length; i++) {
+        var id = data.results[i].idProduct;
+        var name = data.results[i].full_name;
+        var stock = data.results[i].stock;
+        var pvp = data.results[i].pvp;
+        if (stock > 1) {
+          results += '<tr data-id="' + id + '" data-name="' + name + '" data-stock="' + stock + '" data-pvp="' + pvp + '"><td>' + name + '</td><td>' + stock + '</td><td>' + pvp + '</td></tr>';
+        }
+      }
+      response(data.results);
+    }
+  });
+},
     minLength: 1,
     select: function(event, ui) {
       var selectedProduct = ui.item;
@@ -31,9 +33,9 @@ $(document).ready(function() {
       var pvp = selectedProduct.pvp;
       var inputQuantity = $('<input>').attr({
         type: 'number',
-        min: '1',
-        max: stock - 1, // La cantidad máxima es igual al stock
-        value: '1'
+        min: '0',
+        max: stock, // La cantidad máxima es igual al stock
+        value: '0',
       });
       var newRow = $('<tr>').attr({
         'data-id': id,
@@ -64,8 +66,12 @@ $(document).ready(function() {
       .appendTo(ul);
   };
 
-  $('#cart tbody').on('change', 'input', function() {
-    var quantity = $(this).closest('tr').find('input[type="number"]').val();
+  $('#cart tbody').on('change', 'input[type="number"]', function() {
+    var stock = $(this).closest('tr').data('stock');
+    if ($(this).val() > stock) {
+      $(this).val(stock);
+    }
+    var quantity = $(this).val();
     var pvp = $(this).closest('tr').data('pvp');
     var iva = $(this).closest('tr').find('.iva-input').val();
     var subtotal = quantity * (pvp + (pvp * (iva/100)));

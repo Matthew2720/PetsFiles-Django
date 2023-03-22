@@ -30,9 +30,9 @@ from .forms import (
     ProductForm,
     OrderForm,
     SaleForm,
-    DetSaleForm,
+    DetSaleForm, ServiceForm,
 )
-from .models import User, Veterinary, Pet, Client, Events, Product, DetSale, Sale
+from .models import User, Veterinary, Pet, Client, Events, Product, DetSale, Sale, Services
 
 
 def index(request):
@@ -41,6 +41,7 @@ def index(request):
 
 def support(request):
     return render(request, "veterinary/support.html", {})
+
 
 def send_email(request):
     if request.method == 'POST':
@@ -56,6 +57,8 @@ def send_email(request):
         )
         messages.success(request, "La solicitud fue enviada correctamente")
         return redirect('support')
+
+
 # region client
 
 
@@ -211,7 +214,16 @@ def home(request):
     if request.method == "POST":
         form = EventForm(veterinary_logued, request.POST)
         if form.is_valid:
-            form.save()
+            event = form.save()
+            if event.name == 'GU' or event.name == 'PE ' or event.name == 'CL':
+                service = Services.objects.create(
+                    pet=event.pet,
+                    type=event.name,
+                    start=event.start,
+                    end=None,
+                    details='Detalles adicionales'
+                )
+                print('Servicio creado')
             return redirect("home")
     all_events_query = Events.objects.select_related("pet__client__veterinary").filter(
         pet__client__veterinary=veterinary_logued
@@ -222,8 +234,6 @@ def home(request):
         out.append(
             {
                 "title": f"{event.pet}"
-                         + "|"
-                         + f"{event.client_name}"
                          + "|"
                          + f"{event.name}",
                 "id": event.id,
@@ -468,6 +478,13 @@ def create_sale2(request):
         client_id = sale_data.get('client_id')
         date = sale_data.get('date')
 
+        if len(products) == 0:
+            return HttpResponse("No se pueden guardar ventas sin productos")
+
+        total_quantity = sum(int(product['quantity']) for product in products)
+        if total_quantity == 0:
+            return HttpResponse("No se pueden guardar ventas sin productos con stock")
+
         # Crear la instancia de la venta
         sale = Sale.objects.create(
             cli_id=client_id,
@@ -483,14 +500,15 @@ def create_sale2(request):
             prod.stock = F('stock') - int(product['quantity'])
             prod.save()
 
-            det_sale = DetSale.objects.create(
-                sale=sale,
-                prod=get_object_or_404(Product, id=product['id']),
-                cant=int(product['quantity']),
-                price=Decimal(product['pvp']),
-                iva=Decimal(product['iva']),
-                subtotal=Decimal(product['subtotal'])
-            )
+            if int(product['quantity']) > 0:
+                det_sale = DetSale.objects.create(
+                    sale=sale,
+                    prod=get_object_or_404(Product, id=product['id']),
+                    cant=int(product['quantity']),
+                    price=Decimal(product['pvp']),
+                    iva=Decimal(product['iva']),
+                    subtotal=Decimal(product['subtotal'])
+                )
         try:
             del request.session['sale_data']
             return redirect('create_sale')
@@ -539,12 +557,47 @@ def list_sale(request):
     for sale in sales:
         print(f"Sale #{sale.id} - Client: {sale.cli.name}")
         for det in sale.detsale_set.all():
-            det.subtotal = det.price * (1 + det.iva / 100)
+            det.subtotal = det.cant * (det.price * (1 + det.iva / 100))
             det.subtotal = det.subtotal.quantize(Decimal('0.01'))
 
     context = {'sales': sales}
     return render(request, 'veterinary/sale_list.html', context)
 
+
+# endregion
+
+# region services
+def detailClinic(request):
+    pets = Services.objects.filter(state='Activo')
+    endService = Services.objects.filter(state='Finalizado')
+    if request.method == "POST":
+        pets = Services.objects.filter(pet__namePet__icontains=request.POST.get("search", ""),
+                                       state='Activo')
+    context = {'pets': pets, 'endService': endService}
+    return render(request, 'veterinary/detailClinic.html', context)
+
+
+def deleteService(request,id):
+    service = Services.objects.get(id=id)
+    service.delete()
+    return redirect('home')
+
+
+def updateService(request,id):
+    instanceService = Services.objects.get(id=id)
+    form = ServiceForm(instance=instanceService)
+    if request.method == 'POST':
+        formService = ServiceForm(request.POST,instance=instanceService)
+        if formService.is_valid():
+            service = formService.save(commit=False)
+            service.start = instanceService.start
+            service.total_time = str((service.end - service.start).days)
+            service.save()
+            return redirect('home')
+        else:
+            messages.error(request, "No se pudo actualizar el servicio")
+            return redirect("updateService")
+    return render(request, 'veterinary/updateService.html', {'form': form})
 # endregion
 # region pdf
 

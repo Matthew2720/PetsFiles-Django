@@ -1,0 +1,65 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Actualizar servicio{% endblock %}
+
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block 'content' %}
+{% if form.instance %}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Actualizar servicio</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="update-form">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" class="btn btn-success" value="Actualizar">
+          <a href="{% url 'home' %}" class="btn btn-danger">Cancelar</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+{% endif %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="container-fluid" style="background-color: #181818;">
+  <div class="row">
+    <div class="col-md-12" style="background-color: #181818; height: 100vh;">
+      <div id="calendar" class="container bg-dark" style="padding: 25px; color: white;">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block 'script' %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+{% if form.instance %}
+  $("#myModal").modal("show");
+{% endif %}
+});
+
+
+</script>
+{% endblock  %}
