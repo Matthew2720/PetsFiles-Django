@@ -18,21 +18,35 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="examplemodalLabel">Crear mascota</h5>
+        <h5 class="modal-title" id="examplemodalLabel">Finalizados</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="POST" action="">
-          <div class="modal-body">
-            {% csrf_token %}
-            {{form}}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary" id="show-examplemodal2">Enviar</button>
-          </div>
-      </form>
+        <div class="table-responsive">
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th>Mascota</th>
+                <th>Inicio</th>
+                <th>Finalizacion</th>
+                <th>Observaciones</th>
+                <th>Dias</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pet in endService %}
+              <tr>
+                <td>{{pet.pet.namePet}}</td>
+                <td>{{pet.start|date:"d M H:i"}}</td>
+                <td>{{pet.end|date:"d M H:i"}}</td>
+                <td>{{pet.details}}</td>
+                <td>{{pet.total_time}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
     </div>
   </div>
 </div>
@@ -44,38 +58,35 @@
           <div class="card-body text-center">
             <form action="" method="POST">
               {% csrf_token %}
-              <label for="search" class="form-label">BUSCAR MASCOTAS</label>
+              <label for="search" class="form-label">BUSCAR SERVICIO</label>
               <div class="input-group mb-3">
                 <input type="text" class="form-control" name="search">
                 <button type="submit" class="btn btn-secondary">Buscar</button>
               </div>
             </form>
-            <a data-toggle="modal" data-target="#exampleModal" class="btn btn-info mt-3">Crear Mascota</a>
+            <a data-toggle="modal" data-target="#exampleModal" class="btn btn-info mt-3">Finalizados</a>
           </div>
         </div>
         <div class="table-responsive">
           <table class="table table-dark">
             <thead>
               <tr>
-                <th>Propietario</th>
-                <th>Nombre Mascota</th>
-                <th>Especie</th>
-                <th>Genero</th>
-                <th>Fecha de nacimiento</th>
-                <th></th>
-                <th></th>
+                <th>Mascota</th>
+                <th>Inicio</th>
+                <th>Estado</th>
+                <th>Observaciones</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               {% for pet in pets %}
               <tr>
-                <td>{{pet.client}}</td>
-                <td>{{pet.namePet}}</td>
-                <td>{{pet.species}}</td>
-                <td>{{pet.gender}}</td>
-                <td>{{pet.birthdate}}</td>
-                <td><a href="{% url 'updatePet' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a></td> 
-                <td><button onclick="borrar('{{pet.id}}')" class="btn btn-danger">Eliminar</button></td> 
+                <td>{{pet.pet.namePet}}</td>
+                <td>{{pet.start}}</td>
+                <td>{{pet.state}}</td>
+                <td>{{pet.details}}</td>
+                <td><a href="{% url 'updateService' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a>
+                    <button onclick="borrar('{{pet.id}}')" class="btn btn-danger">Eliminar</button></td>
               </tr>
               {% endfor %}
             </tbody>
@@ -99,7 +110,7 @@
         })
         .then ((willDelete)=>{
             if (willDelete){
-                location.href = "/eliminar/mascotas/" + id
+                location.href = "/eliminar/servicio/" + id
             }
             else{
                 swal ('No se borro el registro')

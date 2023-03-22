@@ -20,6 +20,8 @@ urlpatterns = [
     path("eliminar/cita/<int:id>", views.deleteEvent, name="deleteEvent"),
     path("eliminar/empleados/<int:id>", views.deleteEmployee, name="deleteEmployee"),
     path("eliminar/mascotas/<int:id>", views.deletePet, name="deletePet"),
+    path("eliminar/servicio/<int:id>", views.deleteService, name='deleteService'),
+    path('actualizar/servicio/<int:id>', views.updateService, name="updateService"),
     path("support", views.support, name="support"),
     path("ver/productos", views.detailProduct, name="detailProduct"),
     path("eliminar/producto/<int:id>", views.deleteProduct, name="deleteProduct"),
@@ -29,5 +31,6 @@ urlpatterns = [
     path("procesar/factura", views.create_sale2, name="create_sale2"),
     path('search/', views.search, name='search'),
     path('check_sale_data/', views.check_sale_data, name='check_sale_data'),
-    path('ver/ventas', views.list_sale, name='list_sale')
+    path('ver/ventas', views.list_sale, name='list_sale'),
+    path('ver/clinica', views.detailClinic, name='detailClinic'),
 ]

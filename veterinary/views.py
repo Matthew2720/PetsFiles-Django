@@ -28,7 +28,7 @@ from .forms import (
     ProductForm,
     OrderForm,
     SaleForm,
-    DetSaleForm,
+    DetSaleForm, ServiceForm,
 )
 from .models import User, Veterinary, Pet, Client, Events, Product, DetSale, Sale, Services
 
@@ -561,4 +561,39 @@ def list_sale(request):
     context = {'sales': sales}
     return render(request, 'veterinary/sale_list.html', context)
 
+
+# endregion
+
+# region services
+def detailClinic(request):
+    pets = Services.objects.filter(state='Activo')
+    endService = Services.objects.filter(state='Finalizado')
+    if request.method == "POST":
+        pets = Services.objects.filter(pet__namePet__icontains=request.POST.get("search", ""),
+                                       state='Activo')
+    context = {'pets': pets, 'endService': endService}
+    return render(request, 'veterinary/detailClinic.html', context)
+
+
+def deleteService(request,id):
+    service = Services.objects.get(id=id)
+    service.delete()
+    return redirect('home')
+
+
+def updateService(request,id):
+    instanceService = Services.objects.get(id=id)
+    form = ServiceForm(instance=instanceService)
+    if request.method == 'POST':
+        formService = ServiceForm(request.POST,instance=instanceService)
+        if formService.is_valid():
+            service = formService.save(commit=False)
+            service.start = instanceService.start
+            service.total_time = str((service.end - service.start).days)
+            service.save()
+            return redirect('home')
+        else:
+            messages.error(request, "No se pudo actualizar el servicio")
+            return redirect("updateService")
+    return render(request, 'veterinary/updateService.html', {'form': form})
 # endregion

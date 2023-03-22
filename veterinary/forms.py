@@ -1,5 +1,5 @@
 from django.forms import ModelForm, TextInput, EmailInput, Select, PasswordInput, CharField, DecimalField, \
-    inlineformset_factory, DateTimeField
+    inlineformset_factory, DateTimeField, Textarea
 from django.forms import HiddenInput, DateInput, DateTimeInput, NumberInput, ChoiceField, Form
 
 from .models import *
@@ -113,19 +113,22 @@ class PetForm(ModelForm):
         }
 
 
-class ServicesForm(ModelForm):
-    start = DateTimeField(
-        widget=DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'})
-    )
+class ServiceForm(ModelForm):
     end = DateTimeField(
         widget=DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
         required=False
     )
-    select = Select(attrs={'class': 'form-control'})
 
     class Meta:
         model = Services
-        fields = ['pet', 'type', 'start', 'end', 'details']
+        fields = ['type', 'end', 'details', 'state', 'pet', 'total_time']
+        widgets = {
+            'pet': HiddenInput(attrs={'class': 'form-control', 'readonly': True}),
+            'details': Textarea(attrs={'class': 'form-control'}),
+            'type': Select(attrs={'class': 'form-control'}),
+            'state': Select(attrs={'class': 'form-control'}),
+            'total_time': HiddenInput(attrs={'class': 'form-control'})
+        }
 
 
 class EventForm(ModelForm):

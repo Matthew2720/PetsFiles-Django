@@ -67,14 +67,18 @@ class Pet(models.Model):
 
 class Services(models.Model):
     SERVICES = [('CL', 'Clínica'), ('GU', 'Guardería'), ('PE', 'Peluquería')]
+    STATES = [('Activo', 'Activo'), ('Finalizado', 'Finalizado')]
 
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='servicios')
     type = models.CharField(max_length=2, choices=SERVICES, verbose_name='tipo_servicio')
     start = models.DateTimeField(verbose_name='fecha_inicio')
     end = models.DateTimeField(null=True, blank=True, verbose_name='fecha_final')
     details = models.TextField(null=True, blank=True, verbose_name='observaciones')
-    state = models.CharField(max_length=10, verbose_name='Estado', default='Activo')
-    total_time = models.DateTimeField(null=True, blank=True, verbose_name='Tiempo')
+    state = models.CharField(max_length=10, choices=STATES, verbose_name='Estado', default='Activo')
+    total_time = models.IntegerField(null=True, blank=True, verbose_name='Tiempo')
+
+    def __str__(self):
+        return self.pet.namePet
 
 
 class Events(models.Model):
