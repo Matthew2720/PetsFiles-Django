@@ -18,7 +18,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET
 from django.http import FileResponse
 
-
 from .forms import (
     VeterinaryForm,
     UserForm,
@@ -215,7 +214,7 @@ def home(request):
         form = EventForm(veterinary_logued, request.POST)
         if form.is_valid:
             event = form.save()
-            if event.name == 'GU' or event.name == 'PE ' or event.name == 'CL':
+            if event.name == 'GU' or event.name == 'PE' or event.name == 'CL':
                 service = Services.objects.create(
                     pet=event.pet,
                     type=event.name,
@@ -386,6 +385,7 @@ def registerVet(request):
 
     context = {"form": form}
     return render(request, "veterinary/register.html", context)
+
 
 # endregion
 
@@ -577,8 +577,8 @@ def list_sale(request):
 
 # region services
 def detailClinic(request):
-    pets = Services.objects.filter(state='Activo')
-    endService = Services.objects.filter(state='Finalizado')
+    pets = Services.objects.filter(state='Activo', type="CL")
+    endService = Services.objects.filter(state='Finalizado', type='CL')
     if request.method == "POST":
         pets = Services.objects.filter(pet__namePet__icontains=request.POST.get("search", ""),
                                        state='Activo')
@@ -586,17 +586,37 @@ def detailClinic(request):
     return render(request, 'veterinary/detailClinic.html', context)
 
 
-def deleteService(request,id):
+def detailDaycare(request):
+    pets = Services.objects.filter(state='Activo', type="GU")
+    endService = Services.objects.filter(state='Finalizado', type='GU')
+    if request.method == "POST":
+        pets = Services.objects.filter(pet__namePet__icontains=request.POST.get("search", ""),
+                                       state='Activo')
+    context = {'pets': pets, 'endService': endService}
+    return render(request, 'veterinary/detailDaycare.html', context)
+
+
+def detailSalon(request):
+    pets = Services.objects.filter(state='Activo', type="PE")
+    endService = Services.objects.filter(state='Finalizado', type='PE')
+    if request.method == "POST":
+        pets = Services.objects.filter(pet__namePet__icontains=request.POST.get("search", ""),
+                                       state='Activo')
+    context = {'pets': pets, 'endService': endService}
+    return render(request, 'veterinary/detailSalon.html', context)
+
+
+def deleteService(request, id):
     service = Services.objects.get(id=id)
     service.delete()
     return redirect('home')
 
 
-def updateService(request,id):
+def updateService(request, id):
     instanceService = Services.objects.get(id=id)
     form = ServiceForm(instance=instanceService)
     if request.method == 'POST':
-        formService = ServiceForm(request.POST,instance=instanceService)
+        formService = ServiceForm(request.POST, instance=instanceService)
         if formService.is_valid():
             service = formService.save(commit=False)
             service.start = instanceService.start
@@ -607,10 +627,12 @@ def updateService(request,id):
             messages.error(request, "No se pudo actualizar el servicio")
             return redirect("updateService")
     return render(request, 'veterinary/updateService.html', {'form': form})
+
+
 # endregion
 # region pdf
 
-def manual_usuario_view (request):
+def manual_usuario_view(request):
     filename = 'manual_usuario.pdf'
     file = open(filename, 'rb')
     response = FileResponse(file, content_type='application/pdf')
