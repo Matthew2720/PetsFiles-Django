@@ -358,25 +358,34 @@ def deleteEmployee(request, id):
 def registerVet(request):
     if request.method == "POST":
         form = VeterinaryForm(request.POST)
-        if form.is_valid:
-            form.save()
-            nit = request.POST["nit"]
-            veterinary = Veterinary.objects.get(nit=nit)
-            user = User.objects.create(
-                username=request.POST["nameVeterinary"],
-                password=request.POST["password"],
-                veterinary=veterinary,
-            )
-            user.set_password(request.POST["password"])
-            user.save()
-            user.groups.add()
-            user.save()
-            return redirect("index")
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            nameVeterinary = cleaned_data.get("nameVeterinary")
+            email = cleaned_data.get("email")
+            nit = cleaned_data.get("nit")
+            if Veterinary.objects.filter(nameVeterinary=nameVeterinary).exists():
+                form.add_error("nameVeterinary", "Esta veterinaria ya se encuentra registrada en nuestro sistema.")
+            if Veterinary.objects.filter(email=email).exists():
+                form.add_error("email", "El correo electrónico ya está en uso.")
+            if Veterinary.objects.filter(nit=nit).exists():
+                form.add_error("nit", "El NIT ya está registrado.")
+            if not form.errors:
+                veterinary = form.save()
+                user = User.objects.create(
+                    username=nameVeterinary,
+                    password=cleaned_data.get("password"),
+                    veterinary=veterinary,
+                )
+                user.set_password(request.POST["password"])
+                user.save()
+                user.groups.add()
+                user.save()
+                return redirect("index")
+    else:
+        form = VeterinaryForm()
 
-    form = VeterinaryForm()
     context = {"form": form}
     return render(request, "veterinary/register.html", context)
-
 
 # endregion
 

@@ -44,8 +44,10 @@ section{
 }
 
 h2 {
+    color: #f5f5f5;
     text-align: center;
     margin-bottom: 20px;
+
 }
 
 .caja1 {
@@ -143,5 +145,24 @@ flex-shrink: 0;
 .column-2-2 {
 flex-grow: 1;
 flex-shrink: 1;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 1.75em;
+    margin: 0;
+    color: #181818;
+}
+
+.fc .fc-col-header-cell-cushion {
+    display: inline-block;
+    padding: 2px 4px;
+    color: #f5f5f5;
+}
+
+.fc .fc-daygrid-day-number {
+    position: relative;
+    z-index: 4;
+    padding: 4px;
+    color: #f5f5f5;
 }
 
