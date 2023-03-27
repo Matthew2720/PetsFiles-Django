@@ -1,22 +1,16 @@
-from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
-from django.http import HttpResponseRedirect
-from django.db.models import Q
-import base64
 import json
 from decimal import Decimal
-from datetime import date
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, F
-from django.db import transaction
-from django.forms import formset_factory
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET
 from django.http import FileResponse
+
 
 from .forms import (
     VeterinaryForm,
@@ -29,7 +23,7 @@ from .forms import (
     ProductForm,
     OrderForm,
     SaleForm,
-    DetSaleForm, ServiceForm,
+    ServiceForm,
 )
 from .models import User, Veterinary, Pet, Client, Events, Product, DetSale, Sale, Services
 
@@ -630,10 +624,17 @@ def updateService(request, id):
 
 
 # endregion
-# region pdf
+# regionpdf
 
 def manual_usuario_view(request):
     filename = 'manual_usuario.pdf'
     file = open(filename, 'rb')
     response = FileResponse(file, content_type='application/pdf')
     return response
+
+
+# endregion
+def report_sale(request):
+    pass
+
+# endregion

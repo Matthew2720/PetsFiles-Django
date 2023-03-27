@@ -26,6 +26,7 @@
         {% csrf_token %}
         {{form.as_table}}
         <input type="submit" value="Enviar" class="btn btn-success">
+                  <a class='btn' style="background-color: #ED6436; color: white;" href="{% url 'detailEmployee' %}"> Volver</a>
       </form>
     </div>
   </div>
