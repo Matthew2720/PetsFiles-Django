@@ -24,19 +24,18 @@
                       Servicios
                     </button>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin-left: 47vw;">
-                      <a class="dropdown-item dropdown-item-hover" href="{% url 'detailPet'  %}">Mascotas</a>
-                      <a class="dropdown-item dropdown-item-hover" href="{% url 'detailClient' %}">Clientes</a>
-                      <a class="dropdown-item dropdown-item-hover" href="{% url 'detailEmployee' %}">Colegas</a>
-                      <a class="dropdown-item dropdown-item-hover" href="{% url 'registerDate' %}">Citas</a>
-                        <a href="#" class="dropdown-item dropdown-item" >Facturación</a>
+                        <a class="dropdown-item dropdown-item-hover" href="{% url 'detailClient' %}">Clientes</a>
+                        <a class="dropdown-item dropdown-item-hover" href="{% url 'detailPet'  %}">Mascotas</a>
+                        <a class="dropdown-item dropdown-item-hover" href="{% url 'registerDate' %}">Citas</a>
+                          <a class="dropdown-item dropdown-item-hover" href="{% url 'create_sale' %}">Facturación</a>
                         <ul class="nav-item dropdown">
-                          <a class="dropdown-item dropdown-item-hover" href="{% url 'list_sale' %}">Lista</a>
-                          <a class="dropdown-item dropdown-item-hover" href="{% url 'create_sale' %}">Facturar</a>
+                            <a class="dropdown-item dropdown-item-hover" href="{% url 'list_sale' %}">Lista</a>
                         </ul>
-                      <a class="dropdown-item dropdown-item-hover" href=" {% url 'detailClinic' %} ">Clinica</a>
-                      <a class="dropdown-item dropdown-item-hover" href="{% url 'detailDaycare' %}">Guarderia</a>
-                      <a class="dropdown-item dropdown-item-hover" href="{% url 'detailSalon' %}">Peluqueria</a>
-                      <a class="dropdown-item dropdown-item-hover" href="{% url 'detailProduct' %}">Inventario</a>
+                        <a class="dropdown-item dropdown-item-hover" href=" {% url 'detailClinic' %} ">Clinica</a>
+                        <a class="dropdown-item dropdown-item-hover" href="{% url 'detailDaycare' %}">Guarderia</a>
+                        <a class="dropdown-item dropdown-item-hover" href="{% url 'detailSalon' %}">Peluqueria</a>
+                        <a class="dropdown-item dropdown-item-hover" href="{% url 'detailProduct' %}">Inventario</a>
+                        <a class="dropdown-item dropdown-item-hover" href="{% url 'detailEmployee' %}">Colegas</a>
                     </div>
                   </li>
                 </div>
