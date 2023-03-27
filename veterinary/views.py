@@ -49,7 +49,7 @@ def send_email(request):
             'Solicitud de Soporte',
             'Hola, ' + nombre + ' ha enviado un mensaje: ' + mensaje + ' Puedes contactarlo a través de su correo electrónico: ' + email,
             settings.EMAIL_HOST_USER,
-            ['petsfileco@gmail.com'],
+            ['godofreddo017@gmail.com'],
             fail_silently=False,
         )
         messages.success(request, "La solicitud fue enviada correctamente")
