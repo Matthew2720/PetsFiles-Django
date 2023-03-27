@@ -1,16 +1,20 @@
-from django.core.mail import send_mail
-from django.conf import settings
+import base64
 import json
 from decimal import Decimal
+from io import BytesIO
+
+import matplotlib.pyplot as plt
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from django.db.models import Q, F
+from django.db.models import Q, F, Sum
+from django.db.models.functions import TruncMonth
+from django.http import FileResponse
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET
-from django.http import FileResponse
-
 
 from .forms import (
     VeterinaryForm,
@@ -384,7 +388,7 @@ def registerVet(request):
 # endregion
 
 # region product
-@login_required
+@login_required(login_url="login")
 def detailProduct(request):
     products = Product.objects.all()
     form1 = CategoryForm(request.POST or None)
@@ -446,7 +450,7 @@ def updateProduct(request, id):
 # endregion
 
 # region sale
-
+@login_required(login_url="login")
 def create_sale(request):
     if request.method == 'POST':
         form = SaleForm(request.POST)
@@ -468,6 +472,7 @@ def create_sale(request):
     return render(request, 'veterinary/create_sale.html', {'form': form})
 
 
+@login_required(login_url="login")
 def create_sale2(request):
     sale_data = request.session.get('sale_data')
 
@@ -529,6 +534,7 @@ def create_sale2(request):
     return render(request, 'veterinary/create_sale2.html', context)
 
 
+@login_required(login_url="login")
 @require_GET
 def search(request):
     term = request.GET.get('term')
@@ -542,6 +548,7 @@ def search(request):
         return JsonResponse({'results': data})
 
 
+@login_required(login_url="login")
 def check_sale_data(request):
     if 'sale_data' not in request.session:
         return JsonResponse({'status': 'not_found'})
@@ -549,6 +556,7 @@ def check_sale_data(request):
         return JsonResponse({'status': 'found'})
 
 
+@login_required(login_url="login")
 def list_sale(request):
     query = request.GET.get('q')
     if query:
@@ -570,6 +578,7 @@ def list_sale(request):
 # endregion
 
 # region services
+@login_required(login_url="login")
 def detailClinic(request):
     pets = Services.objects.filter(state='Activo', type="CL")
     endService = Services.objects.filter(state='Finalizado', type='CL')
@@ -580,6 +589,7 @@ def detailClinic(request):
     return render(request, 'veterinary/detailClinic.html', context)
 
 
+@login_required(login_url="login")
 def detailDaycare(request):
     pets = Services.objects.filter(state='Activo', type="GU")
     endService = Services.objects.filter(state='Finalizado', type='GU')
@@ -590,6 +600,7 @@ def detailDaycare(request):
     return render(request, 'veterinary/detailDaycare.html', context)
 
 
+@login_required(login_url="login")
 def detailSalon(request):
     pets = Services.objects.filter(state='Activo', type="PE")
     endService = Services.objects.filter(state='Finalizado', type='PE')
@@ -600,12 +611,14 @@ def detailSalon(request):
     return render(request, 'veterinary/detailSalon.html', context)
 
 
+@login_required(login_url="login")
 def deleteService(request, id):
     service = Services.objects.get(id=id)
     service.delete()
     return redirect('home')
 
 
+@login_required(login_url="login")
 def updateService(request, id):
     instanceService = Services.objects.get(id=id)
     form = ServiceForm(instance=instanceService)
@@ -634,7 +647,67 @@ def manual_usuario_view(request):
 
 
 # endregion
+
+# region reportes
+@login_required(login_url="login")
 def report_sale(request):
-    pass
+    if request.method == "POST":
+        option = request.POST.get('option')
+        graphic = generate_chart(option)
+        context = {
+            'graphic': graphic
+        }
+        return render(request, 'veterinary/report_sale.html', context)
+    return render(request, 'veterinary/report_sale.html', {})
+
+
+def generate_chart(option):
+    if option == 'month':
+        # Aquí generas el gráfico de ventas por mes utilizando Matplotlib
+        sales_by_month = Sale.objects.annotate(month=TruncMonth('date_joined')).values('month').annotate(
+            total=Sum('total')).order_by('month')
+        months = [sale['month'].strftime('%b %Y') for sale in sales_by_month]
+        totals = [sale['total'] for sale in sales_by_month]
+        fig, ax = plt.subplots()
+        ax.bar(months, totals)
+        ax.set_xlabel('Mes')
+        ax.set_ylabel('Total de ventas')
+        ax.set_title('Ventas por mes')
+        plt.xticks(rotation=25, ha='right')
+    elif option == 'category':
+        # Aquí generas el gráfico de ventas por categoría utilizando Matplotlib
+        sales_by_category = DetSale.objects.values('prod__cat__name').annotate(total=Sum('price')).order_by(
+            'prod__cat__name')
+        print(sales_by_category)
+        categories = [sale['prod__cat__name'] for sale in sales_by_category]
+        totals = [sale['total'] for sale in sales_by_category]
+        fig, ax = plt.subplots()
+        ax.bar(categories, totals)
+        ax.set_xlabel('Categoría')
+        ax.set_ylabel('Total de ventas')
+        ax.set_title('Ventas por categoría')
+        plt.xticks(rotation=25, ha='right')
+    elif option == 'product':
+        # Aquí generas el gráfico de ventas por producto utilizando Matplotlib
+        sales_by_product = DetSale.objects.values('prod__name').annotate(total=Sum('price')).order_by('prod__name')
+        products = [sale['prod__name'] for sale in sales_by_product]
+        totals = [sale['total'] for sale in sales_by_product]
+        fig, ax = plt.subplots()
+        ax.bar(products, totals)
+        ax.set_xlabel('Producto')
+        ax.set_ylabel('Total de ventas')
+        ax.set_title('Ventas por producto')
+        plt.xticks(rotation=15, ha='right')
+
+    # Una vez generado el gráfico, lo conviertes a imagen y lo renderizas en la vista
+    buffer = BytesIO()
+    fig.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    buffer.close()
+
+    graphic = base64.b64encode(image_png)
+    graphic = graphic.decode('utf-8')
+    return graphic
 
 # endregion

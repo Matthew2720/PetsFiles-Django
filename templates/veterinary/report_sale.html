@@ -15,30 +15,25 @@
 
 {% block content %}
 <div class="container">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<h1>Reporte de inventario</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Stock</th>
-                <th>Precio de venta</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-            <tr>
-                <td>{{ product.name }}</td>
-                <td>{{ product.cat.name }}</td>
-                <td>{{ product.stock }}</td>
-                <td>{{ product.pvp }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <form method="POST" action="{% url 'reportSale' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="option">Seleccione una opción:</label>
+          <select id="option" name="option" class="form-control">
+            <option value="month">Ventas por mes</option>
+            <option value="category">Ventas por categoría</option>
+            <option value="product">Ventas por producto</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Generar gráfico</button>
+      </form>
+      {% if graphic %}
+        <img src="data:image/png;base64,{{ graphic }}" alt="Gráfico de ventas" class="img-fluid">
+      {% endif %}
+    </div>
+  </div>
 </div>
+
 {% endblock  %}

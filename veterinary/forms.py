@@ -145,9 +145,9 @@ class EventForm(ModelForm):
             ('1', 'Consultorio 1'),
             ('2', 'Consultorio 2'),
             ('3', 'Consultorio 3'),
-            ('4', 'Consultorio 4'),
-            ('5', 'Consultorio 5'),
-            ('6', 'Consultorio 6'),
+            ('4', 'Clinica'),
+            ('5', 'Guarderia'),
+            ('6', 'Peluqueria'),
         )
         CHOICESTYPE = (
             ('CO', 'Consulta'),
@@ -155,7 +155,6 @@ class EventForm(ModelForm):
             ('VA', 'Vacunacion'),
             ('GU', 'Guarderia'),
             ('PE', 'Peluqueria'),
-            ('CI', 'Consulta intermitente'),
         )
         widgets = {
             'name': Select(attrs={'class': 'form-control'}, choices=CHOICESTYPE),

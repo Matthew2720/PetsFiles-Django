@@ -19,14 +19,6 @@
 
 
 {% block content %}
-<script>
-    window.addEventListener('beforeunload', function (e) {
-        if ('{{ request.method }}' !== 'POST') {
-            e.preventDefault();
-            e.returnValue = '';
-        }
-    });
-</script>
 
 <div class="container">
     <h1 class="text-center" style="color: white">Factura</h1>
