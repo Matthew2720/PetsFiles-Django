@@ -36,7 +36,7 @@
                       <a class="dropdown-item dropdown-item-hover" href="{% url 'detailSalon' %}">Peluqueria</a>
                       <a class="dropdown-item dropdown-item-hover" href="{% url 'detailProduct' %}">Inventario</a>
                       <a class="dropdown-item dropdown-item-hover" href="{% url 'reportSale' %}">Estadisticas</a>
-                        <a class="dropdown-item dropdown-item-hover" href="{% url 'registerEmployee' %}">Empleados</a>
+                        <a class="dropdown-item dropdown-item-hover" href="{% url 'detailEmployee' %}">Empleados</a>
 
                     </div>
                   </li>
@@ -55,12 +55,12 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
-                    <a href="{% url 'index' %}" class="nav-item nav-link active">Inicio</a>
+                    <a href="{% url 'login' %}" class="nav-item nav-link active" >INGRESAR</a>
+                    <a href="{% url 'index' %}" class="nav-item nav-link">Inicio</a>
                     <a href="{% url 'index' %}#sobre-nosotros" class="nav-item nav-link" onclick="showSection('sobre-nosotros');">Sobre Nosotros</a>
                     <a href="{% url 'index' %}#servicios" class="nav-item nav-link" onclick="showSection('servicios');">Servicios</a>
                     <a href="{% url 'index' %}#precios" class="nav-item nav-link" onclick="showSection('precios');">Precios</a>
                       <a href="{% url 'registerVet' %}" class="nav-item nav-link">Registro</a>
-                      <a href="{% url 'login' %}" class="nav-item nav-link active" style="margin-left: 370px;">INGRESAR</a>
                           </div>
                       </div>
                    </nav>

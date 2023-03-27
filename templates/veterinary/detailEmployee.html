@@ -15,7 +15,7 @@
 {% block 'content' %}
 <div class="container-fluid" style="background-color: #181818; height: 100vh">
   <div class="row">
-    <div class="col-md-12" style="padding-right: 100px; padding-left: 100px;">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 15px; padding-left: 15px;">
       <div class="card bg-dark text-white">
         <div class="card-body text-center">
           <form action="" method="POST">
@@ -50,8 +50,8 @@
                 <td>{{employee.last_name}}</td>
                 <td>{{employee.direccion}}</td>
                 <td>{{employee.email}}</td>
-                <td><a href="{% url 'updateEmployee' id=employee.id %}" class="btn btn-primary">Actualizar perfil</a></td> 
-                <td><button onclick = "borrar('{{employee.id}}')" class="btn btn-danger">Eliminar</button></td> 
+                <td><a href="{% url 'updateEmployee' id=employee.id %}" class="btn btn-primary btn-sm">Actualizar perfil</a></td>
+                <td><button onclick="borrar('{{employee.id}}')" class="btn btn-danger btn-sm">Eliminar</button></td>
               </tr>
               {% endfor %}
             </tbody>
