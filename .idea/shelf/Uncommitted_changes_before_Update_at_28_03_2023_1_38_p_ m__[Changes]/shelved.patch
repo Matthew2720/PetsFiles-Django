@@ -1,0 +1,163 @@
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"dataSourceStorageLocal\" created-in=\"PY-223.8617.48\">\n    <data-source name=\"db.sqlite3\" uuid=\"39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0\">\n      <database-info product=\"SQLite\" version=\"3.40.1\" jdbc-version=\"4.2\" driver-name=\"SQLite JDBC\" driver-version=\"3.40.1.0\" dbms=\"SQLITE\" exact-version=\"3.40.1\" exact-driver-version=\"3.40\">\n        <identifier-quote-string>&quot;</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"mixed\" quoted-identifiers=\"mixed\" />\n      <schema-mapping>\n        <introspection-scope>\n          <node kind=\"schema\">\n            <name qname=\"@\" />\n            <name qname=\"main\" />\n          </node>\n        </introspection-scope>\n      </schema-mapping>\n    </data-source>\n    <data-source name=\"Django default\" uuid=\"99c52fca-9450-4d62-a5bd-c97fc2756234\">\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"SQLITE\" exact-version=\"0\" />\n      <schema-mapping />\n    </data-source>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+--- a/.idea/dataSources.local.xml	(revision fea511b6e7037dc0df284da03d95e514574fd810)
++++ b/.idea/dataSources.local.xml	(date 1679928612822)
+@@ -1,23 +1,22 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="dataSourceStorageLocal" created-in="PY-223.8617.48">
+-    <data-source name="db.sqlite3" uuid="39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0">
++  <component name="dataSourceStorageLocal" created-in="PY-223.8836.34">
++    <data-source name="Django default" uuid="99c52fca-9450-4d62-a5bd-c97fc2756234">
++      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="SQLITE" exact-version="0" />
++      <schema-mapping />
++    </data-source>
++    <data-source name="identifier.sqlite" uuid="e5a8b4c1-a52c-4cbb-a4bf-5de758fecff0">
+       <database-info product="SQLite" version="3.40.1" jdbc-version="4.2" driver-name="SQLite JDBC" driver-version="3.40.1.0" dbms="SQLITE" exact-version="3.40.1" exact-driver-version="3.40">
+         <identifier-quote-string>&quot;</identifier-quote-string>
+       </database-info>
+       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
++      <secret-storage>master_key</secret-storage>
++      <auth-provider>no-auth</auth-provider>
+       <schema-mapping>
+         <introspection-scope>
+-          <node kind="schema">
+-            <name qname="@" />
+-            <name qname="main" />
+-          </node>
++          <node kind="schema" qname="@" />
+         </introspection-scope>
+       </schema-mapping>
+-    </data-source>
+-    <data-source name="Django default" uuid="99c52fca-9450-4d62-a5bd-c97fc2756234">
+-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="SQLITE" exact-version="0" />
+-      <schema-mapping />
+     </data-source>
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"37b2abfc-ad1d-4131-a084-4bea0dfce391\" name=\"Changes\" comment=\"Entidad agregada, registro desde agenda, pendiente visualizacion\">\n      <change afterPath=\"$PROJECT_DIR$/templates/veterinary/updateService.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources.local.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources.local.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources/39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources/39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources/c4a22c56-5226-48a8-95d8-6ba538438bff.xml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/db.sqlite3\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/db.sqlite3\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/layout/partials/headerbase.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/layout/partials/headerbase.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/veterinary/detailClinic.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/veterinary/detailClinic.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/veterinary/admin.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/veterinary/admin.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/veterinary/forms.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/veterinary/forms.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/veterinary/models.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/veterinary/models.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/veterinary/urls.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/veterinary/urls.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/veterinary/views.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/veterinary/views.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"DatabaseLocalColorSettings\">\n    <colors>\n      <entry key=\"39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0\" value=\"Blue\" />\n    </colors>\n  </component>\n  <component name=\"DjangoConsoleOptions\" custom-start-script=\"import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)\">\n    <option name=\"myCustomStartScript\" value=\"import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"HTML File\" />\n        <option value=\"JavaScript File\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"nuevaIdea\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProblemsViewState\">\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2MgoedGExcpSUVeK9zhc7DdXHJf\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n    <option name=\"showMembers\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\n    &quot;last_opened_file_path&quot;: &quot;/home/mateo/PetsFiles-Django/templates/veterinary&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  },\n  &quot;keyToStringList&quot;: {\n    &quot;DatabaseDriversLRU&quot;: [\n      &quot;sqlite&quot;\n    ]\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/templates/veterinary\" />\n      <recent name=\"$PROJECT_DIR$/templates/layout\" />\n    </key>\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"PetsFiles-Django\" type=\"Python.DjangoServer\" factoryName=\"Django server\">\n      <module name=\"PetsFiles-Django\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n        <env name=\"DJANGO_SETTINGS_MODULE\" value=\"PetsFiles.settings\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"/usr/bin/python3.10\" />\n      <option name=\"SDK_NAME\" value=\"Python 3.10\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <option name=\"launchJavascriptDebuger\" value=\"false\" />\n      <option name=\"port\" value=\"8000\" />\n      <option name=\"host\" value=\"\" />\n      <option name=\"additionalOptions\" value=\"\" />\n      <option name=\"browserUrl\" value=\"\" />\n      <option name=\"runTestServer\" value=\"false\" />\n      <option name=\"runNoReload\" value=\"false\" />\n      <option name=\"useCustomRunCommand\" value=\"false\" />\n      <option name=\"customRunCommand\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"37b2abfc-ad1d-4131-a084-4bea0dfce391\" name=\"Changes\" comment=\"\" />\n      <created>1678198685416</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1678198685416</updated>\n      <workItem from=\"1678198686458\" duration=\"1194000\" />\n      <workItem from=\"1678199921328\" duration=\"7047000\" />\n      <workItem from=\"1678207275059\" duration=\"2812000\" />\n      <workItem from=\"1678210691092\" duration=\"13756000\" />\n      <workItem from=\"1678370021175\" duration=\"4726000\" />\n      <workItem from=\"1678436034796\" duration=\"1591000\" />\n      <workItem from=\"1678484492232\" duration=\"1050000\" />\n      <workItem from=\"1678656241836\" duration=\"11688000\" />\n      <workItem from=\"1678706357455\" duration=\"2490000\" />\n      <workItem from=\"1678713745094\" duration=\"10491000\" />\n      <workItem from=\"1678795825254\" duration=\"11633000\" />\n      <workItem from=\"1678819456145\" duration=\"16307000\" />\n      <workItem from=\"1678880193693\" duration=\"715000\" />\n      <workItem from=\"1678881382094\" duration=\"381000\" />\n      <workItem from=\"1678914004884\" duration=\"566000\" />\n      <workItem from=\"1678914592848\" duration=\"983000\" />\n      <workItem from=\"1678915594680\" duration=\"9300000\" />\n      <workItem from=\"1679066375564\" duration=\"4350000\" />\n      <workItem from=\"1679414211114\" duration=\"22000\" />\n      <workItem from=\"1679414565403\" duration=\"10508000\" />\n      <workItem from=\"1679483634493\" duration=\"9155000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Cambios trabajando\">\n      <created>1678296210042</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1678296210042</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Navegacion añadida entre facturas y lista\">\n      <created>1679002709512</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679002709512</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"Correcciones realizadas\">\n      <created>1679070724338</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679070724338</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"Entidad agregada, registro desde agenda, pendiente visualizacion\">\n      <created>1679422841665</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679422841665</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"5\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State>\n              <option name=\"FILTERS\">\n                <map>\n                  <entry key=\"branch\">\n                    <value>\n                      <list>\n                        <option value=\"HEAD\" />\n                      </list>\n                    </value>\n                  </entry>\n                </map>\n              </option>\n            </State>\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Cambios trabajando\" />\n    <MESSAGE value=\"Navegacion añadida entre facturas y lista\" />\n    <MESSAGE value=\"Correcciones realizadas\" />\n    <MESSAGE value=\"Entidad agregada, registro desde agenda, pendiente visualizacion\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Entidad agregada, registro desde agenda, pendiente visualizacion\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision fea511b6e7037dc0df284da03d95e514574fd810)
++++ b/.idea/workspace.xml	(date 1679925569362)
+@@ -5,19 +5,10 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="Entidad agregada, registro desde agenda, pendiente visualizacion">
+-      <change afterPath="$PROJECT_DIR$/templates/veterinary/updateService.html" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c4a22c56-5226-48a8-95d8-6ba538438bff.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/layout/partials/headerbase.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/partials/headerbase.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/veterinary/detailClinic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/detailClinic.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/veterinary/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/admin.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/veterinary/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/forms.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/veterinary/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/models.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/veterinary/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/urls.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/veterinary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/views.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -60,29 +51,31 @@
+     <option name="showLibraryContents" value="true" />
+     <option name="showMembers" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;/home/mateo/PetsFiles-Django/templates/veterinary&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "DefaultHtmlFileTemplate": "HTML File",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "WebServerToolWindowFactoryState": "false",
++    "last_opened_file_path": "/home/mateo/PetsFiles-Django/templates/veterinary",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "run.code.analysis.last.selected.profile": "aDefault",
++    "settings.editor.selected.configurable": "preferences.pluginManager",
++    "vue.rearranger.settings.migration": "true"
+   },
+-  &quot;keyToStringList&quot;: {
+-    &quot;DatabaseDriversLRU&quot;: [
+-      &quot;sqlite&quot;
++  "keyToStringList": {
++    "DatabaseDriversLRU": [
++      "sqlserver",
++      "mysql",
++      "sqlite"
+     ]
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="$PROJECT_DIR$/templates/veterinary" />
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"DataSourceManagerImpl\" format=\"xml\" multifile-model=\"true\">\n    <data-source source=\"LOCAL\" name=\"db.sqlite3\" uuid=\"39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0\">\n      <driver-ref>sqlite.xerial</driver-ref>\n      <synchronize>true</synchronize>\n      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>\n      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db.sqlite3</jdbc-url>\n      <working-dir>$ProjectFileDir$</working-dir>\n    </data-source>\n    <data-source source=\"LOCAL\" name=\"Django default\" uuid=\"99c52fca-9450-4d62-a5bd-c97fc2756234\">\n      <driver-ref>sqlite.xerial</driver-ref>\n      <synchronize>true</synchronize>\n      <imported>true</imported>\n      <remarks>$PROJECT_DIR$/PetsFiles/settings.py</remarks>\n      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>\n      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db.sqlite3</jdbc-url>\n      <working-dir>$ProjectFileDir$</working-dir>\n    </data-source>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+--- a/.idea/dataSources.xml	(revision fea511b6e7037dc0df284da03d95e514574fd810)
++++ b/.idea/dataSources.xml	(date 1679928612807)
+@@ -1,20 +1,20 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+-    <data-source source="LOCAL" name="db.sqlite3" uuid="39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0">
++    <data-source source="LOCAL" name="Django default" uuid="99c52fca-9450-4d62-a5bd-c97fc2756234">
+       <driver-ref>sqlite.xerial</driver-ref>
+       <synchronize>true</synchronize>
++      <imported>true</imported>
++      <remarks>$PROJECT_DIR$/PetsFiles/settings.py</remarks>
+       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db.sqlite3</jdbc-url>
+       <working-dir>$ProjectFileDir$</working-dir>
+     </data-source>
+-    <data-source source="LOCAL" name="Django default" uuid="99c52fca-9450-4d62-a5bd-c97fc2756234">
++    <data-source source="LOCAL" name="identifier.sqlite" uuid="e5a8b4c1-a52c-4cbb-a4bf-5de758fecff0">
+       <driver-ref>sqlite.xerial</driver-ref>
+       <synchronize>true</synchronize>
+-      <imported>true</imported>
+-      <remarks>$PROJECT_DIR$/PetsFiles/settings.py</remarks>
+       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db.sqlite3</jdbc-url>
++      <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
+       <working-dir>$ProjectFileDir$</working-dir>
+     </data-source>
+   </component>
