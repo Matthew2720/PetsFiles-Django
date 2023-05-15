@@ -39,5 +39,4 @@ urlpatterns = [
     path('reporte/', views.report_sale, name='reportSale'),
     path('detail_Api/', views.detail_Api, name='detail_Api'),
     path('updateApi/<int:id>', views.updateApi, name='updateApi'),
-    path('registerApi/', views.registerApi, name='registerApi')
 ]
