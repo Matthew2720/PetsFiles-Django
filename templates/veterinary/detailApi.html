@@ -13,13 +13,6 @@
 {% endblock %}
 
 {% block 'content' %}
-    {% if messages %}
-        <ul class="messages" style="color: #f5f5f5">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 {% comment %} Modal {% endcomment %}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="examplemodalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -88,7 +81,7 @@
                             <td>{{client.document}}</td>
                             <td>{{client.email}}</td>
                             <td>{{client.phone}}</td>
-                            <td><a href="{% url 'updateClient' id=client.id %}" class="btn btn-primary">Actualizar perfil</a></td>
+                            <td><a href="{% url 'updateApi' id=client.id %}" class="btn btn-primary">Actualizar perfil</a></td>
                             <td><button onclick="borrar('{{client.id}}')" class="btn btn-danger">Eliminar</button></td>
                         </tr>
                         {% endfor %}
@@ -103,22 +96,45 @@
 
 {% block 'script' %}
 <script>
-    function borrar(id){
-        swal({
-            title : 'Esta seguro que desea borrar ?',
-            text : 'Si lo borras no podras recuperarlo',
-            icon : 'warning',
-            buttons : true ,
-            dangerMode : true ,
-        })
-        .then ((willDelete)=>{
-            if (willDelete){
-                location.href = "/eliminar/clientes/"+id
-            }
-            else{
-                swal ('No se borro el registro')
-            }
-        });
-    }
-</script>
+        function borrar(id) {
+            swal({
+                title: '¿Está seguro que desea borrar?',
+                text: 'Si lo borra, no podrá recuperarlo',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    fetch("http://localhost:8080/deleteClient/" + id, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // El registro se eliminó exitosamente
+                            swal('Registro eliminado', {
+                                icon: 'success'
+                            }).then(() => {
+                            // Redirigir a otra página después de mostrar la alerta
+                            window.location.href = "http://127.0.0.1:8000/detail_Api/";
+                        });
+                        } else {
+                            // Hubo un error al eliminar el registro
+                            throw new Error('Error al eliminar el registro');
+                        }
+                    })
+                    .catch(error => {
+                        // Hubo un error en la solicitud
+                        swal('Error en la solicitud', {
+                            icon: 'error'
+                        });
+                        console.error('Error en la solicitud:', error);
+                    });
+                } else {
+                    swal('No se borró el registro');
+                }
+            });
+        }
+
+    </script>
 {% endblock  %}

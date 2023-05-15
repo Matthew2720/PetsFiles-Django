@@ -36,5 +36,8 @@ urlpatterns = [
     path('ver/peluqueria', views.detailSalon, name='detailSalon'),
     path('ver/guarderia', views.detailDaycare, name='detailDaycare'),
     path('manual-usuario/', views.manual_usuario_view, name='manual_usuario'),
-    path('reporte/', views.report_sale, name='reportSale')
+    path('reporte/', views.report_sale, name='reportSale'),
+    path('detail_Api/', views.detail_Api, name='detail_Api'),
+    path('updateApi/<int:id>', views.updateApi, name='updateApi'),
+    path('registerApi/', views.registerApi, name='registerApi')
 ]

@@ -1,5 +1,6 @@
 import base64
 import json
+import requests
 from decimal import Decimal
 from io import BytesIO
 
@@ -710,4 +711,100 @@ def generate_chart(option):
     graphic = graphic.decode('utf-8')
     return graphic
 
+
 # endregion
+
+def detail_Api(request):
+    veterinaryLogued = request.user.veterinary
+    form = ClientForm(initial={"veterinary": veterinaryLogued})
+    url = "http://localhost:8080/clients"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        clients = []
+        if data:
+            for item in data:
+                client = Client(
+                    id=item['id'],
+                    name=item['name'],
+                    last_name=item['last_name'],
+                    document=item['document'],
+                    email=item['email'],
+                    phone=item['phone'],
+                )
+                clients.append(client)
+    else:
+        clients = []
+
+    if request.method == "POST":
+        search_query = request.POST.get("search", "")
+        clients = Client.objects.filter(name__contains=search_query, veterinary=veterinaryLogued)
+        form_client = ClientForm(request.POST)
+
+        if form_client.is_valid():
+            document = form_client.cleaned_data["document"]
+            email = form_client.cleaned_data["email"]
+
+            if Client.objects.filter(Q(document=document) | Q(email=email)).exists():
+                messages.error(request, "Ya existe un cliente con el mismo documento o correo electrónico.")
+            else:
+                data = form_client.cleaned_data
+                veterinary = veterinaryLogued.id
+                serialized_data = {
+                    'name': data['name'],
+                    'last_name': data['last_name'],
+                    'email': data['email'],
+                    'phone': data['phone'],
+                    'veterinary_id': veterinary,
+                    'document': data['document'],
+                }
+                json_data = json.dumps(serialized_data)
+                print(json_data)
+                url = 'http://localhost:8080/saveClient'
+                headers = {'Content-Type': 'application/json'}
+                response = requests.post(url, data=json_data, headers=headers)
+
+                if response.status_code == 200:
+                    messages.success(request, "Registro realizado")
+                    return redirect('detail_Api')
+                else:
+                    var = response.status_code
+                    messages.error(request, f"Inserción Fallida {var}")
+
+    context = {"clients": clients, "form": form}
+    return render(request, "veterinary/detailApi.html", context)
+
+
+def updateApi(request, id):
+    client = Client.objects.get(id=id)
+    if request.method == "POST":
+        form = ClientForm(request.POST, instance=client)
+        if form.is_valid():
+            data = form.cleaned_data
+            veterinary = client.veterinary_id
+            global_id = str(client.global_id)
+            serialized_data = {
+                'name': data['name'],
+                'last_name': data['last_name'],
+                'email': data['email'],
+                'phone': data['phone'],
+                'veterinary_id': veterinary,
+                'document': data['document'],
+                'global_id': global_id
+            }
+            json_data = json.dumps(serialized_data)
+            url = 'http://localhost:8080/updateClient/' + str(client.id)
+            headers = {'Content-Type': 'application/json'}
+            response = requests.put(url, data=json_data, headers=headers)
+            if response.status_code == 200:
+                return redirect('detail_Api')
+            else:
+                var = response.status_code
+                messages.error(request, f"Inserción Fallida {var}")
+    else:
+        form = ClientForm(instance=client)
+    context = {"form": form}
+    return render(request, "veterinary/updateClient.html", context)
+
+
