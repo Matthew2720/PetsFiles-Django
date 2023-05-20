@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='pet',
             name='gender',
-            field=models.CharField(default='Desconocido', max_length=6),
+            field=models.CharField(default="Desc", max_length=6),
         ),
     ]

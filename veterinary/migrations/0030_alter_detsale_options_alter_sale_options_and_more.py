@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
             model_name="detsale",
             name="product",
             field=models.ForeignKey(
-                default=0,
+                default=None,
                 on_delete=django.db.models.deletion.PROTECT,
                 related_name="details",
                 to="veterinary.product",
@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
             model_name="sale",
             name="created_by",
             field=models.ForeignKey(
-                default=0,
+                default=None,
                 on_delete=django.db.models.deletion.CASCADE,
                 to=settings.AUTH_USER_MODEL,
             ),
@@ -99,7 +99,7 @@ class Migration(migrations.Migration):
             model_name="sale",
             name="client",
             field=models.ForeignKey(
-                default=0,
+                default=None,
                 on_delete=django.db.models.deletion.CASCADE,
                 to="veterinary.client",
             ),

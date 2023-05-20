@@ -5,17 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="Entidad agregada, registro desde agenda, pendiente visualizacion">
-      <change afterPath="$PROJECT_DIR$/templates/veterinary/updateService.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/veterinary/detailApi.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c4a22c56-5226-48a8-95d8-6ba538438bff.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/99c52fca-9450-4d62-a5bd-c97fc2756234.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/99c52fca-9450-4d62-a5bd-c97fc2756234.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e5a8b4c1-a52c-4cbb-a4bf-5de758fecff0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_03_2023_6_26_a__m___Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_03_2023_6_26_a_ m__[Changes]/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_03_2023_6_26_a_ m__[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_1_38_p__m___Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_1_38_p_ m__[Changes]/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_1_38_p_ m__[Changes]/manual_usuario.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_03_2023_1_38_p_ m__[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout/partials/headerbase.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/partials/headerbase.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/veterinary/detailClinic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/detailClinic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/veterinary/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/veterinary/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/veterinary/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetsFiles/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PetsFiles/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requeriments.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/veterinary/detailPet.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/detailPet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/migrations/0010_remove_pet_age_pet_gender.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/migrations/0010_remove_pet_age_pet_gender.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/migrations/0030_alter_detsale_options_alter_sale_options_and_more.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/migrations/0030_alter_detsale_options_alter_sale_options_and_more.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/migrations/0031_alter_detsale_options_alter_sale_options_and_more.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/migrations/0031_alter_detsale_options_alter_sale_options_and_more.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/veterinary/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/veterinary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/views.py" afterDir="false" />
     </list>
@@ -23,11 +32,6 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="DatabaseLocalColorSettings">
-    <colors>
-      <entry key="39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0" value="Blue" />
-    </colors>
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
@@ -74,12 +78,14 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+      &quot;sqlite&quot;,
+      &quot;mysql&quot;,
+      &quot;mariadb&quot;
     ]
   }
 }</component>
@@ -98,8 +104,8 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="PetsFiles.settings" />
       </envs>
-      <option name="SDK_HOME" value="/usr/bin/python3.10" />
-      <option name="SDK_NAME" value="Python 3.10" />
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../venv/bin/python" />
+      <option name="SDK_NAME" value="Python 3.10 (venv)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -145,6 +151,17 @@
       <workItem from="1679414211114" duration="22000" />
       <workItem from="1679414565403" duration="10508000" />
       <workItem from="1679483634493" duration="9155000" />
+      <workItem from="1683773312431" duration="2498000" />
+      <workItem from="1683822598809" duration="696000" />
+      <workItem from="1684149081562" duration="212000" />
+      <workItem from="1684151215571" duration="4591000" />
+      <workItem from="1684158014144" duration="5702000" />
+      <workItem from="1684186218273" duration="249000" />
+      <workItem from="1684246383246" duration="686000" />
+      <workItem from="1684509739891" duration="164000" />
+      <workItem from="1684511421996" duration="1416000" />
+      <workItem from="1684515392200" duration="350000" />
+      <workItem from="1684615593350" duration="4449000" />
     </task>
     <task id="LOCAL-00001" summary="Cambios trabajando">
       <created>1678296210042</created>
@@ -209,5 +226,16 @@
     <MESSAGE value="Correcciones realizadas" />
     <MESSAGE value="Entidad agregada, registro desde agenda, pendiente visualizacion" />
     <option name="LAST_COMMIT_MESSAGE" value="Entidad agregada, registro desde agenda, pendiente visualizacion" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/veterinary/views.py</url>
+          <line>135</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

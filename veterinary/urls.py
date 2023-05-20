@@ -36,5 +36,7 @@ urlpatterns = [
     path('ver/peluqueria', views.detailSalon, name='detailSalon'),
     path('ver/guarderia', views.detailDaycare, name='detailDaycare'),
     path('manual-usuario/', views.manual_usuario_view, name='manual_usuario'),
-    path('reporte/', views.report_sale, name='reportSale')
+    path('reporte/', views.report_sale, name='reportSale'),
+    path('pruebaAPI/', views.detailAPI, name='detailApi'),
+    path('updateAPI/<int:id>', views.updateAPI, name='updateApi'),
 ]

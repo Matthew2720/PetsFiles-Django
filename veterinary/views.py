@@ -1,5 +1,6 @@
 import base64
 import json
+import requests
 from decimal import Decimal
 from io import BytesIO
 
@@ -709,5 +710,107 @@ def generate_chart(option):
     graphic = base64.b64encode(image_png)
     graphic = graphic.decode('utf-8')
     return graphic
+
+
+# endregion
+
+# region API
+
+def detailAPI(request):
+    VeterinaryLogued = request.user.veterinary
+    formPet = PetForm(VeterinaryLogued)
+
+    url = "http://localhost:8080/pets"  # URL de la API
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        pets = []
+        clientx = Client.objects.get(id=1)
+        for item in data:
+            pet = Pet(namePet=item["namepet"], species=item["species"],
+                      birthdate=item["birthdate"],
+                      gender=item["gender"], client=clientx, id=item["id"])
+
+            pets.append(pet)
+    else:
+        pets = []  # En caso de error, no se obtienen mascotas
+
+    if request.method == "POST":
+        search_query = request.POST.get("search", "")
+        pets = Pet.objects.select_related("client", "client__veterinary").filter(
+            namePet__contains=search_query, client__veterinary=VeterinaryLogued
+        )
+        formPet = PetForm(VeterinaryLogued, request.POST)
+        if formPet.is_valid():
+            data = formPet.cleaned_data
+            client = data['client'].id
+            date = str(data['birthdate'])
+            print(date)
+
+            serialized_data = {
+                'namepet': data['namePet'],
+                'species': data['species'],
+                'client_id': client,
+                'birhdate': date,
+                'gender': data['gender'],
+            }
+            json_data = json.dumps(serialized_data)
+            print(json_data)
+            url = 'http://localhost:8080/savePet'
+            headers = {'Content-Type': 'application/json'}
+            response = requests.post(url, data=json_data, headers=headers)
+
+            if response.status_code == 200:
+                messages.success(request, "Registro realizado")
+                return redirect('detailApi')
+            else:
+                var = response.status_code
+                messages.error(request, f"Inserción Fallida {var}")
+    else:
+        formPet = PetForm(VeterinaryLogued)
+        pets = Pet.objects.select_related("client", "client__veterinary").filter(
+            client__veterinary=VeterinaryLogued
+        )
+
+    context = {"pets": pets, "form": formPet}
+    return render(request, "veterinary/detailApi.html", context)
+
+
+@login_required(login_url="login")
+def updateAPI(request, id):
+    veterinary_logued = request.user.veterinary
+    pet = Pet.objects.get(id=id)
+    if request.method == "POST":
+        form = PetForm(veterinary_logued, request.POST, instance=pet)
+        if form.is_valid():
+            data = form.cleaned_data
+            client = data['client'].id
+            date = str(data['birthdate'])
+            print(date)
+
+            serialized_data = {
+                'namepet': data['namePet'],
+                'species': data['species'],
+                'client_id': client,
+                'birhdate': date,
+                'gender': data['gender'],
+            }
+            json_data = json.dumps(serialized_data)
+            print(json_data)
+            url = 'http://localhost:8080/update/'+str(pet.id)
+            print(url)
+            headers = {'Content-Type': 'application/json'}
+            response = requests.put(url, data=json_data, headers=headers)
+
+            if response.status_code == 200:
+                messages.success(request, "Registro realizado")
+                return redirect('detailApi')
+            else:
+                var = response.status_code
+                messages.error(request, f"Inserción Fallida {var}")
+    else:
+        form = PetForm(veterinary_logued, instance=pet)
+    context = {"form": form}
+    return render(request, "veterinary/updatePet.html", context)
 
 # endregion

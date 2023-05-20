@@ -79,7 +79,7 @@
                 <td>{{pet.species}}</td>
                 <td>{{pet.gender}}</td>
                 <td>{{pet.birthdate}}</td>
-                <td><a href="{% url 'updatePet' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a></td> 
+                <td><a href="{% url 'updateApi' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a></td>
                 <td><button onclick="borrar('{{pet.id}}')" class="btn btn-danger">Eliminar</button></td> 
               </tr>
               {% endfor %}
@@ -94,22 +94,44 @@
 
 {% block 'script' %}
 <script>
-    function borrar(id){
-        swal({
-            title : 'Esta seguro que desea borrar ?',
-            text : 'Si lo borras no podras recuperarlo',
-            icon : 'warning',
-            buttons : true ,
-            dangerMode : true ,
-        })
-        .then ((willDelete)=>{
-            if (willDelete){
-                location.href = "/eliminar/mascotas/" + id
-            }
-            else{
-                swal ('No se borro el registro')
-            }
-        });
-    }
+        function borrar(id) {
+            swal({
+                title: '¿Está seguro que desea borrar?',
+                text: 'Si lo borra, no podrá recuperarlo',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    fetch("http://localhost:8080/delete/" + id, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // El registro se eliminó exitosamente
+                            swal('Registro eliminado', {
+                                icon: 'success'
+                            }).then(() => {
+                            // Redirigir a otra página después de mostrar la alerta
+                            window.location.href = "http://127.0.0.1:8000/pruebaAPI/";
+                        });
+                        } else {
+                            // Hubo un error al eliminar el registro
+                            throw new Error('Error al eliminar el registro');
+                        }
+                    })
+                    .catch(error => {
+                        // Hubo un error en la solicitud
+                        swal('Error en la solicitud', {
+                            icon: 'error'
+                        });
+                        console.error('Error en la solicitud:', error);
+                    });
+                } else {
+                    swal('No se borró el registro');
+                }
+            });
+        }
 </script>
 {% endblock  %}

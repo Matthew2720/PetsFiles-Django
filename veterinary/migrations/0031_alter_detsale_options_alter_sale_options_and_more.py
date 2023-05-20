@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
             model_name="sale",
             name="cli",
             field=models.ForeignKey(
-                default=0,
+                default=None,
                 on_delete=django.db.models.deletion.CASCADE,
                 to="veterinary.client",
             ),
