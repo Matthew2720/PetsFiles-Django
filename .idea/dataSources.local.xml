@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="PY-223.8836.34">
-    <data-source name="Django default" uuid="99c52fca-9450-4d62-a5bd-c97fc2756234">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="SQLITE" exact-version="0" />
-      <schema-mapping />
-    </data-source>
-    <data-source name="identifier.sqlite" uuid="e5a8b4c1-a52c-4cbb-a4bf-5de758fecff0">
+  <component name="dataSourceStorageLocal" created-in="PY-223.8617.48">
+    <data-source name="db.sqlite3" uuid="06a441c7-96a0-4209-9865-c3ec93d5fcd0">
       <database-info product="SQLite" version="3.40.1" jdbc-version="4.2" driver-name="SQLite JDBC" driver-version="3.40.1.0" dbms="SQLITE" exact-version="3.40.1" exact-driver-version="3.40">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
@@ -14,7 +10,7 @@
       <auth-provider>no-auth</auth-provider>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema" qname="@" />
+          <node kind="schema" negative="1" />
         </introspection-scope>
       </schema-mapping>
     </data-source>

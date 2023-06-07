@@ -98,7 +98,7 @@ class PetForm(ModelForm):
 
     class Meta:
         model = Pet
-        fields = '__all__'
+        exclude = ['veterinary']
         CHOICES = (('Macho', 'Macho'), ('Hembra', 'Hembra'),)
         CHOICESPECIES = (('Felino', 'Felino'), ('Canino', 'Canino'), ('Aves', 'Aves'), ('Otro', 'Otro'))
         widgets = {
@@ -140,7 +140,7 @@ class EventForm(ModelForm):
 
     class Meta:
         model = Events
-        exclude = ('is_active', 'end', 'client')
+        exclude = ('is_active', 'end', 'client','veterinary')
         CHOICES = (
             ('1', 'Consultorio 1'),
             ('2', 'Consultorio 2'),

@@ -52,6 +52,7 @@ class Client(models.Model):
 
 
 class Pet(models.Model):
+    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
     client = models.ForeignKey(Client, on_delete=models.PROTECT, related_name='pets')
     namePet = models.CharField(max_length=30, blank=False, null=False, verbose_name='nombre')
     species = models.CharField(max_length=30, blank=True, null=True, verbose_name='especie')
@@ -69,6 +70,7 @@ class Services(models.Model):
     SERVICES = [('CL', 'Clínica'), ('GU', 'Guardería'), ('PE', 'Peluquería')]
     STATES = [('Activo', 'Activo'), ('Finalizado', 'Finalizado')]
 
+    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='servicios')
     type = models.CharField(max_length=2, choices=SERVICES, verbose_name='tipo_servicio')
     start = models.DateTimeField(verbose_name='fecha_inicio')
@@ -82,6 +84,7 @@ class Services(models.Model):
 
 
 class Events(models.Model):
+    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
     pet = models.ForeignKey(Pet, on_delete=models.PROTECT)
     doctor = models.ForeignKey(User, on_delete=models.PROTECT, limit_choices_to={'is_doctor': True})
     name = models.CharField(max_length=255, null=True, blank=True, default="Consulta")
@@ -103,6 +106,7 @@ class Events(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nombre', unique=True)
     desc = models.CharField(max_length=500, null=True, blank=True, verbose_name='Descripción')
+    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -122,6 +126,7 @@ class Product(models.Model):
     cat = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría')
     stock = models.IntegerField(default=0, verbose_name='Stock')
     pvp = models.DecimalField(default=0.00, max_digits=9, decimal_places=2, verbose_name='Precio de venta')
+    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -146,6 +151,7 @@ class Sale(models.Model):
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     total = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.cli.name
@@ -173,6 +179,8 @@ class DetSale(models.Model):
     cant = models.IntegerField(default=0)
     iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
+
 
     def __str__(self):
         return self.prod.name

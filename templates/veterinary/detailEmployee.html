@@ -44,15 +44,17 @@
             </thead>
             <tbody>
               {% for employee in employees %}
-              <tr>
-                <td>{{employee.username}}</td>
-                <td>{{employee.first_name}}</td>
-                <td>{{employee.last_name}}</td>
-                <td>{{employee.direccion}}</td>
-                <td>{{employee.email}}</td>
-                <td><a href="{% url 'updateEmployee' id=employee.id %}" class="btn btn-primary btn-sm">Actualizar perfil</a></td>
-                <td><button onclick="borrar('{{employee.id}}')" class="btn btn-danger btn-sm">Eliminar</button></td>
-              </tr>
+                  {% if employee.direccion != None %}
+                      <tr>
+                        <td>{{employee.username}}</td>
+                        <td>{{employee.first_name}}</td>
+                        <td>{{employee.last_name}}</td>
+                        <td>{{employee.direccion}}</td>
+                        <td>{{employee.email}}</td>
+                        <td><a href="{% url 'updateEmployee' id=employee.id %}" class="btn btn-primary btn-sm">Actualizar perfil</a></td>
+                        <td><button onclick="borrar('{{employee.id}}')" class="btn btn-danger btn-sm">Eliminar</button></td>
+                      </tr>
+                  {% endif %}
               {% endfor %}
             </tbody>
           </table>

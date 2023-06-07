@@ -29,7 +29,7 @@ from .forms import (
     SaleForm,
     ServiceForm,
 )
-from .models import User, Veterinary, Pet, Client, Events, Product, DetSale, Sale, Services
+from .models import User, Veterinary, Pet, Client, Events, Product, DetSale, Sale, Services, Category
 
 
 def index(request):
@@ -54,6 +54,31 @@ def send_email(request):
         )
         messages.success(request, "La solicitud fue enviada correctamente")
         return redirect('support')
+
+
+def check_notifications(request):
+    veterinary_logued = request.user.veterinary
+
+    # Verificar si no hay registros de clientes para la veterinaria logueada
+    if not Client.objects.filter(veterinary=veterinary_logued).exists():
+        messages.info(request, 'Registra clientes')
+
+
+    # Verificar si no hay registros de mascotas relacionadas con clientes de la veterinaria logueada
+    if not Pet.objects.filter(client__veterinary=veterinary_logued).exists():
+        messages.info(request, 'Registra mascotas')
+
+
+    # Verificar si no hay categorías registradas para la veterinaria logueada
+    if not Category.objects.filter(veterinary=veterinary_logued).exists():
+        messages.info(request, 'Registra categorias')
+
+
+    # Verificar si no hay productos registrados para la veterinaria logueada
+    if not Product.objects.filter(veterinary=veterinary_logued).exists():
+        messages.info(request, 'Registra productos')
+
+
 
 
 # region client
@@ -142,7 +167,9 @@ def detailPet(request):
         )
         formPet = PetForm(VeterinaryLogued, request.POST)
         if formPet.is_valid():
-            formPet.save()
+            pet_instance = formPet.save(commit=False)
+            pet_instance.veterinary = VeterinaryLogued
+            pet_instance.save()
             return redirect("detailPet")
     else:
         formPet = PetForm(VeterinaryLogued)
@@ -211,16 +238,18 @@ def home(request):
     if request.method == "POST":
         form = EventForm(veterinary_logued, request.POST)
         if form.is_valid:
-            event = form.save()
+            event = form.save(commit=False)
+            event.veterinary = veterinary_logued
+            event.save()
             if event.name == 'GU' or event.name == 'PE' or event.name == 'CL':
-                service = Services.objects.create(
+                Services.objects.create(
                     pet=event.pet,
                     type=event.name,
                     start=event.start,
                     end=None,
-                    details='Detalles adicionales'
+                    details='Detalles adicionales',
+                    veterinary_id=veterinary_logued.id
                 )
-                print('Servicio creado')
             return redirect("home")
     all_events_query = Events.objects.select_related("pet__client__veterinary").filter(
         pet__client__veterinary=veterinary_logued
@@ -228,11 +257,22 @@ def home(request):
     out = []
     form = EventForm(veterinary_logued)
     for event in all_events_query:
+        if event.name == 'CL':
+            name = 'Clinica'
+        elif event.name == 'CO':
+            name = 'Consulta'
+        elif event.name == 'VA':
+            name = 'Vacunacion'
+        elif event.name == 'GU':
+            name = 'Guarderia'
+        elif event.name == 'PE':
+            name = 'Peluqueria'
+        else:
+            name = event.name
+
         out.append(
             {
-                "title": f"{event.pet}"
-                         + "|"
-                         + f"{event.name}",
+                "title": f"{event.pet} - {name}",
                 "id": event.id,
                 "start": event.start.strftime("%Y-%m-%dT%H:%M:%S"),
                 "end": event.start.strftime("%Y-%m-%dT%H:%M:%S"),

@@ -169,3 +169,7 @@ flex-shrink: 1;
     color: #f5f5f5;
 }
 
+#notification-popup {
+  display: none;
+}
+
