@@ -57,26 +57,22 @@ def send_email(request):
 
 
 def check_notifications(request):
-    veterinary_logued = request.user.veterinary
+    if not request.user.is_authenticated:
+        veterinary_logued = Veterinary.objects.get(id=1)
+    else:
+        veterinary_logued = request.user.veterinary
 
-    # Verificar si no hay registros de clientes para la veterinaria logueada
     if not Client.objects.filter(veterinary=veterinary_logued).exists():
         messages.info(request, 'Registra clientes')
 
-
-    # Verificar si no hay registros de mascotas relacionadas con clientes de la veterinaria logueada
     if not Pet.objects.filter(client__veterinary=veterinary_logued).exists():
         messages.info(request, 'Registra mascotas')
 
-
-    # Verificar si no hay categorías registradas para la veterinaria logueada
     if not Category.objects.filter(veterinary=veterinary_logued).exists():
-        messages.info(request, 'Registra categorias')
+        messages.info(request, 'Registra categorias y productos')
 
-
-    # Verificar si no hay productos registrados para la veterinaria logueada
-    if not Product.objects.filter(veterinary=veterinary_logued).exists():
-        messages.info(request, 'Registra productos')
+    if not Events.objects.filter(veterinary=veterinary_logued).exists():
+        messages.info(request, 'Registra tu primer cita')
 
 
 
@@ -417,7 +413,7 @@ def registerVet(request):
                 user.save()
                 user.groups.add()
                 user.save()
-                return redirect("index")
+                return redirect("login")
     else:
         form = VeterinaryForm()
 

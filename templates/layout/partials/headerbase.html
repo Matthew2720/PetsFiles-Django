@@ -54,8 +54,10 @@
                             <li><a href="{% url 'detailClient' %}">{{ message }}</a></li>
                         {% elif message.message == 'Registra mascotas'%}
                             <li><a href="{% url 'detailPet' %}">{{ message }}</a></li>
-                        {% else %}
+                        {% elif message.message == 'Registra productos'%}
                             <li><a href="{% url 'detailProduct' %}">{{ message }}</a></li>
+                        {% else %}
+                            <li><a href="#">{{ message }}</a></li>
                         {% endif %}
                     {% endfor %}
                   </ul>
