@@ -211,12 +211,28 @@ def registerDate(request):
     )
     out = []
     for event in all_events_query:
+        if event.name == 'CL':
+            name = 'Clinica'
+        elif event.name == 'CO':
+            name = 'Consulta'
+        elif event.name == 'VA':
+            name = 'Vacunacion'
+        elif event.name == 'GU':
+            name = 'Guarderia'
+        elif event.name == 'PE':
+            name = 'Peluqueria'
+        else:
+            name = event.name
+
         out.append(
             {
-                "title": f"{event.pet}" + "|" + f"{event.name}",
+                "title": f"{event.pet} - {name}",
                 "id": event.id,
                 "start": event.start.strftime("%Y-%m-%dT%H:%M:%S"),
                 "end": event.start.strftime("%Y-%m-%dT%H:%M:%S"),
+                "client": event.pet.client_name,
+                "pet": event.pet,
+                "room": event.room,
             }
         )
 
@@ -426,7 +442,8 @@ def registerVet(request):
 # region product
 @login_required(login_url="login")
 def detailProduct(request):
-    products = Product.objects.all()
+    veterinarylogued = request.user.veterinary
+    products = Product.objects.filter(veterinary=veterinarylogued)
     form1 = CategoryForm(request.POST or None)
     form2 = ProductForm(request.POST or None)
     order_form = OrderForm(request.GET or None)
@@ -443,11 +460,15 @@ def detailProduct(request):
 
     if request.method == "POST":
         if form1.is_valid() and request.POST.get("desc") != None:
-            form1.save()
+            category = form1.save(commit=False)
+            category.veterinary = veterinarylogued
+            category.save()
             messages.success(request, "Categoria agregada")
             return HttpResponseRedirect(request.path_info)
         elif form2.is_valid():
-            form2.save()
+            product = form2.save(commit=False)
+            product.veterinary = veterinarylogued
+            product.save()
             messages.success(request, "Producto agregado")
             return HttpResponseRedirect(request.path_info)
 
@@ -657,19 +678,28 @@ def deleteService(request, id):
 @login_required(login_url="login")
 def updateService(request, id):
     instanceService = Services.objects.get(id=id)
+    fecha = instanceService.start
     form = ServiceForm(instance=instanceService)
+
     if request.method == 'POST':
         formService = ServiceForm(request.POST, instance=instanceService)
         if formService.is_valid():
             service = formService.save(commit=False)
             service.start = instanceService.start
+            end_date = formService.cleaned_data.get('end')
+            if end_date and end_date < instanceService.start:
+                messages.error(request, "La fecha de finalización no puede ser anterior a la fecha de inicio.")
+                return redirect("updateService", id=id)
             service.total_time = str((service.end - service.start).days)
+            if service.total_time == '0':
+                service.total_time = '1'
             service.save()
             return redirect('home')
         else:
             messages.error(request, "No se pudo actualizar el servicio")
-            return redirect("updateService")
-    return render(request, 'veterinary/updateService.html', {'form': form})
+            return redirect("updateService", id=id)
+
+    return render(request, 'veterinary/updateService.html', {'form': form, 'fecha': fecha})
 
 
 # endregion

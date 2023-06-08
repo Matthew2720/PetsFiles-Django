@@ -17,9 +17,10 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Actualizar servicio</h4>
+        <h3 class="modal-title" id="myModalLabel">Actualizar servicio</h3>
       </div>
       <div class="modal-body">
+        <p class="modal-header">Fecha de inicio : {{ fecha }}</p>
         <form method="post" id="update-form">
           {% csrf_token %}
           {{ form.as_p }}

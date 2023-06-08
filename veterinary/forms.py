@@ -115,7 +115,7 @@ class PetForm(ModelForm):
 
 class ServiceForm(ModelForm):
     end = DateTimeField(
-        widget=DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+        widget=DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control', 'labels': 'Finalizacion'}),
         required=False
     )
 
@@ -128,6 +128,13 @@ class ServiceForm(ModelForm):
             'type': Select(attrs={'class': 'form-control'}),
             'state': Select(attrs={'class': 'form-control'}),
             'total_time': HiddenInput(attrs={'class': 'form-control'})
+        }
+        labels = {
+            'pet': 'Mascota',
+            'details': 'Detalles',
+            'type': 'Clase de servicio',
+            'state': 'Estado',
+            'total_time': 'Tiempo de finalizacion',
         }
 
 
@@ -176,7 +183,7 @@ class EventForm(ModelForm):
 class CategoryForm(ModelForm):
     class Meta:
         model = Category
-        fields = '__all__'
+        exclude = ['veterinary']
         widgets = {
             'name': TextInput(attrs={'class': 'form-control'}),
             'desc': TextInput(attrs={'class': 'form-control'})

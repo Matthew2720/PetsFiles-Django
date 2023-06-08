@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
       events: [
       {%for event in events %}
       {
-          title: "{{event.title}}",
+          title: "{{event.title}} | Cliente : {{ event.pet.client_name }}",
           start: "{{event.start}}",
           url: "#",
       },
