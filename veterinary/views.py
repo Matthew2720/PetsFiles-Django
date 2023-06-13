@@ -262,16 +262,23 @@ def home(request):
         if form.is_valid:
             event = form.save(commit=False)
             event.veterinary = veterinary_logued
-            event.save()
-            if event.name == 'GU' or event.name == 'PE' or event.name == 'CL':
-                Services.objects.create(
-                    pet=event.pet,
-                    type=event.name,
-                    start=event.start,
-                    end=None,
-                    details='Detalles adicionales',
-                    veterinary_id=veterinary_logued.id
-                )
+            if event.start is not None:
+                event.save()
+                if event.name == 'GU' or event.name == 'PE' or event.name == 'CL':
+                    Services.objects.create(
+                        pet=event.pet,
+                        type=event.name,
+                        start=event.start,
+                        end=None,
+                        details='Detalles adicionales',
+                        veterinary_id=veterinary_logued.id
+                    )
+                return redirect("home")
+            else:
+                messages.error(request, "La fecha no puede estar vacia, no se guardo el registro")
+                return redirect("home")
+        else:
+            messages.error(request, form.errors)
             return redirect("home")
 
     all_events_query = Events.objects.select_related("pet__client__veterinary").filter(
