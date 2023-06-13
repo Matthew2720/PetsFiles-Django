@@ -24,6 +24,7 @@ class User(AbstractUser):
     direccion = models.CharField(max_length=50, blank=True, null=True)
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
     is_doctor = models.BooleanField(default=False)
+    has_seen_video = models.BooleanField(default=False)
 
     def set_veterinary(self, id):
         self.veterinary = id

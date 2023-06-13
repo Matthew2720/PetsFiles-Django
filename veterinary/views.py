@@ -240,11 +240,23 @@ def registerDate(request):
 
 
 # detail event
+@login_required(login_url="login")
+def tutorial(request):
+    request.user.has_seen_video = False
+    request.user.save()
+    return redirect("home")
 
 
 @login_required(login_url="login")
 def home(request):
     veterinary_logued = request.user.veterinary
+    if not request.user.has_seen_video:
+        request.user.has_seen_video = True
+        request.user.save()
+        play_video = True
+    else:
+        play_video = False
+
     if request.method == "POST":
         form = EventForm(veterinary_logued, request.POST)
         if form.is_valid:
@@ -261,6 +273,7 @@ def home(request):
                     veterinary_id=veterinary_logued.id
                 )
             return redirect("home")
+
     all_events_query = Events.objects.select_related("pet__client__veterinary").filter(
         pet__client__veterinary=veterinary_logued
     )
@@ -291,7 +304,13 @@ def home(request):
                 "room": event.room,
             }
         )
-    context = {"events": out, "form": form}
+
+    context = {
+        "events": out,
+        "form": form,
+        "play_video": play_video,
+    }
+
     return render(request, "veterinary/home.html", context)
 
 

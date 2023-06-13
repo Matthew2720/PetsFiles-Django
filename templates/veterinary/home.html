@@ -16,6 +16,27 @@
 
 {% block 'content' %}
 
+{% if play_video %}
+    <div class="modal" id="videoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tutorial de inicio</h5>
+                    <a href="{% url 'home' %}" type="button" aria-label="Cerrar">x</a>
+                </div>
+                <div class="modal-body">
+                    <video src="{% static 'video/tutorial.mp4' %}" class="w-100" controls autoplay></video>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#videoModal').modal('show');
+        });
+    </script>
+{% endif %}
+
 <div class="container-fluid" style="background-color: #181818;">
   <div class="row">
     <div class="col-md-12 col-sm-12">
