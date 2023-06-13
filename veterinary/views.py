@@ -75,8 +75,6 @@ def check_notifications(request):
         messages.info(request, 'Registra tu primer cita')
 
 
-
-
 # region client
 
 
@@ -509,14 +507,13 @@ def updateProduct(request, id):
 # region sale
 @login_required(login_url="login")
 def create_sale(request):
+    veterinary_logued = request.user.veterinary
     if request.method == 'POST':
-        form = SaleForm(request.POST)
+        form = SaleForm(request.POST, veterinary_logued)
         if form.is_valid():
-            # Obtener el objeto Cliente y la fecha de la venta
             client = form.cleaned_data['cli']
             date = form.cleaned_data['date_joined']
 
-            # Guardar los datos de la venta en sesión
             request.session['sale_data'] = {
                 'client_id': client.id,
                 'client_name': client.name + " " + client.last_name,
@@ -525,7 +522,7 @@ def create_sale(request):
             }
             return redirect('create_sale2')
     else:
-        form = SaleForm()
+        form = SaleForm(veterinary_logued)
     return render(request, 'veterinary/create_sale.html', {'form': form})
 
 
@@ -534,7 +531,6 @@ def create_sale2(request):
     sale_data = request.session.get('sale_data')
 
     if request.method == 'POST':
-        # Cargar el JSON con los productos
         cart_json = json.loads(request.body)
         products = cart_json['products']
         total = cart_json['total']
@@ -550,7 +546,6 @@ def create_sale2(request):
         if total_quantity == 0:
             return HttpResponse("No se pueden guardar ventas sin productos con stock")
 
-        # Crear la instancia de la venta
         sale = Sale.objects.create(
             cli_id=client_id,
             date_joined=date,
@@ -559,14 +554,13 @@ def create_sale2(request):
             total=Decimal(total)
         )
 
-        # Guardar los detalles de la venta
         for product in products:
             prod = Product.objects.get(id=product['id'])
             prod.stock = F('stock') - int(product['quantity'])
             prod.save()
 
             if int(product['quantity']) > 0:
-                det_sale = DetSale.objects.create(
+                DetSale.objects.create(
                     sale=sale,
                     prod=get_object_or_404(Product, id=product['id']),
                     cant=int(product['quantity']),
@@ -581,7 +575,6 @@ def create_sale2(request):
             print(e)
             return HttpResponse("Error al eliminar los datos de la sesión")
 
-    # Mostrar la información de la venta en la página
     context = {
         'client_name': sale_data.get('client_name'),
         'client_document': sale_data.get('client_document'),
@@ -615,15 +608,16 @@ def check_sale_data(request):
 
 @login_required(login_url="login")
 def list_sale(request):
+    veterinary_logued = request.user.veterinary
     query = request.GET.get('q')
+    sales = Sale.objects.filter(cli__veterinary=veterinary_logued)
+
     if query:
-        sales = Sale.objects.filter(Q(id__icontains=query) | Q(cli__document__icontains=query)).select_related(
-            'cli').prefetch_related('detsale_set')
-    else:
-        sales = Sale.objects.select_related('cli').prefetch_related('detsale_set')
+        sales = sales.filter(Q(id__icontains=query) | Q(cli__document__icontains=query))
+
+    sales = sales.select_related('cli').prefetch_related('detsale_set')
 
     for sale in sales:
-        print(f"Sale #{sale.id} - Client: {sale.cli.name}")
         for det in sale.detsale_set.all():
             det.subtotal = det.cant * (det.price * (1 + det.iva / 100))
             det.subtotal = det.subtotal.quantize(Decimal('0.01'))

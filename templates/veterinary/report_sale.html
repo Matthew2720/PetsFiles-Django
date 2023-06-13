@@ -1,9 +1,9 @@
-{% extends 'layout/base2.html' %}
+{% extends 'layout/base3.html' %}
 {% load static %}
 
-{% block title %}Reportes{% endblock %}
+{% block 'title' %}Reportes{% endblock %}
 
-{% block style %}
+{% block 'style' %}
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -11,11 +11,11 @@
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 {% endblock  %}
 
-{% block header %}
+{% block 'header' %}
 {% include 'layout/partials/headerbase.html' %}
 {% endblock  %}
 
-{% block content %}
+{% block 'content' %}
 <div class="container">
   <div class="row">
     <div class="col-lg-6 col-md-8 col-sm-10 mx-auto">

@@ -151,7 +151,6 @@ class Sale(models.Model):
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     total = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
-    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return self.cli.name
@@ -179,7 +178,6 @@ class DetSale(models.Model):
     cant = models.IntegerField(default=0)
     iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
-    veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
 
 
     def __str__(self):

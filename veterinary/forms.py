@@ -147,7 +147,7 @@ class EventForm(ModelForm):
 
     class Meta:
         model = Events
-        exclude = ('is_active', 'end', 'client','veterinary')
+        exclude = ('is_active', 'end', 'client', 'veterinary')
         CHOICES = (
             ('1', 'Consultorio 1'),
             ('2', 'Consultorio 2'),
@@ -228,6 +228,10 @@ class ProductForm(ModelForm):
 
 
 class SaleForm(ModelForm):
+    def __init__(self, veterinary, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['cli'].queryset = Client.objects.filter(veterinary=veterinary)
+
     class Meta:
         model = Sale
         fields = ['cli', 'date_joined']
@@ -240,7 +244,7 @@ class SaleForm(ModelForm):
                     'class': 'form-control',
                     'readonly': 'readonly',
                 },
-                format='%d/%m/%Y %H:%M:%S'  # especifica el formato deseado
+                format='%d/%m/%Y %H:%M:%S'
             )
         }
 
