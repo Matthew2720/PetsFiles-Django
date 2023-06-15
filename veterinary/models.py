@@ -152,9 +152,9 @@ class Product(models.Model):
 class Sale(models.Model):
     cli = models.ForeignKey(Client, on_delete=models.CASCADE)
     date_joined = models.DateTimeField(default=datetime.now)
-    subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
-    iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
-    total = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    subtotal = models.DecimalField(default=0.00, max_digits=15, decimal_places=2)
+    iva = models.DecimalField(default=0.00, max_digits=15, decimal_places=2)
+    total = models.DecimalField(default=0.00, max_digits=15, decimal_places=2)
 
     def __str__(self):
         return self.cli.name
@@ -178,10 +178,10 @@ class Sale(models.Model):
 class DetSale(models.Model):
     sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
     prod = models.ForeignKey(Product, on_delete=models.CASCADE)
-    price = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    price = models.DecimalField(default=0.00, max_digits=15, decimal_places=2)
     cant = models.IntegerField(default=0)
-    iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
-    subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    iva = models.DecimalField(default=0.00, max_digits=15, decimal_places=2)
+    subtotal = models.DecimalField(default=0.00, max_digits=15, decimal_places=2)
 
 
     def __str__(self):

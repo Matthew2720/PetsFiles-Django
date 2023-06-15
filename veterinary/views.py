@@ -613,15 +613,16 @@ def create_sale2(request):
 @login_required(login_url="login")
 @require_GET
 def search(request):
+    veterinary_logged = request.user.veterinary
     term = request.GET.get('term')
     if term:
-        results = Product.objects.filter(Q(name__icontains=term))
-        data = [{'idProduct': r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
-        return JsonResponse({'results': data})
+        results = Product.objects.filter(Q(veterinary=veterinary_logged) & Q(name__icontains=term))
     else:
-        results = Product.objects.all()
-        data = [{'idProduct': r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
-        return JsonResponse({'results': data})
+        results = Product.objects.filter(veterinary=veterinary_logged)
+
+    data = [{'idProduct': r.id, 'full_name': r.name, 'stock': r.stock, 'pvp': r.pvp} for r in results]
+    return JsonResponse({'results': data})
+
 
 
 @login_required(login_url="login")
