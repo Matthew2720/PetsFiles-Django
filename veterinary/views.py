@@ -535,7 +535,7 @@ def updateProduct(request, id):
 def create_sale(request):
     veterinary_logued = request.user.veterinary
     if request.method == 'POST':
-        form = SaleForm(request.POST, veterinary_logued)
+        form = SaleForm(request.POST)
         if form.is_valid():
             client = form.cleaned_data['cli']
             date = form.cleaned_data['date_joined']
@@ -548,14 +548,14 @@ def create_sale(request):
             }
             return redirect('create_sale2')
     else:
-        form = SaleForm(veterinary_logued)
+        form = SaleForm()
     return render(request, 'veterinary/create_sale.html', {'form': form})
 
 
 @login_required(login_url="login")
 def create_sale2(request):
     sale_data = request.session.get('sale_data')
-
+    print(sale_data)
     if request.method == 'POST':
         cart_json = json.loads(request.body)
         products = cart_json['products']

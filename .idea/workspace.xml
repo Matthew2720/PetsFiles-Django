@@ -4,20 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="video añadido">
+    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="Correccion agenda vacia">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/veterinary/detailClient.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/veterinary/detailClient.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/veterinary/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/veterinary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="DatabaseLocalColorSettings">
-    <colors>
-      <entry key="39b1f649-b272-4fa6-b3b2-8c0ea83d9bb0" value="Blue" />
-    </colors>
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
@@ -148,6 +146,8 @@
       <workItem from="1686155891952" duration="6071000" />
       <workItem from="1686187186788" duration="14236000" />
       <workItem from="1686654238288" duration="2962000" />
+      <workItem from="1686849403251" duration="2259000" />
+      <workItem from="1686853337930" duration="360000" />
     </task>
     <task id="LOCAL-00001" summary="Cambios trabajando">
       <created>1678296210042</created>
@@ -205,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686668790629</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Correccion agenda vacia">
+      <created>1686669835851</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1686669835851</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,20 +250,21 @@
     <MESSAGE value="correccion en vistas y proceso de notificaciones" />
     <MESSAGE value="cambios de contraseña, icono perfil, visualizacion y actualizacion servicios" />
     <MESSAGE value="video añadido" />
-    <option name="LAST_COMMIT_MESSAGE" value="video añadido" />
+    <MESSAGE value="Correccion agenda vacia" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correccion agenda vacia" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/veterinary/models.py</url>
-          <line>71</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/veterinary/views.py</url>
+          <line>534</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/veterinary/models.py</url>
-          <line>70</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/veterinary/views.py</url>
+          <line>555</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

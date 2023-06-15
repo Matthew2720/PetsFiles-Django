@@ -22,7 +22,7 @@ class VeterinaryForm(ModelForm):
             'password': PasswordInput(attrs={'class': 'form-control'}),
         }
         labels = {
-            'nameVeterinary': 'Veterinaria ',
+            'nameVeterinary': 'Veterinaria (Nombre usuario) ',
             'cityVeterinary': 'Ciudad ',
             'nit': 'Nit ',
             'email': 'Email ',
@@ -77,6 +77,7 @@ class ClientForm(ModelForm):
             'veterinary': HiddenInput(attrs={'class': 'form-control form-input'}),
             'name': TextInput(attrs={'class': 'form-control form-input'}),
             'last_name': TextInput(attrs={'class': 'form-control form-input'}),
+            'type': Select(attrs={'class': 'form-control'}),
             'document': TextInput(attrs={'class': 'form-control form-input'}),
             'email': EmailInput(attrs={'class': 'form-control form-input'}),
             'phone': TextInput(attrs={'class': 'form-control form-input'}),
@@ -86,8 +87,7 @@ class ClientForm(ModelForm):
             'name': 'Nombres',
             'last_name': 'Apellidos',
             'email': 'Email',
-            'phone': 'Telefono',
-            'document': 'Cedula'
+            'phone': 'Telefono'
         }
 
 
@@ -228,9 +228,9 @@ class ProductForm(ModelForm):
 
 
 class SaleForm(ModelForm):
-    def __init__(self, veterinary, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['cli'].queryset = Client.objects.filter(veterinary=veterinary)
+        self.fields['cli'].queryset = Client.objects.all()
 
     class Meta:
         model = Sale

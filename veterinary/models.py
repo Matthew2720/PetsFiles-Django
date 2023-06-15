@@ -33,10 +33,13 @@ class User(AbstractUser):
 # EndUserModel
 
 class Client(models.Model):
+    CHOICES = [('CC', 'CC'), ('CE', 'CE'),
+               ('TI', 'TI'), ('PPT', 'PPT'), ('PASAPORTE', 'PASAPORTE')]
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, blank=True, null=True)
     name = models.CharField(max_length=50, blank=False, null=False, verbose_name='Cliente')
     last_name = models.CharField(max_length=50, blank=False, null=False)
-    document = models.CharField(max_length=20, unique=False, blank=True, null=True)
+    type = models.CharField(max_length=10, choices=CHOICES, verbose_name='Tipo documento', default='CC')
+    document = models.CharField(max_length=20, unique=False, blank=True, null=True, verbose_name='Documento')
     email = models.EmailField(max_length=254, unique=False, blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
     global_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
