@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="Correccion agenda vacia">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/veterinary/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/veterinary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="Fixes en factura" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -210,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686669835851</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Fixes en factura">
+      <created>1686856144916</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1686856144916</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -249,7 +251,8 @@
     <MESSAGE value="cambios de contraseña, icono perfil, visualizacion y actualizacion servicios" />
     <MESSAGE value="video añadido" />
     <MESSAGE value="Correccion agenda vacia" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correccion agenda vacia" />
+    <MESSAGE value="Fixes en factura" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes en factura" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
