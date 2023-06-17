@@ -8,12 +8,12 @@ from django.forms import model_to_dict
 
 # Modelos MER.
 class Veterinary(models.Model):
-    nameVeterinary = models.CharField(max_length=50, blank=False, null=False, unique=True)
-    cityVeterinary = models.CharField(max_length=50, blank=True, null=True)
-    nit = models.CharField(max_length=50, blank=False, null=False, unique=True)
-    email = models.EmailField(unique=True)
-    direccion = models.CharField(max_length=60, blank=True, null=True)
-    password = models.CharField(max_length=50, default='admin')
+    nameVeterinary = models.CharField(max_length=100, blank=False, null=False, unique=True)
+    cityVeterinary = models.CharField(max_length=100, blank=True, null=True)
+    nit = models.CharField(max_length=20, blank=False, null=False, unique=True)
+    email = models.EmailField(max_length=254, unique=True)
+    direccion = models.CharField(max_length=200, blank=True, null=True)
+    password = models.CharField(max_length=128, default='admin')
 
     def __str__(self):
         return self.nameVeterinary
@@ -21,7 +21,7 @@ class Veterinary(models.Model):
 
 # UserModel
 class User(AbstractUser):
-    direccion = models.CharField(max_length=50, blank=True, null=True)
+    direccion = models.CharField(max_length=200, blank=True, null=True)
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
     is_doctor = models.BooleanField(default=False)
     has_seen_video = models.BooleanField(default=False)
@@ -36,13 +36,13 @@ class Client(models.Model):
     CHOICES = [('CC', 'CC'), ('CE', 'CE'),
                ('TI', 'TI'), ('PPT', 'PPT'), ('PASAPORTE', 'PASAPORTE')]
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, blank=True, null=True)
-    name = models.CharField(max_length=50, blank=False, null=False, verbose_name='Cliente')
-    last_name = models.CharField(max_length=50, blank=False, null=False)
+    name = models.CharField(max_length=100, blank=False, null=False, verbose_name='Cliente')
+    last_name = models.CharField(max_length=100, blank=False, null=False)
     type = models.CharField(max_length=10, choices=CHOICES, verbose_name='Tipo documento', default='CC')
     document = models.CharField(max_length=20, unique=False, blank=True, null=True, verbose_name='Documento')
     email = models.EmailField(max_length=254, unique=False, blank=True, null=True)
-    phone = models.CharField(max_length=15, blank=True, null=True)
-    global_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    global_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=False)
 
     def __str__(self):
         return self.name
@@ -58,10 +58,17 @@ class Client(models.Model):
 class Pet(models.Model):
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
     client = models.ForeignKey(Client, on_delete=models.PROTECT, related_name='pets')
-    namePet = models.CharField(max_length=30, blank=False, null=False, verbose_name='nombre')
-    species = models.CharField(max_length=30, blank=True, null=True, verbose_name='especie')
+    namePet = models.CharField(max_length=50, blank=False, null=False, verbose_name='nombre')
+    species = models.CharField(max_length=50, blank=True, null=True, verbose_name='especie')
     birthdate = models.DateField(blank=True, null=True, verbose_name='fecha de nacimiento')
-    gender = models.CharField(max_length=6, blank=False, null=False, default='Desconocido', verbose_name='género')
+    gender = models.CharField(max_length=10, blank=False, null=False, default='Desconocido', verbose_name='sexo')
+    race = models.CharField(max_length=50, blank=False, null=False, default='Desconocido', verbose_name='raza')
+    weight = models.CharField(max_length=20, blank=False, null=False, default='Desconocido', verbose_name='peso')
+    color = models.CharField(max_length=50, blank=False, null=False, default='Desconocido', verbose_name='color')
+    age = models.IntegerField(blank=False, null=False, default='Desconocido', verbose_name='edad')
+    reproductive_status = models.CharField(max_length=50, blank=False, null=False, default='Desconocido', verbose_name='estado reproductivo')
+    temper = models.CharField(max_length=50, blank=False, null=False, default='Desconocido', verbose_name='temperamento')
+    allergies = models.CharField(max_length=100, blank=False, null=False, default='Desconocido', verbose_name='alergias')
 
     def __str__(self):
         return self.namePet
@@ -76,12 +83,13 @@ class Services(models.Model):
 
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='servicios')
-    type = models.CharField(max_length=2, choices=SERVICES, verbose_name='tipo_servicio')
+    type = models.CharField(max_length=20, choices=SERVICES, verbose_name='tipo_servicio')
     start = models.DateTimeField(verbose_name='fecha_inicio')
     end = models.DateTimeField(null=True, blank=True, verbose_name='fecha_final')
     details = models.TextField(null=True, blank=True, verbose_name='observaciones')
     state = models.CharField(max_length=10, choices=STATES, verbose_name='Estado', default='Activo')
     total_time = models.IntegerField(null=True, blank=True, verbose_name='Tiempo')
+
 
     def __str__(self):
         return self.pet.namePet
@@ -94,7 +102,7 @@ class Events(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True, default="Consulta")
     end = models.DateTimeField(null=True, blank=True)
     start = models.DateTimeField(null=False, blank=False, default=datetime.now)
-    room = models.CharField(max_length=15, null=False)
+    room = models.CharField(max_length=20, null=False)
     is_active = models.BooleanField(default=True)
 
     @property
@@ -109,7 +117,7 @@ class Events(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nombre', unique=True)
-    desc = models.CharField(max_length=500, null=True, blank=True, verbose_name='Descripción')
+    desc = models.TextField(null=True, blank=True, verbose_name='Descripción')
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
@@ -128,7 +136,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nombre', unique=True)
     cat = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoría')
-    stock = models.IntegerField(default=0, verbose_name='Stock')
+    stock = models.PositiveIntegerField(default=0, verbose_name='Stock')
     pvp = models.DecimalField(default=0.00, max_digits=9, decimal_places=2, verbose_name='Precio de venta')
     veterinary = models.ForeignKey(Veterinary, on_delete=models.PROTECT, null=True, blank=True)
 

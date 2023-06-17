@@ -32,6 +32,10 @@
       <h2>Iniciar sesion</h2>
       {% csrf_token %}
       {{ form.as_p }}
+        <div>
+         <a href="{% url 'reset_password' %}" style="text-decoration: none;">Olvidaste tu contraseña</a>
+            </div>
+        <br>
       <button type="submit" class="btn btn-success">Entrar</button>
     </form>
   </div>

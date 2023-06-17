@@ -107,6 +107,13 @@ class PetForm(ModelForm):
             'species': Select(attrs={'class': 'form-control'}, choices=CHOICESPECIES),
             'gender': Select(attrs={'class': 'form-control'}, choices=CHOICES),
             'birthdate': DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'race': TextInput(attrs={'class': 'form-control'}),
+            'weight': TextInput(attrs={'class': 'form-control'}),
+            'age': TextInput(attrs={'class': 'form-control'}),
+            'color': TextInput(attrs={'class': 'form-control'}),
+            'reproductive_status': TextInput(attrs={'class': 'form-control'}),
+            'temper': TextInput(attrs={'class': 'form-control'}),
+            'allergies': TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
             'client': 'Cliente',
@@ -162,6 +169,11 @@ class EventForm(ModelForm):
             ('VA', 'Vacunacion'),
             ('GU', 'Guarderia'),
             ('PE', 'Peluqueria'),
+            ('RA', 'Radiografia'),
+            ('TM', 'Toma de muestra'),
+            ('EC', 'Ecografia'),
+            ('DS', 'Desparasitacion'),
+            ('ES', 'Especialista'),
         )
         widgets = {
             'name': Select(attrs={'class': 'form-control'}, choices=CHOICESTYPE),
@@ -173,7 +185,7 @@ class EventForm(ModelForm):
         }
         labels = {
             'pet': 'Mascota',
-            'doctor': 'Especialista',
+            'doctor': 'Medico veterinario',
             'room': 'Consultorio',
             'start': 'Fecha',
             'name': 'Tipo de servicio'

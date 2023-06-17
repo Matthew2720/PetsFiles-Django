@@ -85,7 +85,8 @@ def detailClient(request):
     if request.method == "POST":
         search_query = request.POST.get("search", "")
         clients = Client.objects.filter(
-            name__contains=search_query, veterinary=veterinaryLogued
+            Q(name__icontains=search_query) | Q(document__icontains=search_query),
+            veterinary=veterinaryLogued
         )
         form_client = ClientForm(request.POST)
         if form_client.is_valid():
@@ -798,3 +799,8 @@ def generate_chart(option):
     return graphic
 
 # endregion
+
+
+
+
+
