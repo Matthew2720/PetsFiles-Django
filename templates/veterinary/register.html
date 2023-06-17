@@ -1,0 +1,44 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block 'title' %} Registro Veterinaria{% endblock %}
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estiloindex.css' %}">
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block 'content' %}
+<div>
+
+<div class="contain_login">
+  <div class="div-login bg-dark" style="color:black;">
+    <div class="card-title text-center mb-5 fw-light fs-5">
+      <div class="card border-0 shadow rounded-3 my-5" style="padding:30px;">
+<form action="{% url 'registerVet' %}" method="POST">
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+  <h2>Registro veterinarias</h2>
+  <br>
+  {% csrf_token %}
+  {{form}}
+  <br>
+  <input type="submit" value="Enviar" class="btn btn-success">
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+
+{% block 'script' %}{% endblock %}

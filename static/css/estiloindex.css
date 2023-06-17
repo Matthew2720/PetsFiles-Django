@@ -1,0 +1,9 @@
+.contain_login{
+    background-color: black;
+    color: black;
+    background-size: 100%;
+    background-repeat:no-repeat;
+    opacity: 1;
+    overflow-x: hidden;
+    max-height: 100%;
+}

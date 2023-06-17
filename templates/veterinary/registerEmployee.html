@@ -1,0 +1,40 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Registro Empleado{% endblock %}
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="container-fluid" style="background-color: #181818;">
+  <div class="row">
+    <div class="col-md-2">
+<div class="left-menu">
+</div>
+</div>
+<div class="col-md-12">
+  <div class="caja3">
+    <div class="container bg-dark">
+      <h2>Registro de empleado</h2>
+      <form method="POST">
+        {% csrf_token %}
+        {{form.as_table}}
+        <input type="submit" value="Enviar" class="btn btn-success">
+                  <a class='btn' style="background-color: #ED6436; color: white;" href="{% url 'detailEmployee' %}"> Volver</a>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
+
+{% block 'script' %}{% endblock %}

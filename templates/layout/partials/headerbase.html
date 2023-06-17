@@ -1,0 +1,106 @@
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/navstyle.css' %}">
+{% endblock  %}
+<header>
+
+      <!-- enlaces -->
+      {% if request.user.is_authenticated %}
+      <div class="container-fluid p-0" id="opciones">
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+    <a href="" class="navbar-brand d-block d-lg-none">
+      <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">File</span>Pets</h1>
+    </a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+      <div class="navbar-nav mr-auto py-0">
+        <a href="{% url 'index' %}" class="nav-item nav-link active">Inicio</a>
+        <a href="{% url 'home' %}" class="nav-item nav-link">Agenda</a>
+      </div>
+      <div class="dropdown ml-auto mr-auto" id="services-dropdown">
+        <button class="nav-link dropdown-toggle" id="navbarDropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:47vw;background-color: #ED6436;color: #0c0c0c; margin-right:1vw  ">
+          Servicios
+        </button>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin-left: 47vw;">
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'detailClient' %}">Clientes</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'detailPet'  %}">Mascotas</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'registerDate' %}">Citas</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'create_sale' %}">Facturación</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'list_sale' %}">Lista</a>
+          <a class="dropdown-item dropdown-item-hover" href=" {% url 'detailClinic' %} ">Clinica</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'detailDaycare' %}">Guarderia</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'detailSalon' %}">Peluqueria</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'detailProduct' %}">Inventario</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'reportSale' %}">Estadisticas</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'detailEmployee' %}">Empleados</a>
+          <a class="dropdown-item dropdown-item-hover" href="{% url 'tutorial' %}">Tutorial</a>
+        </div>
+      </div>
+    </div>
+            <div class="dropdown" id="notification-dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-2x text-primary"></i>
+                {% if messages %}
+                  <span class="badge">{{ messages|length }}</span>
+                {% endif %}
+              </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <ul id="notification-list">
+                  {% if messages %}
+                    {% for message in messages %}
+                        {% if message.message == 'Registra clientes' %}
+                            <li><a href="{% url 'detailClient' %}">{{ message }}</a></li>
+                        {% elif message.message == 'Registra mascotas'%}
+                            <li><a href="{% url 'detailPet' %}">{{ message }}</a></li>
+                        {% elif message.message == 'Registra productos'%}
+                            <li><a href="{% url 'detailProduct' %}">{{ message }}</a></li>
+                        {% else %}
+                            <li><a href="#">{{ message }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                  {% else %}
+                      <li><a href="#">No hay notificaciones nuevas</a></li>
+                  {% endif %}
+                  </ul>
+                </div>
+            </div>
+            <div class="dropdown" id="profile-dropdown">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user fa-2x text-primary"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <ul id="profile-options">
+                        <li><a href="{% url 'reset_password' %}">Cambiar contraseña</a></li>
+                        <li><a href="{% url 'logout' %}"  >Cerrar sesion</a></li>
+                    </ul>
+                  </div>
+            </div>
+         </nav>
+         </div>
+      {% else %}
+      <div class="container-fluid p-0" id="opciones" id="inicio" class="section">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+            <a href="" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">File</span>Pets</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="{% url 'login' %}" class="nav-item nav-link active" >INGRESAR</a>
+                    <a href="{% url 'index' %}" class="nav-item nav-link">Inicio</a>
+                    <a href="{% url 'index' %}#sobre-nosotros" class="nav-item nav-link" onclick="showSection('sobre-nosotros');">Sobre Nosotros</a>
+                    <a href="{% url 'index' %}#servicios" class="nav-item nav-link" onclick="showSection('servicios');">Servicios</a>
+                    <a href="{% url 'index' %}#precios" class="nav-item nav-link" onclick="showSection('precios');">Precios</a>
+                      <a href="{% url 'registerVet' %}" class="nav-item nav-link">Registro</a>
+                          </div>
+                      </div>
+                   </nav>
+                  </div>  
+      {% endif %}
+      <!-- enlaces -->
+    </nav>
+  </header>

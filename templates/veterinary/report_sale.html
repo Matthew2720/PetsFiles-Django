@@ -1,0 +1,44 @@
+{% extends 'layout/base3.html' %}
+{% load static %}
+
+{% block 'title' %}Reportes{% endblock %}
+
+{% block 'style' %}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+{% endblock  %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock  %}
+
+{% block 'content' %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+      <form method="POST" action="{% url 'reportSale' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="option">Seleccione una opción:</label>
+          <select id="option" name="option" class="form-control">
+            <option value="month">Ventas por mes</option>
+            <option value="category">Ventas por categoría</option>
+            <option value="product">Ventas por producto</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Generar gráfico</button>
+      </form>
+      {% if graphic %}
+        <div class="text-center">
+          <img src="data:image/png;base64,{{ graphic }}" alt="Gráfico de ventas" class="img-fluid">
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock  %}

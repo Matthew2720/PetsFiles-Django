@@ -1,0 +1,145 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Citas {% endblock %}
+
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+<link rel="stylesheet" href="{% static 'fullcalendar/lib/main.css' %}">
+<script src={% static 'fullcalendar/lib/locales/es.js' %}></script>
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% include 'layout/partials/modal.html' %}
+{% endblock %}
+
+{% block 'content' %}
+
+{% if play_video %}
+    <div class="modal" id="videoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tutorial de inicio</h5>
+                    <a href="{% url 'home' %}" type="button" aria-label="Cerrar">x</a>
+                </div>
+                <div class="modal-body">
+                    <video src="{% static 'video/tutorial.mp4' %}" class="w-100" controls autoplay></video>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#videoModal').modal('show');
+        });
+    </script>
+{% endif %}
+
+<div class="container-fluid" style="background-color: #181818;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="caja3" style="padding: 20px;">
+          <button type="button" class="btn btn-secondary btn-block" style="background-color: #ED6436; color:#f5f5f5; border: 1px solid #ED6436; height: 8vh " data-toggle="modal" data-target="#exampleModal" >
+            AGENDAR
+          </button>
+        <div id="calendar" class="card bg-dark" style="margin-top: 20px; height: 80vh;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block 'script' %}
+<script src="{% static 'fullcalendar/lib/main.js' %}"></script>
+<script>
+  function borrarCita(id) {
+    swal("Que deseas hacer?", {
+      icon: 'info',
+      buttons: {
+        cancel: "Cancelar",
+        update: {
+          text: "Actualizar cita",
+          value: "update",
+        },
+        delete: {
+          text: "Eliminar cita",
+          value: "delete"
+        },
+      },
+    })
+    .then((value) => {
+      switch (value) {
+     
+        case "delete":
+          swal({
+            title: 'Esta seguro que desea borrar ?',
+            text: 'Si lo borras no podras recuperarlo',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          })
+            .then((willDelete) => {
+              if (willDelete) {
+                location.href = "/eliminar/cita/" + id
+              }
+              else {
+                swal('No se borro el registro')
+              }
+            });
+          break;
+     
+        case "update":
+            location.href = "/actualizar/cita/" + id;
+          break;
+     
+        default:
+          swal("Operacion cancelada");
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var calendarUI = document.getElementById('calendar');;
+    var calendar = new FullCalendar.Calendar(calendarUI, {
+        editable:false,
+        locale: 'es',
+        dayMaxEventRows: true, // for all non-TimeGrid views
+        views: {
+          dayGrid: {
+            dayMaxEventRows: 4
+          },
+          timeGrid: {
+            dayMaxEventRows: 4
+          },
+          week: {
+            dayMaxEventRows: 4
+          },
+          day: {
+            dayMaxEventRows: 4
+          }
+        },
+        events: [ 
+        {%for event in events %}
+        {   id: "{{event.id}}",
+            title: "{{event.title}}",
+            start: "{{event.start}}",
+        },
+        {% endfor %}],
+
+        eventClick: function(info) {
+          id = info.event.id
+          borrarCita(id)
+        }
+      });
+  calendar.render();
+    });
+
+</script>
+
+{% endblock %}

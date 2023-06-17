@@ -1,0 +1,49 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Inicio Sesion{% endblock  %}
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estiloindex.css' %}">
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+{% endblock  %}
+
+{% block 'header' %}
+  {% include 'layout/partials/headerbase.html' %}
+{% endblock  %}
+
+{% block 'content' %}
+
+{% if request.user.is_authenticated %}
+  <script>
+    window.addEventListener('load', function() {
+      fetch("{% url 'logout' %}", { method: "GET", credentials: "same-origin" });
+    });
+  </script>
+{% endif %}
+
+<div class="contain_login">
+  <div class="div-login bg-dark" style="color:black;">
+    <div class="card-title text-center mb-5 fw-light fs-5">
+      <div class="card border-0 shadow rounded-3 my-5" style="padding:30px;">
+    <form class="formlogin"  method="post">
+      <h2>Iniciar sesion</h2>
+      {% csrf_token %}
+      {{ form.as_p }}
+        <div>
+         <a href="{% url 'reset_password' %}" style="text-decoration: none;">Olvidaste tu contraseña</a>
+            </div>
+        <br>
+      <button type="submit" class="btn btn-success">Entrar</button>
+    </form>
+  </div>
+  </div>
+</div>
+</div>
+{% endblock  %}
+
+{% block 'script' %}{% endblock  %}
+
+

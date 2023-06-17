@@ -1,0 +1,70 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Citas {% endblock %}
+
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="left-menu">
+  <div class="caja1">
+    {% include 'layout/partials/leftmenu.html' %}
+  </div>
+  {% comment %} <div class="caja2">
+    <div>
+
+    </div>
+  </div> {% endcomment %}
+  <div class="caja3">
+
+  </div>
+</div>
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  function borrar(id) {
+    swal({
+      title: 'Esta seguro que desea borrar ?',
+      text: 'Si lo borras no podras recuperarlo',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          location.href = "/eliminar/clientes/" + id
+        }
+        else {
+          swal('No se borro el registro')
+        }
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var calendarUI = document.getElementById('calendar');;
+    var calendar = new FullCalendar.Calendar(calendarUI, {
+      editable:false,
+      eventLimit:true,
+      locale: 'es',
+      events: [
+        {% for date in lista %}
+          {
+        title: " CONSULTORIO {{date.2.0}} ",
+        start: "{{date.0.0}}T{{date.1.0}}",
+        url: '{% url 'index' %}',
+          },
+      {% endfor %}
+          ]
+      });
+  calendar.render();
+    });
+
+</script>
+{% endblock %}

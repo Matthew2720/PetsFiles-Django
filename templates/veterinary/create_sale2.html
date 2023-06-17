@@ -1,0 +1,94 @@
+{% extends 'layout/base2.html' %}
+{% load static %}
+
+{% block title %}Añadir productos{% endblock %}
+
+{% block style %}
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="{% static 'js/carrito.js' %}"></script>
+{% endblock  %}
+
+{% block header %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock  %}
+
+
+{% block content %}
+
+<div class="container">
+    <h1 class="text-center" style="color: white">Factura</h1>
+    <form id="sale-form" method="POST" action="{% url 'create_sale2' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="table-responsive w-100">
+                <table class="table">
+                    <thead>
+                        <td>Nombre cliente</td>
+                        <td>Documento </td>
+                        <td>Fecha </td>
+                    </thead>
+                    <tr>
+                        <td>{{ client_name }}</td>
+                        <td>{{ client_document }}</td>
+                        <td>{{ date }}</td>
+                    </tr>
+                </table>
+            </div>
+            <label for="search-input">Buscar producto:</label>
+            <input type="text" class="form-control" id="search-input">
+        </div>
+        <div class="table-responsive">
+            <table class="table" id="cart">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Stock</th>
+                        <th>PVP</th>
+                        <th>Cantidad</th>
+                        <th>IVA</th>
+                        <th>Subtotal</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4">Total:</th>
+                        <td id="total">0.00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <button id="send-json" class="btn btn-success" type="button">Guardar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function checkSaleData() {
+    // Realiza una petición AJAX para verificar si la variable sale_data existe en sesión
+    $.ajax({
+        type: "GET",
+        url: "/check_sale_data/",
+        success: function(response) {
+            // Si la variable sale_data ya no existe en sesión, redirecciona a la página deseada
+            if (response.status === "not_found") {
+                window.location.replace("/registrar/venta");
+            }
+        }
+    });
+    console.log("Existe!")
+}
+
+// Verifica si la variable sale_data existe en sesión cada 5 segundos
+setInterval(checkSaleData, 1000);
+</script>
+{% endblock  %}
+
+
+

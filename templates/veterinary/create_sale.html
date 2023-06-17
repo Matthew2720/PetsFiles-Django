@@ -1,0 +1,40 @@
+{% extends 'layout/base2.html' %}
+{% load static %}
+
+{% block title %}Crear factura{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+{% endblock  %}
+
+{% block header %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock  %}
+
+{% block content %}
+<div class="container">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <h1 class="text-center" style="color: white">Factura</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="table-responsive w-100">
+            <table class="table">
+                <tr>
+                    <td>{{ form.cli }}</td>
+                    <td>{{ form.date_joined }}</td>
+                    <td>
+                        <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+{% endblock  %}
+
+
+

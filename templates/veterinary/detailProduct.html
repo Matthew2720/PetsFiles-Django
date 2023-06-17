@@ -1,0 +1,142 @@
+{% extends 'layout/base3.html' %}
+
+{% block 'title' %} Productos {% endblock %}
+
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+{% block 'header' %}
+{% include 'layout/partials/headerbase.html' %}
+{% include 'layout/partials/modalUtil.html' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="container-fluid" style="background-color: #181818;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 px-0">
+      <div class="card bg-dark text-white">
+        <div class="card-body text-center">
+          <form action="" method="POST" style="margin-top:1vh;">
+            {% csrf_token %}
+            <label style="font-size: 18px;">BUSCAR PRODUCTO</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" name="search">
+              <button type="submit" class="btn btn-secondary btn-sm">Buscar</button>
+            </div>
+          </form>
+          <form method="get" action="{% url 'detailProduct' %}" style="display: inline;">
+            {{ order_form.as_p }}
+            <button class="btn btn-info btn-sm" type="submit">Ordenar</button>
+          </form>
+          <button type="button" class="btn btn-secondary btn-sm" style="background-color: #ED6436; border: 1px solid #ED6436;" data-toggle="modal" data-target="#exampleModal">
+            Crear categoría
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" style="background-color: #ED6436; border: 1px solid #ED6436;" data-toggle="modal" data-target="#exampleModal2">
+            Crear producto
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="table-responsive">
+      <table class="table table-dark">
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Precio</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for product in page_obj %}
+                  <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td><a class="btn btn-dark" onclick="borrar({{product.id}})">{{ product.name }}</a></td>
+                      <td>{{ product.cat }}</td>
+                      <td>{{ product.stock }}</td>
+                      <td>{{ product.pvp }}</td>
+                  </tr>
+                  
+              {% endfor %}
+              
+          </tbody>
+          
+      </table>
+      <div class="pagination table-dark table-sm">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Primero</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current-page">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a>
+            {% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block 'script' %}
+<script>
+  function borrar(id) {
+    swal("Que deseas hacer?", {
+      icon: 'info',
+      buttons: {
+        cancel: "Cancelar",
+        update: {
+          text: "Actualizar",
+          value: "update",
+        },
+        delete: {
+          text: "Eliminar",
+          value: "delete"
+        },
+      },
+    })
+    .then((value) => {
+      switch (value) {
+     
+        case "delete":
+          swal({
+            title: 'Esta seguro que desea borrar ?',
+            text: 'Si lo borras no podras recuperarlo',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          })
+            .then((willDelete) => {
+              if (willDelete) {
+                location.href = "/eliminar/producto/" + id
+              }
+              else {
+                swal('No se borro el registro')
+              }
+            });
+          break;
+     
+        case "update":
+            location.href = "/actualizar/producto/" + id;
+          break;
+     
+        default:
+          swal("Operacion cancelada");
+      }
+    });
+  }
+
+</script>
+{% endblock %}

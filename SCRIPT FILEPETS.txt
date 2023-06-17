@@ -1,0 +1,97 @@
+create database filespets;
+use filespets;
+
+create table veterinary_veterinary(
+id BIGINT NOT NULL AUTO_INCREMENT primary key,
+nameVeterinary VARCHAR(50) NOT NULL unique,
+cityVeterinary VARCHAR(50),
+nit VARCHAR(50) NOT NULL unique,
+email VARCHAR(254) NOT NULL unique,
+password VARCHAR(50) NOT NULL,
+direccion VARCHAR(50));
+
+create table veterinary_user(
+id BIGINT NOT NULL AUTO_INCREMENT primary key,
+password VARCHAR(128) NOT NULL,
+last_login DATETIME(6),
+is_superuser TINYINT(1) NOT NULL,
+username VARCHAR(150) NOT NULL unique,
+first_name VARCHAR(150) NOT NULL,
+last_name VARCHAR(150) NOT NULL,
+email VARCHAR(254) NOT NULL,
+is_staff TINYINT(1) NOT NULL,
+is_active TINYINT(1) NOT NULL,
+date_joined DATETIME(6) NOT NULL,
+direccion VARCHAR(50),
+veterinary_id BIGINT,
+foreign key (veterinary_id) references veterinary_veterinary(id)
+);
+
+create table veterinary_client(
+id BIGINT NOT NULL AUTO_INCREMENT primary key,
+name VARCHAR(50) NOT NULL,
+last_name VARCHAR(50) NOT NULL,
+email VARCHAR(254) NOT NULL unique,
+phone VARCHAR(15),
+identification VARCHAR(50),
+veterinary_id BIGINT,
+foreign key (veterinary_id) references veterinary_veterinary(id));
+
+create table veterinary_pet(
+id BIGINT NOT NULL AUTO_INCREMENT primary key,
+namePet VARCHAR(30) NOT NULL,
+species VARCHAR(30),
+age VARCHAR(3) NOT NULL,
+client_id BIGINT NOT NULL,
+foreign key (client_id) references veterinary_client(id));
+
+CREATE TABLE veterinary_client_history (
+name VARCHAR(50),
+last_name VARCHAR(50),
+email VARCHAR(254),
+phone VARCHAR(15),
+veterinary_id BIGINT,
+identification VARCHAR(50))
+
+-- Trigger
+create TRIGGER TX_eliminacion_clientes
+AFTER DELETE ON veterinary_client
+FOR EACH ROW
+insert into veterinary_client_history
+values (OLD.name, OLD.last_name,OLD.email, OLD.phone,OLD.veterinary_id,OLD.identification);
+
+-- procedimientos
+DELIMITER $$
+CREATE PROCEDURE VER_CLIENTES()
+BEGIN
+SELECT * FROM veterinary_client C
+JOIN veterinary_veterinary V
+ON C.veterinary_id = V.id;
+END$$
+
+DELIMITER $$
+create procedure insertar_cliente(IN name varchar(50),IN last_name varchar(50), IN email varchar(254),
+IN phone VARCHAR(15),IN veterinary_id bigint, IN identification VARCHAR(50))
+BEGIN
+insert into veterinary_client (name,last_name,email,phone,veterinary_id,identification) values (name,last_name,email,phone,veterinary_id, identification);
+END$$
+
+DELIMITER $$
+create procedure actualizar_cliente(IN name varchar(50),IN last_name varchar(50), IN fveterinary_id bigint)
+BEGIN
+update veterinary_client set name = name, last_name= last_name where id = fveterinary_id;
+END$$
+
+DROP PROCEDURE actualizar_cliente;
+DROP PROCEDURE eliminar_cliente;
+
+DELIMITER $$
+create procedure eliminar_cliente(IN fid bigint)
+BEGIN
+delete from veterinary_client where id=fid;
+END$$
+-- ejecucion
+CALL insertar_cliente ('CARLOS', 'RIJAS', 'RIJAS@HOTMAIL.COM','123343242',1,'12132432543');
+CALL VER_CLIENTES();
+CALL actualizar_cliente ('pedro','sanchez',7);
+CALL eliminar_cliente (7);

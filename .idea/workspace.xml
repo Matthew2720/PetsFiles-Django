@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="Fixes en factura" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Python Script" />
+        <option value="CSS File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="nuevaIdea" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2MgoedGExcpSUVeK9zhc7DdXHJf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/fredy romero/Desktop/Proyecto-final-master&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/layout/partials" />
+      <recent name="$PROJECT_DIR$/templates/veterinary" />
+      <recent name="$PROJECT_DIR$/templates/layout" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/layout" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Django Server.Proyecto-final-master">
+    <configuration name="PetsFiles-Django" type="Python.DjangoServer" factoryName="Django server">
+      <module name="PetsFiles-Django" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="PetsFiles.settings" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.10" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Proyecto-final-master" type="Python.DjangoServer" factoryName="Django server">
+      <module name="Proyecto-final-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="PetsFiles.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="" />
+      <created>1678198685416</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678198685416</updated>
+      <workItem from="1678198686458" duration="1194000" />
+      <workItem from="1678199921328" duration="7047000" />
+      <workItem from="1678207275059" duration="2812000" />
+      <workItem from="1678210691092" duration="13756000" />
+      <workItem from="1678370021175" duration="4726000" />
+      <workItem from="1678436034796" duration="1591000" />
+      <workItem from="1678484492232" duration="1050000" />
+      <workItem from="1678656241836" duration="11688000" />
+      <workItem from="1678706357455" duration="2490000" />
+      <workItem from="1678713745094" duration="10491000" />
+      <workItem from="1678795825254" duration="11633000" />
+      <workItem from="1678819456145" duration="16307000" />
+      <workItem from="1678880193693" duration="715000" />
+      <workItem from="1678881382094" duration="381000" />
+      <workItem from="1678914004884" duration="566000" />
+      <workItem from="1678914592848" duration="983000" />
+      <workItem from="1678915594680" duration="9300000" />
+      <workItem from="1679066375564" duration="4350000" />
+      <workItem from="1679414211114" duration="22000" />
+      <workItem from="1679414565403" duration="10508000" />
+      <workItem from="1679483634493" duration="9155000" />
+      <workItem from="1685709859753" duration="5410000" />
+      <workItem from="1686013812617" duration="6374000" />
+      <workItem from="1686155891952" duration="6071000" />
+      <workItem from="1686187186788" duration="14236000" />
+      <workItem from="1686654238288" duration="2962000" />
+      <workItem from="1686849403251" duration="2259000" />
+      <workItem from="1686853337930" duration="360000" />
+      <workItem from="1686950273453" duration="25652000" />
+      <workItem from="1687019707100" duration="1993000" />
+      <workItem from="1687022162839" duration="9324000" />
+    </task>
+    <task id="LOCAL-00001" summary="Cambios trabajando">
+      <created>1678296210042</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1678296210042</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Navegacion añadida entre facturas y lista">
+      <created>1679002709512</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1679002709512</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Correcciones realizadas">
+      <created>1679070724338</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1679070724338</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Entidad agregada, registro desde agenda, pendiente visualizacion">
+      <created>1679422841665</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1679422841665</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix">
+      <created>1686161951596</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1686161951597</updated>
+    </task>
+    <task id="LOCAL-00006" summary="correccion en vistas y proceso de notificaciones">
+      <created>1686194625040</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1686194625040</updated>
+    </task>
+    <task id="LOCAL-00007" summary="cambios de contraseña, icono perfil, visualizacion y actualizacion servicios">
+      <created>1686230169849</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1686230169849</updated>
+    </task>
+    <task id="LOCAL-00008" summary="video añadido">
+      <created>1686668790629</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1686668790629</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Correccion agenda vacia">
+      <created>1686669835851</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1686669835851</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fixes en factura">
+      <created>1686856144916</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1686856144916</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cambios trabajando" />
+    <MESSAGE value="Navegacion añadida entre facturas y lista" />
+    <MESSAGE value="Correcciones realizadas" />
+    <MESSAGE value="Entidad agregada, registro desde agenda, pendiente visualizacion" />
+    <MESSAGE value="fix" />
+    <MESSAGE value="correccion en vistas y proceso de notificaciones" />
+    <MESSAGE value="cambios de contraseña, icono perfil, visualizacion y actualizacion servicios" />
+    <MESSAGE value="video añadido" />
+    <MESSAGE value="Correccion agenda vacia" />
+    <MESSAGE value="Fixes en factura" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes en factura" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/veterinary/views.py</url>
+          <line>535</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/veterinary/views.py</url>
+          <line>556</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

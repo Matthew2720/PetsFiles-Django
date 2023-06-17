@@ -1,0 +1,130 @@
+{% extends 'layout/base2.html' %}
+
+{% block title%} Clinica {% endblock %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estiloindex.css' %}">
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <!-- JS de jQuery, requerido por Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<!-- JS de Popper.js, requerido por Bootstrap -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<!-- JS de Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block header %}
+{% include 'layout/partials/headerbase.html' %}
+{% endblock %}
+
+{% block content %}
+{% comment %} Modal {% endcomment %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="examplemodalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="examplemodalLabel">Finalizados</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="table-responsive">
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th>Mascota</th>
+                <th>Inicio</th>
+                <th>Finalizacion</th>
+                <th>Observaciones</th>
+                <th>Dias</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pet in endService %}
+              <tr>
+                <td>{{pet.pet.namePet}}</td>
+                <td>{{pet.start|date:"d M H:i"}}</td>
+                <td>{{pet.end|date:"d M H:i"}}</td>
+                <td>{{pet.details}}</td>
+                <td>{{pet.total_time}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+</div>
+{% comment %} Cierre modal {% endcomment %}
+<div class="container-fluid" style="background-color: #181818; height: auto;">
+  <div class="row">
+    <div class="col-md-12 px-md-4 px-sm-0">
+      <div class="card bg-dark text-white">
+        <div class="card-body text-center">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <label for="search" class="form-label">BUSCAR</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" name="search">
+              <button type="submit" class="btn btn-secondary">Buscar</button>
+            </div>
+          </form>
+          <a data-toggle="modal" data-target="#exampleModal" class="btn btn-info mt-3">Finalizados</a>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th>Mascota</th>
+              <th>Inicio</th>
+              <th>Estado</th>
+              <th>Observaciones</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pet in pets %}
+            <tr>
+              <td>{{pet.pet.namePet}}</td>
+              <td>{{pet.start}}</td>
+              <td>{{pet.state}}</td>
+              <td>{{pet.details}}</td>
+              <td><a href="{% url 'updateService' id=pet.id %}" class="btn btn-primary">Actualizar perfil</a>
+                  <button onclick="borrar('{{pet.id}}')" class="btn btn-danger">Eliminar</button></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+{% endblock %}
+
+{% block script %}
+<script>
+    function borrar(id){
+        swal({
+            title : 'Esta seguro que desea borrar ?',
+            text : 'Si lo borras no podras recuperarlo',
+            icon : 'warning',
+            buttons : true ,
+            dangerMode : true ,
+        })
+        .then ((willDelete)=>{
+            if (willDelete){
+                location.href = "/eliminar/servicio/" + id
+            }
+            else{
+                swal ('No se borro el registro')
+            }
+        });
+    }
+</script>
+{% endblock  %}

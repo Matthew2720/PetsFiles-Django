@@ -1,0 +1,21 @@
+main {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: center;
+    width: 100vw;
+    background-color: black;
+    opacity: 0.8;
+    height: 92vh;
+}
+
+main form input {
+    margin-top: 5px;
+}
+
+main div{
+    padding: 20px;
+    background-color: rgba(253,248,245,255);
+}
+
+

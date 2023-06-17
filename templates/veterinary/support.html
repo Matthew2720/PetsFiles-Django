@@ -1,0 +1,63 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block 'title' %} Soporte{% endblock  %}
+{% block 'style' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock  %}
+
+{% block 'header' %}
+  {% include 'layout/partials/headerbase.html' %}
+{% endblock  %}
+
+{% block 'content' %}
+<div style="display:flex; width : 100vw;height:100vh;justify-content:center; background-color: #181818; ">
+  <div class="bg-dark" style="color:black; margin-left: 50px;">
+    <div class="card-title text-center mb-5 fw-light fs-5" style="margin-left: 30px;margin-right:30px;">
+      <div class="card border-0 shadow rounded-3 my-5" style="padding:30px 50px 30px 50px; width: 1000px;">
+<div style="width:100%;background-color: rgba(253,248,245,255);padding:0.8vw;">
+  {% if messages %}
+              {% for message in messages %}
+              <li>{% if message.tags %}{% endif %}{{ message }}</li>
+              {% endfor %}
+  {% endif %}
+  <div class="u-clearfix u-layout-wrap u-layout-wrap-1">
+    <div class="u-layout">
+      <div class="u-layout-row">
+        <div class="u-container-style u-layout-cell u-left-cell u-size-28 u-layout-cell-1">
+          <div class="u-container-layout u-container-layout-2">
+            <h3 class="u-custom-font u-font-oswald u-text u-text-1">Contactanos</h3>
+            <div class="u-form u-form-1">
+              <form action="{% url 'send_email' %}" class="form" style="padding: 0;" source="email" name="form" method="post">
+                <div class="form-group">
+                  {% csrf_token %}
+                  <label for="email-b381" class="u-form-control-hidden u-label">Correo Electronico</label>
+                  <input type="email" placeholder="Ingresa un correo electronico" id="email-b381" name="email" class="form-control" required="">
+                </div>
+                <div class="form-group">
+                  <label for="name-b381" class="u-form-control-hidden u-label">Nombre</label>
+                  <input type="text" placeholder="Ingresa tu nombre" id="name-b381" name="Nombre" class="form-control" required="">
+                </div>
+                <div class="form-group">
+                  <label for="message-b381" class="u-form-control-hidden u-label">Mensaje</label>
+                  <textarea placeholder="Describenos el mensaje" rows="4" cols="50" id="message-b381" name="message" class="form-control" required=""></textarea>
+                </div>
+                <div class="u-align-left u-form-group u-form-submit">
+                  <input type="submit" value="Enviar" class="btn btn-info">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock  %}
+
+{% block 'script' %}{% endblock  %}

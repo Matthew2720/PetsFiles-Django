@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Veterinaria |{% block 'title' %}{% endblock  %}</title>
+    <link rel="icon" href="{% static 'img/logo.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    {% block 'style' %}{% endblock  %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+
+    
+    <!-- Flaticon Font -->
+    <link href="{% static 'lib/flaticon/font/flaticon.css' %}" rel="stylesheet">
+
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    
+</head>
+<body>
+
+<header>
+    {% block 'header' %}{% endblock  %}
+</header>
+    
+<main>
+{% block 'content' %}{% endblock  %}
+</main>
+
+{% block 'script' %}{% endblock  %}
+{% comment %} SCRIPTS BASE {% endcomment %}
+{% comment %}<script src="{% static 'js/jquery.js' %}"></script> {% endcomment %}
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/sweetalert.min.js' %}"></script>
+ <!-- JavaScript Libraries -->
+ {% comment %}<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> {% endcomment %}
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+ <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+ <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+ <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+ <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+ <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+ <!-- Contact Javascript File -->
+ <script src="{% static 'mail/jqBootstrapValidation.min.js'%}"></script>
+ <script src="{% static 'mail/contact.js'%}"></script>
+
+ <!-- Template Javascript -->
+ <script src="{% static 'js/main.js'%}"></script>
+
+ <script>
+    function showSection(id) {
+      $('.section').hide();
+      $('#' + id).show();
+    }
+    
+    $(document).ready(function() {
+      showSection('inicio');
+    });
+    </script>
+
+{% comment %} END SCRIPTS BASE {% endcomment %}
+
+</body>
+</html>
