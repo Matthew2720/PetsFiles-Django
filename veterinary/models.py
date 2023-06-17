@@ -88,7 +88,8 @@ class Services(models.Model):
     end = models.DateTimeField(null=True, blank=True, verbose_name='fecha_final')
     details = models.TextField(null=True, blank=True, verbose_name='observaciones')
     state = models.CharField(max_length=10, choices=STATES, verbose_name='Estado', default='Activo')
-    total_time = models.DurationField(null=True, blank=True, verbose_name='Tiempo')
+    total_time = models.IntegerField(null=True, blank=True, verbose_name='Tiempo')
+
 
     def __str__(self):
         return self.pet.namePet
