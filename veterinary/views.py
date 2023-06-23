@@ -449,6 +449,7 @@ def registerVet(request):
                     username=nameVeterinary,
                     password=cleaned_data.get("password"),
                     veterinary=veterinary,
+                    email=email
                 )
                 user.set_password(request.POST["password"])
                 user.save()

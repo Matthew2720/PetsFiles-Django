@@ -19,3 +19,4 @@ sqlparse==0.4.3
 tzdata==2022.6
 Werkzeug==2.2.2
 zipp==3.8.1
+matplotlib==3.7.1
