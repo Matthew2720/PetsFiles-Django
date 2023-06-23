@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="cambios modelos">
-      <change beforePath="$PROJECT_DIR$/.idea/Proyecto-final-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Proyecto-final-master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="37b2abfc-ad1d-4131-a084-4bea0dfce391" name="Changes" comment="Correccion base de datos, correo electronico veterinaria y requeriments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requeriments.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requeriments.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/veterinary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/veterinary/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,14 +84,15 @@
   </component>
   <component name="RunManager">
     <configuration name="PetsFiles-Django" type="Python.DjangoServer" factoryName="Django server">
-      <module name="PetsFiles-Django" />
+      <module name="Proyecto-final-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="PetsFiles.settings" />
       </envs>
-      <option name="SDK_HOME" value="/usr/bin/python3.10" />
+      <option name="SDK_HOME" value="$USER_HOME$/myenv/env/bin/python" />
+      <option name="SDK_NAME" value="Python 3.11 (env) (2)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -150,7 +145,7 @@
       <workItem from="1686654238288" duration="2962000" />
       <workItem from="1686849403251" duration="2259000" />
       <workItem from="1686853337930" duration="360000" />
-      <workItem from="1687537000238" duration="458000" />
+      <workItem from="1687537000238" duration="2979000" />
     </task>
     <task id="LOCAL-00001" summary="Cambios trabajando">
       <created>1678296210042</created>
@@ -222,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686856144916</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Correccion base de datos, correo electronico veterinaria y requeriments">
+      <created>1687537969936</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1687537969937</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -262,6 +264,7 @@
     <MESSAGE value="video añadido" />
     <MESSAGE value="Correccion agenda vacia" />
     <MESSAGE value="Fixes en factura" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes en factura" />
+    <MESSAGE value="Correccion base de datos, correo electronico veterinaria y requeriments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correccion base de datos, correo electronico veterinaria y requeriments" />
   </component>
 </project>
