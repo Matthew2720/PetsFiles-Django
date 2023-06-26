@@ -377,7 +377,7 @@
                   </div>
                   <p>En este espacio encontraras un paso a paso detallado de como realizar el registro de tu veterinaria.</p>
                   <br>
-                  <a class="font-weight-bold" href="{% url 'manual_usuario' %}">Ver</a>
+                  <a class="font-weight-bold" href="#" onclick="openVideoModal('/static/video/RegistroVeteMP4.mp4')">Ver</a>
               </div>
           </div>
       </div>
@@ -393,7 +393,7 @@
                   </div>
                   <p>En este espacio encontraras una explicacion detallada de como agendar tus citas y diferentes servicios.</p>
                   <br>
-                  <a class="font-weight-bold" href="{% url 'manual_usuario' %}">Ver</a>
+                  <a class="font-weight-bold" href="#" onclick="openVideoModal('/static/video/InventarioMP4.mp4')">Ver</a>
               </div>
           </div>
       </div>
@@ -408,7 +408,7 @@
                       <small class="mr-2"><i class="fa fa-comments text-muted"></i> 15</small>
                   </div>
                   <p>Aqui encontraras una explicacion clara de como manejar la facturacion y el inventario con todas sus funciones practicas.</p>
-                  <a class="font-weight-bold" href="{% url 'manual_usuario' %}">Ver</a>
+                  <a class="font-weight-bold" href="#" onclick="openVideoModal('/static/video/AgendamientoCitasMP4.mp4')">Ver</a>
                   <br>
                   <br>
               </div>
@@ -416,7 +416,26 @@
       </div>
   </div>
 </div>
+
+<div class="col-lg-12 mb-12 text center">
+    <div class="card border-0 mb-2">
+      <img class="card-img-top" src="/static/img/pdf-icon.png" alt="">
+      <div class="card-body bg-light p-12">
+        <h4 class="card-title text-truncate">Manual de usuario</h4>
+        <div class="d-flex mb-3">
+          <small class="mr-2"><i class="fa fa-user text-muted"></i> Admin</small>
+          <small class="mr-2"><i class="fa fa-folder text-muted"></i> Web Design</small>
+          <small class="mr-2"><i class="fa fa-comments text-muted"></i> 15</small>
+        </div>
+        <p>Manual detallado de cómo utilizar la aplicación.</p>
+        <br>
+        <a class="font-weight-bold" href={% url 'manual_usuario' %} target="_blank">Ver</a>
+      </div>
+    </div>
+  </div>
 <!-- Blog End -->
+
+
 
 
 <!-- Footer Start -->
@@ -478,4 +497,59 @@
 <!-- Back to Top -->
 <a href="" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-    
+<script>
+    function openVideoModal(videoUrl) {
+      // Crear un elemento iframe para reproducir el video
+      var iframe = document.createElement('iframe');
+      iframe.src = videoUrl;
+      iframe.style.position = 'fixed';
+      iframe.style.top = '50%';
+      iframe.style.left = '50%';
+      iframe.style.transform = 'translate(-50%, -50%)';
+      iframe.style.width = '800px';
+      iframe.style.height = '450px';
+      iframe.style.zIndex = '9999';
+  
+      // Crear un div oscuro para el fondo
+      var overlayDiv = document.createElement('div');
+      overlayDiv.style.position = 'fixed';
+      overlayDiv.style.top = '0';
+      overlayDiv.style.left = '0';
+      overlayDiv.style.width = '100%';
+      overlayDiv.style.height = '100%';
+      overlayDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+      overlayDiv.style.zIndex = '9998';
+  
+      // Agregar el iframe y el div oscuro al body
+      document.body.appendChild(overlayDiv);
+      document.body.appendChild(iframe);
+  
+      // Deshabilitar el scroll de la página principal
+      document.body.style.overflow = 'hidden';
+  
+      // Función para cerrar la ventana modal
+      function closeModal() {
+        document.body.style.overflow = '';
+        document.body.removeChild(iframe);
+        document.body.removeChild(overlayDiv);
+      }
+  
+      // Controlador de eventos para cerrar la ventana modal al presionar Escape
+      function handleKeyPress(event) {
+        if (event.key === 'Escape') {
+          closeModal();
+        }
+      }
+  
+      // Controlador de eventos para cerrar la ventana modal al hacer clic fuera del video
+      overlayDiv.addEventListener('click', closeModal);
+  
+      // Asignar los controladores de eventos al documento
+      document.addEventListener('keydown', handleKeyPress);
+  
+      // Cuando se cierre la ventana modal, remover los controladores de eventos
+      iframe.onload = function() {
+        iframe.contentWindow.document.addEventListener('keydown', handleKeyPress);
+      };
+    }
+  </script>

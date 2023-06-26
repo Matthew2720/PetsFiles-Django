@@ -13,7 +13,6 @@ from django.db.models import Q, F, Sum
 from django.db.models.functions import TruncMonth
 from django.http import FileResponse
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
-from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET
 
@@ -354,42 +353,30 @@ def deleteEvent(request, id):
 def registerEmployee(request):
     VeterinaryLogued = request.user.veterinary
     if request.method == "POST":
-        try:
-            fusername = request.POST["username"]
-            femail = request.POST["email"]
-
-            if User.objects.filter(username=fusername).exists():
-                raise ValidationError("El nombre de usuario ya está en uso.")
-
-            if User.objects.filter(email=femail).exists():
-                raise ValidationError("El correo electrónico ya está en uso.")
-
-            user = User.objects.create(
-                username=fusername,
-                first_name=request.POST["first_name"],
-                last_name=request.POST["last_name"],
-                password=request.POST["password"],
-                direccion=request.POST["direccion"],
-                email=femail,
-                veterinary=VeterinaryLogued,
-            )
-            user.set_password(request.POST["password"])
+        user = User.objects.create(
+            username=request.POST["username"],
+            first_name=request.POST["first_name"],
+            last_name=request.POST["last_name"],
+            password=request.POST["password"],
+            direccion=request.POST["direccion"],
+            email=request.POST["email"],
+            veterinary=VeterinaryLogued,
+        )
+        user.set_password(request.POST["password"])
+        user.save()
+        user.groups.add(request.POST["groups"])
+        # Si el grupo seleccionado es "Medico Veterinario"
+        if (
+                request.POST["groups"] == "4"
+                or request.POST["groups"] == "3"
+                or request.POST["groups"] == 3
+                or request.POST["groups"] == 4
+        ):
+            user.is_doctor = True
             user.save()
-            user.groups.add(request.POST["groups"])
-            if (
-                    request.POST["groups"] == "4"
-                    or request.POST["groups"] == "3"
-                    or request.POST["groups"] == 3
-                    or request.POST["groups"] == 4
-            ):
-                user.is_doctor = True
-                user.save()
-                print(user.is_doctor)
-            user.save()
-            return redirect("detailEmployee")
-        except ValidationError as e:
-            messages.error(request, str(e))
-            return redirect("registerEmployee")
+            print(user.is_doctor)
+        user.save()
+        return redirect("detailEmployee")
     form = UserForm
     context = {"form": form}
     return render(request, "veterinary/registerEmployee.html", context)
@@ -462,7 +449,6 @@ def registerVet(request):
                     username=nameVeterinary,
                     password=cleaned_data.get("password"),
                     veterinary=veterinary,
-                    email=email
                 )
                 user.set_password(request.POST["password"])
                 user.save()
@@ -741,14 +727,15 @@ def updateService(request, id):
 # endregion
 # regionpdf
 
-def manual_usuario_view(request):
+def manual_usuario(request):
     filename = 'manual_usuario.pdf'
     file = open(filename, 'rb')
     response = FileResponse(file, content_type='application/pdf')
     return response
 
 
-# endregion
+
+# endregionpdf
 
 # region reportes
 @login_required(login_url="login")
